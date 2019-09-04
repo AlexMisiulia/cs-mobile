@@ -1,11 +1,15 @@
 package com.binarysages.mobile.app.corespirit.models
 
-class ArticleModel(
-    val articleTitle: String,
-    val articleContent: String,
-    val articleAuthor: String
-) {
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
+data class ArticleModel(
+    @Json(name = "title")val articleTitle: String,
+    @Json(name = "content")val articleContent: String,
+    @Json(name = "uri")val articleAuthor: String
+
+) {
 
     override fun toString(): String {
         return "ArticleModel(articleTitle='$articleTitle', articleContent='$articleContent')"

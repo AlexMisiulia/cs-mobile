@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.adapters.ArticleListAdapter
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
+import com.binarysages.mobile.app.corespirit.network.ApiWorks
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -18,10 +19,13 @@ class MainActivity : AppCompatActivity() {
 
 //        find view by id
         val articlesList: RecyclerView = findViewById(R.id.ArticlesRecycleViewList)
+
 //        set layout
         articlesList.layoutManager = LinearLayoutManager(this)
+
 //        get articles lilst
-        val articles: ArrayList<ArticleModel> = getArticles()
+        val articles: ArrayList<ArticleModel> = ApiWorks().getArticles()
+
 //        set what listener must do
         val listener = object : ArticleListAdapter.OnArticleClickListener {
             override fun onArticleClick(articleModel: ArticleModel) {

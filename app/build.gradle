@@ -24,6 +24,7 @@ android {
 }
 
 dependencies {
+    implementation("com.squareup.moshi:moshi-kotlin:1.8.0")
     implementation group: 'androidx.cardview', name: 'cardview', version: '1.0.0'
     implementation group: 'androidx.recyclerview', name: 'recyclerview', version: '1.0.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
