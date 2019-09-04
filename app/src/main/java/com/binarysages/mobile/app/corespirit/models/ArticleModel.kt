@@ -1,13 +1,11 @@
 package com.binarysages.mobile.app.corespirit.models
 
 import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 
-@JsonClass(generateAdapter = true)
 data class ArticleModel(
     @Json(name = "title")val articleTitle: String,
     @Json(name = "content")val articleContent: String,
-    @Json(name = "uri")val articleAuthor: String
+    @Json(name = "authorId")val articleAuthor: String
 
 ) {
 

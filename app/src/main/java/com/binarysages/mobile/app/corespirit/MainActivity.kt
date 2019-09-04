@@ -23,13 +23,14 @@ class MainActivity : AppCompatActivity() {
 //        set layout
         articlesList.layoutManager = LinearLayoutManager(this)
 
-//        get articles lilst
+//        get articles list
         val articles: ArrayList<ArticleModel> = ApiWorks().getArticles()
+//        val articles: ArrayList<ArticleModel> = getArticles()
 
 //        set what listener must do
         val listener = object : ArticleListAdapter.OnArticleClickListener {
             override fun onArticleClick(articleModel: ArticleModel) {
-                val intent: Intent = Intent(this@MainActivity, ArticleItemActivity::class.java)
+                val intent = Intent(this@MainActivity, ArticleItemActivity::class.java)
                 intent.putExtra("article.author", articleModel.articleAuthor)
                 intent.putExtra("article.title", articleModel.articleTitle)
                 intent.putExtra("article.content", articleModel.articleContent)
