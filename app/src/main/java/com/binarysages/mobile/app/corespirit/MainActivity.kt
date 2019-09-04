@@ -42,37 +42,4 @@ class MainActivity : AppCompatActivity() {
         val articleAdapter = ArticleListAdapter(articles, listener)
         articlesList.adapter = articleAdapter
     }
-
-    //    mock articles list
-    private fun getArticles(): ArrayList<ArticleModel> {
-        return ArrayList(
-            Arrays.asList(
-                ArticleModel("Title2", "Content2", "Author2"),
-                ArticleModel("Title3", "Content3", "Author3"),
-                ArticleModel("Title4", "Content4", "Author4"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title5", "Content5", "Author5"),
-                ArticleModel("Title6", "Content6", "Author6")
-            )
-        )
-    }
 }

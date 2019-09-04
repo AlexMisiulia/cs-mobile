@@ -2,6 +2,7 @@ package com.binarysages.mobile.app.corespirit
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
 import android.widget.TextView
 
 class ArticleItemActivity : AppCompatActivity() {
@@ -15,6 +16,6 @@ class ArticleItemActivity : AppCompatActivity() {
 
         author.text = intent.getStringExtra("article.author")
         title.text = intent.getStringExtra("article.title")
-        content.text = intent.getStringExtra("article.content")
+        content.text = Html.fromHtml(intent.getStringExtra("article.content"))
     }
 }

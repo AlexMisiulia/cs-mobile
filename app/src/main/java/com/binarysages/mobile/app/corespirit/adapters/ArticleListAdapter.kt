@@ -1,5 +1,6 @@
 package com.binarysages.mobile.app.corespirit.adapters
 
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,7 +48,7 @@ class ArticleListAdapter(
 
         fun bind(articleModel: ArticleModel) {
             title.text = articleModel.articleTitle
-            content.text = articleModel.articleContent
+            content.text = Html.fromHtml(articleModel.articleContent)
             author.text = articleModel.articleAuthor
         }
     }
