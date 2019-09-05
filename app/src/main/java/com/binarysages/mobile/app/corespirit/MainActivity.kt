@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.adapters.ArticleListAdapter
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.network.ApiWorks
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,13 +17,13 @@ class MainActivity : AppCompatActivity() {
 
 //        find view by id
         val articlesList: RecyclerView = findViewById(R.id.ArticlesRecycleViewList)
-
+//        save manager
+        val manager = LinearLayoutManager(this)
 //        set layout
-        articlesList.layoutManager = LinearLayoutManager(this)
+        articlesList.layoutManager = manager
 
 //        get articles list
-        val articles: ArrayList<ArticleModel> = ApiWorks().getArticles()
-//        val articles: ArrayList<ArticleModel> = getArticles()
+        var articles: ArrayList<ArticleModel> = ApiWorks().getArticles()
 
 //        set what listener must do
         val listener = object : ArticleListAdapter.OnArticleClickListener {
@@ -38,8 +36,27 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-//        add listener to adapter
-        val articleAdapter = ArticleListAdapter(articles, listener)
+        //        add listener to adapter
+        var articleAdapter = ArticleListAdapter(articles, listener)
         articlesList.adapter = articleAdapter
+
+//        add on scroll listener for infinity scroll
+        articlesList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            var isLoad = false
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val visible = manager.findLastVisibleItemPosition()
+                val total = manager.itemCount
+                if ((total - 1) == visible) {
+                    if (!isLoad) {
+                        isLoad = true
+                        articles = ApiWorks().getArticles()
+                        articleAdapter = ArticleListAdapter(articles, listener)
+                        articlesList.adapter = articleAdapter
+                        isLoad = false
+                    }
+                }
+            }
+        })
     }
 }

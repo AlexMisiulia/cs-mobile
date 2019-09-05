@@ -4,10 +4,12 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.R
+import com.squareup.picasso.Picasso
 
 
 class ArticleListAdapter(
@@ -40,13 +42,14 @@ class ArticleListAdapter(
                 articleClickListener.onArticleClick(articlesList[layoutPosition])
             }
         }
-
+        private val image: ImageView = itemView.findViewById(R.id.articleImage)
         private val title: TextView = itemView.findViewById(R.id.articleTitle)
         private val content: TextView = itemView.findViewById(R.id.articleContent)
         private val author: TextView = itemView.findViewById(R.id.articleAuthor)
 
 
         fun bind(articleModel: ArticleModel) {
+            Picasso.get().load("https://master.stage.binarysages.com/api/Containers/corespirit-static/download/" + articleModel.articleURL).into(image)
             title.text = articleModel.articleTitle
             content.text = Html.fromHtml(articleModel.articleContent)
             author.text = articleModel.articleAuthor

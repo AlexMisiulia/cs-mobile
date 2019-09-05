@@ -19,7 +19,6 @@
             android:layout_height="50dp"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20sp"
-            android:layout_marginRight="20sp"
             android:padding="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

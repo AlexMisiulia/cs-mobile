@@ -5,7 +5,8 @@ import com.squareup.moshi.Json
 data class ArticleModel(
     @Json(name = "title")val articleTitle: String,
     @Json(name = "content")val articleContent: String,
-    @Json(name = "authorId")val articleAuthor: String
+    @Json(name = "authorId")val articleAuthor: String,
+    @Json(name = "$.image.name")val articleURL: String
 
 ) {
 
