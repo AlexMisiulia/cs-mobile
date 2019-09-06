@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         articlesList.layoutManager = manager
 
 //        get articles list
-        var articles: ArrayList<ArticleModel> = ApiWorks().getArticles()
+        var articles: Array<ArticleModel> = ApiWorks().getArticles()
 
 //        set what listener must do
         val listener = object : ArticleListAdapter.OnArticleClickListener {
