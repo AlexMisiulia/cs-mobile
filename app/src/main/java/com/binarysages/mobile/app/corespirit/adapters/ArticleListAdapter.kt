@@ -1,20 +1,25 @@
 package com.binarysages.mobile.app.corespirit.adapters
 
+import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.R
+import com.binarysages.mobile.app.corespirit.models.ArticleModel
+import com.binarysages.mobile.app.corespirit.network.ImageURL
+import com.squareup.picasso.Picasso
 
 
 class ArticleListAdapter(
-    private val articlesList: ArrayList<ArticleModel>,
+    private val articlesList: Array<ArticleModel>,
     private val articleClickListener: OnArticleClickListener
 ) : RecyclerView.Adapter<ArticleListAdapter.ArticleViewHolder>() {
 
-//    Interface listener
+    //    Interface listener
     interface OnArticleClickListener {
         fun onArticleClick(articleModel: ArticleModel)
     }
@@ -40,14 +45,22 @@ class ArticleListAdapter(
             }
         }
 
+        private val image: ImageView = itemView.findViewById(R.id.articleImage)
         private val title: TextView = itemView.findViewById(R.id.articleTitle)
         private val content: TextView = itemView.findViewById(R.id.articleContent)
         private val author: TextView = itemView.findViewById(R.id.articleAuthor)
 
 
         fun bind(articleModel: ArticleModel) {
+            if (ImageURL(articleModel).getURL() != "") {
+                Log.d("IMAGE", ImageURL(articleModel).getURL())
+                Picasso.get()
+                    .load(ImageURL(articleModel).getURL())
+                    .placeholder(R.drawable.img_148071)
+                    .into(image)
+            }
             title.text = articleModel.articleTitle
-            content.text = articleModel.articleContent
+            content.text = Html.fromHtml(articleModel.articleContent)
             author.text = articleModel.articleAuthor
         }
     }

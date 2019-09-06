@@ -1,32 +1,18 @@
 package com.binarysages.mobile.app.corespirit.models
 
-class ArticleModel(
-    val articleTitle: String,
-    val articleContent: String,
-    val articleAuthor: String
+import com.google.gson.annotations.SerializedName
+
+
+data class ArticleModel(
+    @SerializedName(value = "title") val articleTitle: String,
+    @SerializedName(value = "content") val articleContent: String,
+    @SerializedName(value = "authorId") val articleAuthor: String,
+    @SerializedName(value = "image") val image: ArticleItem?
 ) {
-
-
-    override fun toString(): String {
-        return "ArticleModel(articleTitle='$articleTitle', articleContent='$articleContent')"
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as ArticleModel
-
-        if (articleTitle != other.articleTitle) return false
-        if (articleContent != other.articleContent) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = articleTitle.hashCode()
-        result = 31 * result + articleContent.hashCode()
-        return result
-    }
-
+    data class ArticleItem(
+        @SerializedName(value = "container") val container: String?,
+        @SerializedName(value = "name") val imageNAME: String,
+        @SerializedName(value = "legacyUrl") val legacyUrl: String,
+        @SerializedName(value = "name1200") val name1200: String?
+    )
 }
