@@ -15,9 +15,13 @@ import com.squareup.picasso.Picasso
 
 
 class ArticleListAdapter(
-    internal var articlesListArray: Array<ArticleModel>,
+    private var articlesListArray: Array<ArticleModel>,
     private val articleClickListener: OnArticleClickListener
 ) : RecyclerView.Adapter<ArticleListAdapter.ArticleViewHolder>() {
+
+    fun addArticles(articles: Array<ArticleModel>) {
+        articlesListArray += articles
+    }
 
     //    Interface listener
     interface OnArticleClickListener {

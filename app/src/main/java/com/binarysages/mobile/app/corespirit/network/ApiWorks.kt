@@ -3,6 +3,7 @@ package com.binarysages.mobile.app.corespirit.network
 import android.os.AsyncTask
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.google.gson.GsonBuilder
+import kotlinx.coroutines.runBlocking
 import java.net.URL
 
 val apiWorks: ApiWorks = ApiWorks()
@@ -21,7 +22,7 @@ class ApiWorks {
         }
     }
 
-    fun getArticles(): Array<ArticleModel> {
-        return Request().execute().get()
+    fun getArticles(): Array<ArticleModel> = runBlocking {
+        Request().execute().get()
     }
 }
