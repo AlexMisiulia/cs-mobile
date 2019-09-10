@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="Menu1" />
-    <item android:title="Menu2" />
-    <item android:title="Menu3" />
-    <item android:title="Menu4">
-        <menu>
-            <item android:title="Menu4.1" />
-        </menu>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/articleListMenu"
+        android:title="@string/articles"
+        app:showAsAction="always|withText">
+        <menu></menu>
     </item>
+    <item
+        android:id="@+id/userMenu"
+        android:title="User Menu"
+        app:showAsAction="withText|always" />
+
 </menu>
