@@ -10,14 +10,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
-import com.binarysages.mobile.app.corespirit.network.ImageURL
+import com.binarysages.mobile.app.corespirit.network.getURL
 import com.squareup.picasso.Picasso
 
 
 class ArticleListAdapter(
-    private val articlesList: Array<ArticleModel>,
+    private var articlesListArray: Array<ArticleModel>,
     private val articleClickListener: OnArticleClickListener
 ) : RecyclerView.Adapter<ArticleListAdapter.ArticleViewHolder>() {
+
+    fun addArticles(articles: Array<ArticleModel>) {
+        articlesListArray += articles
+    }
 
     //    Interface listener
     interface OnArticleClickListener {
@@ -31,17 +35,17 @@ class ArticleListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return articlesList.size
+        return articlesListArray.size
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        holder.bind(articlesList[position])
+        holder.bind(articlesListArray[position])
     }
 
     inner class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
             itemView.setOnClickListener {
-                articleClickListener.onArticleClick(articlesList[layoutPosition])
+                articleClickListener.onArticleClick(articlesListArray[layoutPosition])
             }
         }
 
@@ -52,10 +56,10 @@ class ArticleListAdapter(
 
 
         fun bind(articleModel: ArticleModel) {
-            if (ImageURL(articleModel).getURL() != "") {
-                Log.d("IMAGE", ImageURL(articleModel).getURL())
+            if (getURL(articleModel) != "") {
+                Log.d("IMAGE", getURL(articleModel))
                 Picasso.get()
-                    .load(ImageURL(articleModel).getURL())
+                    .load(getURL(articleModel))
                     .placeholder(R.drawable.img_148071)
                     .into(image)
             }

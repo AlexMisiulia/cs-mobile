@@ -7,24 +7,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.adapters.ArticleListAdapter
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
-import com.binarysages.mobile.app.corespirit.network.ApiWorks
+import com.binarysages.mobile.app.corespirit.network.apiWorks
 
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 //        find view by id
-        val articlesList: RecyclerView = findViewById(R.id.ArticlesRecycleViewList)
+        val articlesRecyclerView: RecyclerView = findViewById(R.id.articlesRecycleViewList)
 //        save manager
         val manager = LinearLayoutManager(this)
 //        set layout
-        articlesList.layoutManager = manager
-
-//        get articles list
-        var articles: Array<ArticleModel> = ApiWorks().getArticles()
-
+        articlesRecyclerView.layoutManager = manager
 //        set what listener must do
         val listener = object : ArticleListAdapter.OnArticleClickListener {
             override fun onArticleClick(articleModel: ArticleModel) {
@@ -37,24 +32,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         //        add listener to adapter
-        var articleAdapter = ArticleListAdapter(articles, listener)
-        articlesList.adapter = articleAdapter
+        val articleAdapter = ArticleListAdapter(apiWorks.getArticles(), listener)
+        articlesRecyclerView.adapter = articleAdapter
 
 //        add on scroll listener for infinity scroll
-        articlesList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            var isLoad = false
+        articlesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val visible = manager.findLastVisibleItemPosition()
-                val total = manager.itemCount
-                if ((total - 1) == visible) {
-                    if (!isLoad) {
-                        isLoad = true
-                        articles = ApiWorks().getArticles()
-                        articleAdapter = ArticleListAdapter(articles, listener)
-                        articlesList.adapter = articleAdapter
-                        isLoad = false
-                    }
+                if (manager.itemCount - 1 == manager.findLastVisibleItemPosition()) {
+                    articleAdapter.addArticles(apiWorks.getArticles())
+//                    notify adapter that content change
+                    articleAdapter.notifyDataSetChanged()
                 }
             }
         })

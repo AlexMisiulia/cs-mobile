@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/cardStyle"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CardStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -28,24 +29,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="TextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/articleImageItem" />
+                app:layout_constraintTop_toBottomOf="@+id/articleImageItem"
+                tools:text="Article title" />
 
             <TextView
                 android:id="@+id/articleContentItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                android:text="TextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/articleTitleItem" />
+                app:layout_constraintTop_toBottomOf="@+id/articleTitleItem"
+                tools:text="Article content" />
 
             <TextView
                 android:id="@+id/articleAuthorItem"
@@ -53,10 +52,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                android:text="TextView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/articleContentItem" />
+                app:layout_constraintTop_toBottomOf="@+id/articleContentItem"
+                tools:text="Article author" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

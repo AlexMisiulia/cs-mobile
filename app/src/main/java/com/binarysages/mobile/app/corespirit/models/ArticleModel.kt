@@ -11,7 +11,7 @@ data class ArticleModel(
 ) {
     data class ArticleItem(
         @SerializedName(value = "container") val container: String?,
-        @SerializedName(value = "name") val imageNAME: String,
+        @SerializedName(value = "name") internal val imageName: String,
         @SerializedName(value = "legacyUrl") val legacyUrl: String,
         @SerializedName(value = "name1200") val name1200: String?
     )
