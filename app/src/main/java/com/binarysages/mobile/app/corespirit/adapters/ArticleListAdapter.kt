@@ -19,6 +19,10 @@ class ArticleListAdapter(
     private val articleClickListener: OnArticleClickListener
 ) : RecyclerView.Adapter<ArticleListAdapter.ArticleViewHolder>() {
 
+    fun setArticles(articles: Array<ArticleModel>) {
+        articlesListArray = articles
+    }
+
     fun addArticles(articles: Array<ArticleModel>) {
         articlesListArray += articles
     }

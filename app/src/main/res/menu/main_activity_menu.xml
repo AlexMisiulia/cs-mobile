@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/articleListMenu"
-        android:icon="@drawable/article"
         android:title="@string/articles"
-        app:showAsAction="always|withText" />
+        app:showAsAction="always|withText">
+        <menu></menu>
+    </item>
     <item
         android:id="@+id/userMenu"
-        android:icon="@drawable/usermenu"
         android:title="User Menu"
         app:showAsAction="withText|always" />
 
