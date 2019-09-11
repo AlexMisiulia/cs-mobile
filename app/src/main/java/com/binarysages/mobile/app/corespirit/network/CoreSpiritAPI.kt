@@ -39,8 +39,17 @@ class CoreSpiritAPI {
         }
     }
 
-    private inner class GetArticles:
+    private inner class GetArticles(val onResult: (Array<ArticleModel>) -> Unit) :
+
         AsyncTask<Void, Void, Array<ArticleModel>>() {
+
+        override fun onPostExecute(result: Array<ArticleModel>?) {
+            if (result != null) {
+                onResult(result)
+            }
+            super.onPostExecute(result)
+        }
+
         override fun doInBackground(vararg p0: Void?): Array<ArticleModel> {
 //            In next iteration - move to env
             val res =
@@ -56,10 +65,12 @@ class CoreSpiritAPI {
         return GetArticleTree().execute().get()
     }
 
-    fun getArticlesOnLoad(): Array<ArticleModel> {
-        return GetArticles().execute().get()
+    fun getArticles(adapter: ArticleListAdapter) {
+        GetArticles { result ->
+            adapter.setArticles(result)
+            adapter.notifyDataSetChanged()
+        }.execute()
     }
-
 
     fun getArticles(categoryId: Int, adapter: ArticleListAdapter) {
         GetArticleTreeByID { result ->

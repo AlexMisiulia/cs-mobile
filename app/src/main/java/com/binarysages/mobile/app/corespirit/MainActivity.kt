@@ -2,10 +2,8 @@ package com.binarysages.mobile.app.corespirit
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +15,8 @@ import com.binarysages.mobile.app.corespirit.network.CORE_SPIRIT_API
 
 
 class MainActivity : AppCompatActivity() {
-    lateinit var articleAdapter: ArticleListAdapter
+    private lateinit var articleAdapter: ArticleListAdapter
+    private var itemID: Int? = null
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId in 1..2131165251) {
@@ -37,12 +36,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val bundle:Bundle =  intent.getBundleExtra("BUNDLE")!!
-        val art: Array<ArticleModel> = bundle.getSerializable("articles") as Array<ArticleModel>
-        Log.d("SIZE", art.size.toString())
+        val bundle: Bundle = intent.getBundleExtra("BUNDLE")!!
+        val articles: Array<ArticleModel> =
+            bundle.getSerializable("articles") as Array<ArticleModel>
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+
 
         //        find view by id
         val articlesRecyclerView: RecyclerView = findViewById(R.id.articlesRecycleViewList)
@@ -62,20 +63,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         //        add listener to adapter
-//        articleAdapter = ArticleListAdapter(CORE_SPIRIT_API.getArticles(findViewById(android.R.id.content)), listener)
-//        articlesRecyclerView.adapter = articleAdapter
+        articleAdapter = ArticleListAdapter(articles, listener)
+        articlesRecyclerView.adapter = articleAdapter
 
 //        add on scroll listener for infinity scroll
-//        articlesRecyclerView.addOnScrollListener(
-//            object : RecyclerView.OnScrollListener() {
-//                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                    super.onScrolled(recyclerView, dx, dy)
-//                    if (manager.itemCount - 3 == manager.findLastVisibleItemPosition()) {
-//                        articleAdapter.addArticles(CORE_SPIRIT_API.getArticles(findViewById(R.id.progressbar)))
-////                    notify adapter that content change
-//                        articleAdapter.notifyDataSetChanged()
-//                    }
-//                }
-//            })
+        articlesRecyclerView.addOnScrollListener(
+            object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (manager.itemCount - 3 == manager.findLastVisibleItemPosition()) {
+                        if (itemID != null) {
+                            CORE_SPIRIT_API.getArticles(itemID!!, articleAdapter)
+                        } else {
+                            CORE_SPIRIT_API.getArticles(articleAdapter)
+                        }
+                    }
+                }
+            })
     }
 }
