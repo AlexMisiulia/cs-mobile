@@ -1,4 +1,4 @@
-package com.binarysages.mobile.app.corespirit.helpers
+package com.binarysages.mobile.app.corespirit.menus
 
 import android.view.Menu
 import android.view.SubMenu

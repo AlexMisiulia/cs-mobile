@@ -10,15 +10,19 @@
     <item
         android:id="@+id/userMenu"
         android:title="User Menu"
-        app:showAsAction="withText|always" >
+        app:showAsAction="withText|always">
         <menu>
-            <item android:title="LOG IN" />
-            <item android:title="BECOME PRACTITIONER" />
-            <item android:title="PRACTITIONERS" />
-            <item android:title="ABOUT US" />
-            <item android:title="TERMS" />
-            <item android:title="PRIVACY" />
+            <item android:title="USER NAME" android:id="@+id/userMenuUserName" android:visible="false"/>
+            <item android:title="LOG IN" android:id="@+id/userMenuLogIn"/>
+            <item android:title="MY ACCOUNT" android:id="@+id/userMenuAccount" android:visible="false"/>
+            <item android:title="BECOME PRACTITIONER" android:id="@+id/userMenuBecomePr"/>
+            <item android:title="PRACTITIONERS" android:id="@+id/userMenuPractitioners"/>
+            <item android:title="MY SERVICES" android:id="@+id/userMenuMyServices" android:visible="false" />
+            <item android:title="NEW ARTICLE" android:id="@+id/userMenuNewArticle" android:visible="false"/>
+            <item android:title="ABOUT US" android:id="@+id/userMenuAboutUs" />
+            <item android:title="TERMS" android:id="@+id/userMenuTerms"/>
+            <item android:title="PRIVACY" android:id="@+id/userMenuPrivacy"/>
+            <item android:title="LOG OUT" android:id="@+id/userMenuLogOut" android:visible="false"/>
         </menu>
     </item>
-
 </menu>

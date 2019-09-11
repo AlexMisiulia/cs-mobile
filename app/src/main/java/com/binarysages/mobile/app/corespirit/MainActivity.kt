@@ -8,8 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.binarysages.mobile.app.corespirit.menus.generateMenuFromTree
+import com.binarysages.mobile.app.corespirit.menus.generateUserMenu
 import com.binarysages.mobile.app.corespirit.adapters.ArticleListAdapter
-import com.binarysages.mobile.app.corespirit.helpers.generateMenuFromTree
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.network.CORE_SPIRIT_API
 
@@ -28,9 +29,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_activity_menu, menu)
         generateMenuFromTree(menu)
+        generateUserMenu(menu,"guest", this)
         return super.onCreateOptionsMenu(menu)
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +44,6 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-
 
         //        find view by id
         val articlesRecyclerView: RecyclerView = findViewById(R.id.articlesRecycleViewList)
