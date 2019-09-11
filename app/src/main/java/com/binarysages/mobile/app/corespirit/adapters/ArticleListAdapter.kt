@@ -64,7 +64,7 @@ class ArticleListAdapter(
                 Log.d("IMAGE", getURL(articleModel))
                 Picasso.get()
                     .load(getURL(articleModel))
-                    .placeholder(R.drawable.img_148071)
+                    .placeholder(R.drawable.placeholder)
                     .into(image)
             }
             title.text = articleModel.articleTitle

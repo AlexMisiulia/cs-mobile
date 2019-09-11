@@ -10,6 +10,15 @@
     <item
         android:id="@+id/userMenu"
         android:title="User Menu"
-        app:showAsAction="withText|always" />
+        app:showAsAction="withText|always" >
+        <menu>
+            <item android:title="LOG IN" />
+            <item android:title="BECOME PRACTITIONER" />
+            <item android:title="PRACTITIONERS" />
+            <item android:title="ABOUT US" />
+            <item android:title="TERMS" />
+            <item android:title="PRIVACY" />
+        </menu>
+    </item>
 
 </menu>

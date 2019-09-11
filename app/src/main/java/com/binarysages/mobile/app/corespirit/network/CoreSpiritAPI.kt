@@ -1,9 +1,6 @@
 package com.binarysages.mobile.app.corespirit.network
 
-import android.app.Activity
 import android.os.AsyncTask
-import android.widget.ProgressBar
-import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.adapters.ArticleListAdapter
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.models.ArticleTree
@@ -42,24 +39,12 @@ class CoreSpiritAPI {
         }
     }
 
-    private inner class GetArticles(activity: Activity) :
+    private inner class GetArticles:
         AsyncTask<Void, Void, Array<ArticleModel>>() {
-        private val progressBar: ProgressBar = activity.findViewById(R.id.loadScreenProgressBar)
-        override fun onPostExecute(result: Array<ArticleModel>?) {
-            progressBar.visibility = ProgressBar.INVISIBLE
-            super.onPostExecute(result)
-        }
-
-        override fun onPreExecute() {
-            progressBar.visibility = ProgressBar.VISIBLE
-            super.onPreExecute()
-        }
-
         override fun doInBackground(vararg p0: Void?): Array<ArticleModel> {
 //            In next iteration - move to env
             val res =
                 URL("https://master.stage.binarysages.com/api/Articles/loadArticles?&skip=0").readText()
-            Thread.sleep(10000)
             return GsonBuilder()
                 .serializeNulls()
                 .create()
@@ -71,10 +56,8 @@ class CoreSpiritAPI {
         return GetArticleTree().execute().get()
     }
 
-    fun getArticlesOnLoad(
-        activity: Activity
-    ): Array<ArticleModel> {
-        return GetArticles(activity).execute().get()
+    fun getArticlesOnLoad(): Array<ArticleModel> {
+        return GetArticles().execute().get()
     }
 
 

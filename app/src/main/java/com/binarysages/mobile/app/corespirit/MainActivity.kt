@@ -2,6 +2,7 @@ package com.binarysages.mobile.app.corespirit
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
@@ -36,8 +37,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        val mRoot = findViewById<LinearLayout>(R.id.mainActivity)
+        val bundle:Bundle =  intent.getBundleExtra("BUNDLE")!!
+        val art: Array<ArticleModel> = bundle.getSerializable("articles") as Array<ArticleModel>
+        Log.d("SIZE", art.size.toString())
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
