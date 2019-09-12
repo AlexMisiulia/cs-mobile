@@ -2,20 +2,15 @@ package com.binarysages.mobile.app.corespirit
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.binarysages.mobile.app.corespirit.menus.generateMenuFromTree
-import com.binarysages.mobile.app.corespirit.menus.generateUserMenu
 import com.binarysages.mobile.app.corespirit.adapters.ArticleListAdapter
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.network.CORE_SPIRIT_API
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     private lateinit var articleAdapter: ArticleListAdapter
     private var itemID: Int? = null
 
@@ -26,24 +21,14 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_activity_menu, menu)
-        generateMenuFromTree(menu)
-        generateUserMenu(menu,"guest", this)
-        return super.onCreateOptionsMenu(menu)
-    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    protected fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState, R.layout.activity_main)
         setContentView(R.layout.activity_main)
 
         val bundle: Bundle = intent.getBundleExtra("BUNDLE")!!
         val articles: Array<ArticleModel> =
             bundle.getSerializable("articles") as Array<ArticleModel>
-
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         //        find view by id
         val articlesRecyclerView: RecyclerView = findViewById(R.id.articlesRecycleViewList)

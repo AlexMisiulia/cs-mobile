@@ -22,7 +22,7 @@ class CoreSpiritAPI {
         override fun doInBackground(vararg p0: Int?): Array<ArticleModel> {
             val s = p0[0].toString()
             val res =
-                URL("https://master.stage.binarysages.com/api/Categories/$s/articles").readText()
+                URL("https://corespirit.com/api/Categories/$s/articles").readText()
             return Gson().fromJson(
                 Gson().fromJson(
                     res,
@@ -53,7 +53,7 @@ class CoreSpiritAPI {
         override fun doInBackground(vararg p0: Void?): Array<ArticleModel> {
 //            In next iteration - move to env
             val res =
-                URL("https://master.stage.binarysages.com/api/Articles/loadArticles?&skip=0").readText()
+                URL("https://corespirit.com/api/Articles/loadArticles?&skip=0").readText()
             return GsonBuilder()
                 .serializeNulls()
                 .create()

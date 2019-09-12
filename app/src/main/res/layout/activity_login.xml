@@ -26,6 +26,7 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:inputType="textEmailAddress"
+        android:hint="Enter login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -36,17 +37,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:ems="10"
+        android:hint="Enter password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@+id/loginInput"
         app:layout_constraintStart_toStartOf="@+id/loginInput"
         app:layout_constraintTop_toBottomOf="@+id/loginInput" />
 
     <Button
+        android:background="@drawable/round"
         android:id="@+id/sendCredentials"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Button"
+        android:text="Submit"
         app:layout_constraintEnd_toEndOf="@+id/passwordInput"
         app:layout_constraintStart_toStartOf="@+id/passwordInput"
         app:layout_constraintTop_toBottomOf="@+id/passwordInput" />
@@ -61,4 +64,25 @@
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="@+id/sendCredentials"
         app:layout_constraintTop_toBottomOf="@+id/sendCredentials" />
+
+    <ProgressBar
+        android:id="@+id/progressBarLogin"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/loginErrMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/progressBarLogin"
+        app:layout_constraintStart_toStartOf="@+id/progressBarLogin"
+        app:layout_constraintTop_toBottomOf="@+id/progressBarLogin" />
 </androidx.constraintlayout.widget.ConstraintLayout>

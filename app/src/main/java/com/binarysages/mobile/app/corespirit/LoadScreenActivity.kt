@@ -41,7 +41,7 @@ class LoadScreenActivity : AppCompatActivity() {
 
         override fun doInBackground(vararg p0: Void?): Array<ArticleModel> {
             val res =
-                URL("https://master.stage.binarysages.com/api/Articles/loadArticles?&skip=0").readText()
+                URL("https://corespirit.com/api/Articles/loadArticles?&skip=0").readText()
             return GsonBuilder()
                 .serializeNulls()
                 .create()
