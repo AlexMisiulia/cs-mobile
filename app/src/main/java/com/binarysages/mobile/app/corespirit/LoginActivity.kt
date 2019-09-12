@@ -7,9 +7,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
 
     private inner class Login : AsyncTask<Array<String>, Void, Boolean>() {
         private val progressBar: ProgressBar = findViewById(R.id.progressBarLogin)
@@ -38,8 +37,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        super.onCreate(savedInstanceState, R.layout.activity_login)
         val submitBtn = findViewById<Button>(R.id.sendCredentials)
         submitBtn.setOnClickListener {
             val login = findViewById<EditText>(R.id.loginInput).text.toString()

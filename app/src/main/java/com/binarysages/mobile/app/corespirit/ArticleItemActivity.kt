@@ -3,12 +3,10 @@ package com.binarysages.mobile.app.corespirit
 import android.os.Bundle
 import android.text.Html
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 
-class ArticleItemActivity : AppCompatActivity() {
+class ArticleItemActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_article_item)
+        super.onCreate(savedInstanceState, R.layout.activity_article_item)
 
         val author: TextView = findViewById(R.id.articleAuthorItem)
         val title: TextView = findViewById(R.id.articleTitleItem)

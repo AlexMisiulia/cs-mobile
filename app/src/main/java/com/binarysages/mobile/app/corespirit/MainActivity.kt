@@ -2,7 +2,8 @@ package com.binarysages.mobile.app.corespirit
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
+import android.util.Log
+import android.view.Menu
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.adapters.ArticleListAdapter
@@ -14,17 +15,8 @@ class MainActivity : BaseActivity() {
     private lateinit var articleAdapter: ArticleListAdapter
     private var itemID: Int? = null
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId in 1..2131165251) {
-            CORE_SPIRIT_API.getArticles(item.itemId, articleAdapter)
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-
-    protected fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_main)
-        setContentView(R.layout.activity_main)
 
         val bundle: Bundle = intent.getBundleExtra("BUNDLE")!!
         val articles: Array<ArticleModel> =
