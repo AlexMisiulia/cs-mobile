@@ -6,7 +6,17 @@ import android.view.Menu
 import com.binarysages.mobile.app.corespirit.LoginActivity
 import com.binarysages.mobile.app.corespirit.R
 
-fun generateUserMenu(menu: Menu?, role: String, activity: Activity) {
+private var role: String? = null
+
+fun generateUserMenu(menu: Menu?, newRole:String?, activity: Activity) {
+    role?.let {
+        newRole?.let {
+            role = newRole
+        }
+    } ?: run {
+        role = "guest"
+    }
+
     val userMenu = menu?.findItem(R.id.userMenu)
 //    sub menu
     val userMenuLogIn = userMenu?.subMenu?.findItem(R.id.userMenuLogIn)

@@ -2,25 +2,23 @@ package com.binarysages.mobile.app.corespirit
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.adapters.ArticleListAdapter
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.network.CORE_SPIRIT_API
 
-
+lateinit var articles: Array<ArticleModel>
 class MainActivity : BaseActivity() {
-    private lateinit var articleAdapter: ArticleListAdapter
-    private var itemID: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_main)
 
-        val bundle: Bundle = intent.getBundleExtra("BUNDLE")!!
-        val articles: Array<ArticleModel> =
-            bundle.getSerializable("articles") as Array<ArticleModel>
+        intent.getBundleExtra("BUNDLE")?.let {
+            val bundle: Bundle = intent.getBundleExtra("BUNDLE")
+            articles =
+                bundle.getSerializable("articles") as Array<ArticleModel>
+        }
 
         //        find view by id
         val articlesRecyclerView: RecyclerView = findViewById(R.id.articlesRecycleViewList)

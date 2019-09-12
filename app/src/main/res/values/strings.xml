@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">corespirit</string>
+    <string name="app_name">Corespirit</string>
     <string name="articles">Articles</string>
     <string name="reloadLoadScreenButton">Reload</string>
     <string name="on_network_error">Network error! Please, reload app</string>
+    <string name="articleAuthor">By: </string>
 </resources>
