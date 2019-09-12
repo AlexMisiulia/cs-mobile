@@ -9,12 +9,6 @@
 
     <include layout="@layout/toolbar"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/articlesRecycleViewList"
         android:layout_width="match_parent"

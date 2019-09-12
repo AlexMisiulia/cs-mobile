@@ -21,6 +21,9 @@
         <item name="android:layout_marginBottom">10sp</item>
     </style>
 
+    <style name="ArticleText">
+        <item name="android:fontFamily">@font/lato</item>
+    </style>
     <style name="ArticleAuthor">
         <item name="android:textColor">#bfbfbf</item>
         <item name="android:textStyle">italic</item>
