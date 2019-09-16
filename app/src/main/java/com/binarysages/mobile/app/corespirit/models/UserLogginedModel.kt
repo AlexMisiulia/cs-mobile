@@ -12,6 +12,7 @@ class UserLogginedModel(
     data class Error(
         @SerializedName(value = "statusCode") val statusCode: Int
     )
+
     inner class Practitioner() {
 
     }

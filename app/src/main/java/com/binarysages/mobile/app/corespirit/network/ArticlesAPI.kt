@@ -1,8 +1,10 @@
 package com.binarysages.mobile.app.corespirit.network
 
 import android.os.AsyncTask
+import android.os.Bundle
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.binarysages.mobile.app.corespirit.activity.mainActivity.MainActivityArticleListAdapter
+import com.binarysages.mobile.app.corespirit.activity.mainActivity.articles
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.models.ArticleTree
 import com.google.gson.Gson
@@ -93,6 +95,26 @@ class CoreSpiritAPI {
         adapter: MainActivityArticleListAdapter,
         categoryId: Int? = null,
         linearLayout: ConstraintLayout
+    ) {
+        this.layoutProgressBar = linearLayout
+        categoryId?.let {
+            GetArticleByID { result ->
+                adapter.setArticles(result)
+                adapter.notifyDataSetChanged()
+            }.execute(it).get()
+        } ?: run {
+            GetArticles { result ->
+                adapter.setArticles(result)
+                adapter.notifyDataSetChanged()
+            }.execute().get()
+        }
+    }
+
+    fun saveArticlesToBundle(
+        adapter: MainActivityArticleListAdapter,
+        categoryId: Int? = null,
+        linearLayout: ConstraintLayout,
+        bundle: Bundle
     ) {
         this.layoutProgressBar = linearLayout
         categoryId?.let {

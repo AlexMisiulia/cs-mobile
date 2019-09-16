@@ -42,8 +42,8 @@
             tools:text="Content" />
 
         <TextView
-            style="@style/ArticleItem.ArticleAuthor"
             android:id="@+id/articleAuthor"
+            style="@style/ArticleItem.ArticleAuthor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@+id/articleContent"

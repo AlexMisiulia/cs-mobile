@@ -1,17 +1,35 @@
 package com.binarysages.mobile.app.corespirit.activity.articleActivity
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import android.text.method.LinkMovementMethod
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.activity.BaseActivity
+import com.binarysages.mobile.app.corespirit.activity.articleAdapter
+import com.binarysages.mobile.app.corespirit.activity.mainActivity.MainActivity
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
+import com.binarysages.mobile.app.corespirit.network.CORE_SPIRIT_API
 import com.binarysages.mobile.app.corespirit.network.getURL
 import com.bumptech.glide.Glide
 
 class ArticleItemActivity : BaseActivity() {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId in 1..2131165251) {
+            startActivity(Intent(this, MainActivity::class.java))
+            CORE_SPIRIT_API.setArticles(
+                articleAdapter,
+                item.itemId,
+                findViewById(R.id.loadArticlesLayout)
+            )
+            articleAdapter.notifyDataSetChanged()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(
             savedInstanceState,

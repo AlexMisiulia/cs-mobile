@@ -14,8 +14,7 @@ import com.binarysages.mobile.app.corespirit.activity.itemID
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.network.CORE_SPIRIT_API
 
-lateinit var articles: Array<ArticleModel>
-
+var articles: Array<ArticleModel>? = null
 
 class MainActivity : BaseActivity() {
     override fun onLogoClick(view: View) {
@@ -40,7 +39,7 @@ class MainActivity : BaseActivity() {
 
         //        set what listener must do
         val listener = object : MainActivityArticleListAdapter.OnArticleClickListener {
-            override fun onArticleClick(articleModel: ArticleModel) {
+            override fun onArticleClick(articleModel: ArticleModel?) {
                 val intent = Intent(this@MainActivity, ArticleItemActivity::class.java)
                 val bundle = Bundle()
                 bundle.putSerializable("articles", articleModel)

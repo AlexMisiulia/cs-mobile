@@ -19,6 +19,7 @@
     <style name="RycycleView">
 
     </style>
+
     <style name="ArticleTitle">
         <item name="android:fontFamily">@font/playfairblack</item>
         <item name="android:textSize">18sp</item>

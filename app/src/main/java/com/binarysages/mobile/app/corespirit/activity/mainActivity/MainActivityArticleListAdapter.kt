@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide
 
 
 class MainActivityArticleListAdapter(
-    private var articlesListArray: Array<ArticleModel>,
+    private var articlesListArray: Array<ArticleModel>?,
     private val articleClickListener: OnArticleClickListener
 ) : RecyclerView.Adapter<MainActivityArticleListAdapter.ArticleViewHolder>() {
 
@@ -28,12 +28,12 @@ class MainActivityArticleListAdapter(
     }
 
     fun addArticles(articles: Array<ArticleModel>) {
-        articlesListArray += articles
+        articlesListArray = articlesListArray?.plus(articles)
     }
 
     //    Interface listener
     interface OnArticleClickListener {
-        fun onArticleClick(articleModel: ArticleModel)
+        fun onArticleClick(articleModel: ArticleModel?)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
@@ -43,17 +43,17 @@ class MainActivityArticleListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return articlesListArray.size
+        return articlesListArray!!.size
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        holder.bind(articlesListArray[position])
+        holder.bind(articlesListArray?.get(position))
     }
 
     inner class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
             itemView.setOnClickListener {
-                articleClickListener.onArticleClick(articlesListArray[layoutPosition])
+                articleClickListener.onArticleClick(articlesListArray?.get(layoutPosition))
             }
         }
 
@@ -62,7 +62,7 @@ class MainActivityArticleListAdapter(
         private val content: TextView = itemView.findViewById(R.id.articleContent)
         private val author: TextView = itemView.findViewById(R.id.articleAuthor)
 
-        fun bind(articleModel: ArticleModel) {
+        fun bind(articleModel: ArticleModel?) {
             getURL(articleModel, "600")?.let {
                 Glide.with(content)
                     .load(it)
@@ -72,9 +72,9 @@ class MainActivityArticleListAdapter(
                     .into(image)
             }
 
-            title.text = articleModel.articleTitle
-            content.text = Html.fromHtml(articleModel.preview)
-            author.text = articleModel.articleAuthor
+            title.text = articleModel?.articleTitle
+            content.text = Html.fromHtml(articleModel?.preview)
+            author.text = articleModel?.articleAuthor
         }
     }
 }

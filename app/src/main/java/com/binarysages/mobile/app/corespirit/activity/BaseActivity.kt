@@ -35,10 +35,6 @@ abstract class BaseActivity : AppCompatActivity() {
                 item.itemId,
                 findViewById(R.id.loadArticlesLayout)
             )
-            Log.d(">>>> Is EMPTY", articleAdapter.itemCount.toString())
-            if (articleAdapter.itemCount == 0) {
-                startActivity(Intent(this, NotFoundActivity::class.java))
-            }
         }
         return super.onOptionsItemSelected(item)
     }
