@@ -1,7 +1,6 @@
 package com.binarysages.mobile.app.corespirit.adapters
 
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,14 +14,17 @@ import com.bumptech.glide.Glide
 
 
 class ArticleListAdapter(
-    private var articlesListArray: Array<ArticleModel>,
+    open var articlesListArray: Array<ArticleModel>,
     private val articleClickListener: OnArticleClickListener
 ) : RecyclerView.Adapter<ArticleListAdapter.ArticleViewHolder>() {
 
-    fun setArticles(articles: Array<ArticleModel>) {
-        Log.d(">>>>> Articles size", articles.size.toString())
+    fun setArticles(articles: Array<ArticleModel>): Boolean? {
+        if (articles.isEmpty()) {
+            return false
+        }
         articlesListArray = articles
         notifyDataSetChanged()
+        return true
     }
 
     fun addArticles(articles: Array<ArticleModel>) {

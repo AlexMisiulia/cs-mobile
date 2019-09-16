@@ -1,6 +1,7 @@
 package com.binarysages.mobile.app.corespirit.network
 
 import android.os.AsyncTask
+import android.util.Log
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.binarysages.mobile.app.corespirit.adapters.ArticleListAdapter
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
@@ -19,6 +20,7 @@ class CoreSpiritAPI {
     private inner class GetArticleByID(val onResult: (Array<ArticleModel>) -> Unit) :
         AsyncTask<Int, Void, Array<ArticleModel>>() {
         override fun onPostExecute(result: Array<ArticleModel>?) {
+            Log.d(">>> SIZE", result?.size.toString())
             if (result != null) {
                 onResult(result)
             }

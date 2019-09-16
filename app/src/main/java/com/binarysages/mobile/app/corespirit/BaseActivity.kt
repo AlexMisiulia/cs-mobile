@@ -25,6 +25,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Log.d(">>> Item", item.itemId.toString())
         if (item.itemId in 1..2131165251) {
             isMainScreen = false
             CORE_SPIRIT_API.setArticles(
@@ -32,6 +33,10 @@ abstract class BaseActivity : AppCompatActivity() {
                 item.itemId,
                 findViewById(R.id.loadArticlesLayout)
             )
+            Log.d(">>>> Is EMPTY", articleAdapter.articlesListArray.size.toString())
+            if (articleAdapter?.articlesListArray.isEmpty()) {
+                startActivity(Intent(this, NotFound::class.java))
+            }
         }
         return super.onOptionsItemSelected(item)
     }
