@@ -1,11 +1,16 @@
-package com.binarysages.mobile.app.corespirit
+package com.binarysages.mobile.app.corespirit.activity.mainActivity
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.binarysages.mobile.app.corespirit.adapters.ArticleListAdapter
+import com.binarysages.mobile.app.corespirit.R
+import com.binarysages.mobile.app.corespirit.activity.BaseActivity
+import com.binarysages.mobile.app.corespirit.activity.articleActivity.ArticleItemActivity
+import com.binarysages.mobile.app.corespirit.activity.articleAdapter
+import com.binarysages.mobile.app.corespirit.activity.isMainScreen
+import com.binarysages.mobile.app.corespirit.activity.itemID
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.network.CORE_SPIRIT_API
 
@@ -20,7 +25,10 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.activity_main)
+        super.onCreate(
+            savedInstanceState,
+            R.layout.activity_main
+        )
 
 //        check articles bundle. In empty - we come not from load screen
         intent.getBundleExtra("BUNDLE")?.let {
@@ -31,7 +39,7 @@ class MainActivity : BaseActivity() {
         articlesRecyclerView.layoutManager = manager
 
         //        set what listener must do
-        val listener = object : ArticleListAdapter.OnArticleClickListener {
+        val listener = object : MainActivityArticleListAdapter.OnArticleClickListener {
             override fun onArticleClick(articleModel: ArticleModel) {
                 val intent = Intent(this@MainActivity, ArticleItemActivity::class.java)
                 val bundle = Bundle()
@@ -43,7 +51,11 @@ class MainActivity : BaseActivity() {
         }
 
         //        add listener to adapter
-        articleAdapter = ArticleListAdapter(articles, listener)
+        articleAdapter =
+            MainActivityArticleListAdapter(
+                articles,
+                listener
+            )
         articlesRecyclerView.adapter = articleAdapter
 
 //        add on scroll listener for infinity scroll
@@ -53,7 +65,10 @@ class MainActivity : BaseActivity() {
                     super.onScrolled(recyclerView, dx, dy)
                     if (manager.itemCount - 3 == manager.findLastVisibleItemPosition()) {
                         if (itemID != null) {
-                            CORE_SPIRIT_API.addArticles(articleAdapter, itemID)
+                            CORE_SPIRIT_API.addArticles(
+                                articleAdapter,
+                                itemID
+                            )
                         } else {
                             CORE_SPIRIT_API.addArticles(articleAdapter)
                         }

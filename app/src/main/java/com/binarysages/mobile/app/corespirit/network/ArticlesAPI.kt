@@ -1,9 +1,8 @@
 package com.binarysages.mobile.app.corespirit.network
 
 import android.os.AsyncTask
-import android.util.Log
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.binarysages.mobile.app.corespirit.adapters.ArticleListAdapter
+import com.binarysages.mobile.app.corespirit.activity.mainActivity.MainActivityArticleListAdapter
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.models.ArticleTree
 import com.google.gson.Gson
@@ -20,12 +19,10 @@ class CoreSpiritAPI {
     private inner class GetArticleByID(val onResult: (Array<ArticleModel>) -> Unit) :
         AsyncTask<Int, Void, Array<ArticleModel>>() {
         override fun onPostExecute(result: Array<ArticleModel>?) {
-            Log.d(">>> SIZE", result?.size.toString())
             if (result != null) {
                 onResult(result)
             }
             layoutProgressBar.visibility = ConstraintLayout.GONE
-            super.onPostExecute(result)
         }
 
         override fun onPreExecute() {
@@ -79,7 +76,7 @@ class CoreSpiritAPI {
     }
 
     //    add articles to exist list
-    fun addArticles(adapter: ArticleListAdapter, categoryId: Int? = null) {
+    fun addArticles(adapter: MainActivityArticleListAdapter, categoryId: Int? = null) {
         categoryId?.let {
             GetArticleByID { result ->
                 adapter.addArticles(result)
@@ -93,7 +90,7 @@ class CoreSpiritAPI {
 
     //    Reload article adapter with new categories
     fun setArticles(
-        adapter: ArticleListAdapter,
+        adapter: MainActivityArticleListAdapter,
         categoryId: Int? = null,
         linearLayout: ConstraintLayout
     ) {
@@ -101,11 +98,11 @@ class CoreSpiritAPI {
         categoryId?.let {
             GetArticleByID { result ->
                 adapter.setArticles(result)
-            }.execute(it)
-        } ?: kotlin.run {
+            }.execute(it).get()
+        } ?: run {
             GetArticles { result ->
                 adapter.setArticles(result)
-            }.execute()
+            }.execute().get()
         }
     }
 }

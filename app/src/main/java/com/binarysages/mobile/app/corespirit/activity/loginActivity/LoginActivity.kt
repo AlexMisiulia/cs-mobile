@@ -1,4 +1,6 @@
-package com.binarysages.mobile.app.corespirit
+package com.binarysages.mobile.app.corespirit.activity.loginActivity
+
+import com.binarysages.mobile.app.corespirit.activity.BaseActivity
 
 
 class LoginActivity : BaseActivity() {

@@ -1,4 +1,4 @@
-package com.binarysages.mobile.app.corespirit
+package com.binarysages.mobile.app.corespirit.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,10 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.binarysages.mobile.app.corespirit.adapters.ArticleListAdapter
+import com.binarysages.mobile.app.corespirit.R
+import com.binarysages.mobile.app.corespirit.activity.mainActivity.MainActivity
+import com.binarysages.mobile.app.corespirit.activity.mainActivity.MainActivityArticleListAdapter
+import com.binarysages.mobile.app.corespirit.activity.notFoundActivity.NotFoundActivity
 import com.binarysages.mobile.app.corespirit.menus.generateMenuFromTree
 import com.binarysages.mobile.app.corespirit.menus.generateUserMenu
 import com.binarysages.mobile.app.corespirit.network.CORE_SPIRIT_API
@@ -16,7 +19,7 @@ import com.binarysages.mobile.app.corespirit.network.CORE_SPIRIT_API
 var itemID: Int? = null
 var isMainScreen: Boolean = true
 
-lateinit var articleAdapter: ArticleListAdapter
+lateinit var articleAdapter: MainActivityArticleListAdapter
 
 abstract class BaseActivity : AppCompatActivity() {
     open fun onLogoClick(view: View) {
@@ -25,7 +28,6 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        Log.d(">>> Item", item.itemId.toString())
         if (item.itemId in 1..2131165251) {
             isMainScreen = false
             CORE_SPIRIT_API.setArticles(
@@ -33,9 +35,9 @@ abstract class BaseActivity : AppCompatActivity() {
                 item.itemId,
                 findViewById(R.id.loadArticlesLayout)
             )
-            Log.d(">>>> Is EMPTY", articleAdapter.articlesListArray.size.toString())
-            if (articleAdapter?.articlesListArray.isEmpty()) {
-                startActivity(Intent(this, NotFound::class.java))
+            Log.d(">>>> Is EMPTY", articleAdapter.itemCount.toString())
+            if (articleAdapter.itemCount == 0) {
+                startActivity(Intent(this, NotFoundActivity::class.java))
             }
         }
         return super.onOptionsItemSelected(item)
@@ -50,8 +52,10 @@ abstract class BaseActivity : AppCompatActivity() {
 
     protected fun onCreate(savedInstanceState: Bundle?, layoutId: Int) {
         super.onCreate(savedInstanceState)
-        Log.d("SELECTED>>> is main", isMainScreen.toString())
-        overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+        overridePendingTransition(
+            R.anim.fadein,
+            R.anim.fadeout
+        )
         setContentView(layoutId)
 
 //        Add toolbar

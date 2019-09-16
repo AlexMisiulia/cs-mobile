@@ -1,6 +1,5 @@
 package com.binarysages.mobile.app.corespirit.network
 
-import android.util.Log
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
@@ -11,7 +10,6 @@ val REQUESTS = CSRequests()
 
 class CSRequests {
     fun doPost(url: String, body: String? = null): String {
-        Log.d("RESP>>>", "In doPost")
         URL(url)
             .openConnection()
             .let {
@@ -34,7 +32,6 @@ class CSRequests {
                         inputLine = it.readLine()
                     }
                     it.close()
-                    Log.d("RESP>>>", response.toString())
                     return response.toString()
                 }
             }

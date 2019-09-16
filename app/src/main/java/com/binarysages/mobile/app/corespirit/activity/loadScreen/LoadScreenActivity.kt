@@ -1,4 +1,4 @@
-package com.binarysages.mobile.app.corespirit
+package com.binarysages.mobile.app.corespirit.activity.loadScreen
 
 import android.content.Intent
 import android.os.AsyncTask
@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.binarysages.mobile.app.corespirit.R
+import com.binarysages.mobile.app.corespirit.activity.mainActivity.MainActivity
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.google.gson.GsonBuilder
 import com.squareup.picasso.Picasso
@@ -68,7 +70,10 @@ class LoadScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_load_screen_activty)
-        overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+        overridePendingTransition(
+            R.anim.fadein,
+            R.anim.fadeout
+        )
 
 //        find elements in this activity
         reloadButton = findViewById(R.id.reloadLoadScreenButton)
