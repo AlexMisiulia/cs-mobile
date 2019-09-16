@@ -18,7 +18,7 @@ private fun getSubMenu(subMenu: SubMenu?, articleTree: Array<ArticleTree.Data.Ca
 }
 
 fun generateMenuFromTree(menu: Menu?) {
-    val tree = CORE_SPIRIT_API.getTree()
+    val tree = CORE_SPIRIT_API.getArticleTree()
     for (obj in tree.data.categoryTree) {
         if (obj.categories?.isNotEmpty()!!) {
             val subMenu: SubMenu? =

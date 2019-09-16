@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.network.getURL
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 
 
 class ArticleListAdapter(
@@ -20,7 +20,9 @@ class ArticleListAdapter(
 ) : RecyclerView.Adapter<ArticleListAdapter.ArticleViewHolder>() {
 
     fun setArticles(articles: Array<ArticleModel>) {
+        Log.d(">>>>> Articles size", articles.size.toString())
         articlesListArray = articles
+        notifyDataSetChanged()
     }
 
     fun addArticles(articles: Array<ArticleModel>) {
@@ -58,17 +60,18 @@ class ArticleListAdapter(
         private val content: TextView = itemView.findViewById(R.id.articleContent)
         private val author: TextView = itemView.findViewById(R.id.articleAuthor)
 
-
         fun bind(articleModel: ArticleModel) {
-            if (getURL(articleModel) != "") {
-                Log.d("IMAGE", getURL(articleModel))
-                Picasso.get()
-                    .load(getURL(articleModel))
-                    .placeholder(R.drawable.placeholder)
+            getURL(articleModel, "600")?.let {
+                Glide.with(content)
+                    .load(it)
+                    .thumbnail(Glide.with(content).load(R.drawable.tenor))
+                    .centerCrop()
+                    .fitCenter()
                     .into(image)
             }
+
             title.text = articleModel.articleTitle
-            content.text = Html.fromHtml(articleModel.articleContent)
+            content.text = Html.fromHtml(articleModel.preview)
             author.text = articleModel.articleAuthor
         }
     }

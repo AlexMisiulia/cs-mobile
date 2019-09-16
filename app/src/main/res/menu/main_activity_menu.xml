@@ -12,17 +12,44 @@
         android:title="User Menu"
         app:showAsAction="withText|always">
         <menu>
-            <item android:title="USER NAME" android:id="@+id/userMenuUserName" android:visible="false"/>
-            <item android:title="LOG IN" android:id="@+id/userMenuLogIn"/>
-            <item android:title="MY ACCOUNT" android:id="@+id/userMenuAccount" android:visible="false"/>
-            <item android:title="BECOME PRACTITIONER" android:id="@+id/userMenuBecomePr"/>
-            <item android:title="PRACTITIONERS" android:id="@+id/userMenuPractitioners"/>
-            <item android:title="MY SERVICES" android:id="@+id/userMenuMyServices" android:visible="false" />
-            <item android:title="NEW ARTICLE" android:id="@+id/userMenuNewArticle" android:visible="false"/>
-            <item android:title="ABOUT US" android:id="@+id/userMenuAboutUs" />
-            <item android:title="TERMS" android:id="@+id/userMenuTerms"/>
-            <item android:title="PRIVACY" android:id="@+id/userMenuPrivacy"/>
-            <item android:title="LOG OUT" android:id="@+id/userMenuLogOut" android:visible="false"/>
+            <item
+                android:id="@+id/userMenuUserName"
+                android:title="USER NAME"
+                android:visible="false" />
+            <item
+                android:id="@+id/userMenuLogIn"
+                android:title="LOG IN" />
+            <item
+                android:id="@+id/userMenuAccount"
+                android:title="MY ACCOUNT"
+                android:visible="false" />
+            <item
+                android:id="@+id/userMenuBecomePr"
+                android:title="BECOME PRACTITIONER" />
+            <item
+                android:id="@+id/userMenuPractitioners"
+                android:title="PRACTITIONERS" />
+            <item
+                android:id="@+id/userMenuMyServices"
+                android:title="MY SERVICES"
+                android:visible="false" />
+            <item
+                android:id="@+id/userMenuNewArticle"
+                android:title="NEW ARTICLE"
+                android:visible="false" />
+            <item
+                android:id="@+id/userMenuAboutUs"
+                android:title="ABOUT US" />
+            <item
+                android:id="@+id/userMenuTerms"
+                android:title="TERMS" />
+            <item
+                android:id="@+id/userMenuPrivacy"
+                android:title="PRIVACY" />
+            <item
+                android:id="@+id/userMenuLogOut"
+                android:title="LOG OUT"
+                android:visible="false" />
         </menu>
     </item>
 </menu>

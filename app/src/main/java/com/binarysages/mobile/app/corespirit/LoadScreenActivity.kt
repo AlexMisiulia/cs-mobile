@@ -3,7 +3,6 @@ package com.binarysages.mobile.app.corespirit
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -22,7 +21,6 @@ class LoadScreenActivity : AppCompatActivity() {
     inner class LoadArticle : AsyncTask<Void, Void, Array<ArticleModel>>() {
         private val progressBar: ProgressBar = findViewById(R.id.loadScreenProgressBar)
         override fun onPostExecute(result: Array<ArticleModel>?) {
-            Log.d("ARTICLE LIST", result.toString())
             super.onPostExecute(result)
             progressBar.visibility = ProgressBar.INVISIBLE
             if (result != null) {
@@ -70,6 +68,7 @@ class LoadScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_load_screen_activty)
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout)
 
 //        find elements in this activity
         reloadButton = findViewById(R.id.reloadLoadScreenButton)

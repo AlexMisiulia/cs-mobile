@@ -4,4 +4,8 @@
     <string name="reloadLoadScreenButton">Reload</string>
     <string name="on_network_error">Network error! Please, reload app</string>
     <string name="articleAuthor">By: </string>
+    <string name="forget_password">Forget password?</string>
+    <string name="submitCredentials">Submit</string>
+    <string name="enter_password">Enter password</string>
+    <string name="enter_login">Enter login</string>
 </resources>
