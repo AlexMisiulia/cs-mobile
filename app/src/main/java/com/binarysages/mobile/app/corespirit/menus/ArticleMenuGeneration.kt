@@ -8,11 +8,13 @@ import com.binarysages.mobile.app.corespirit.network.CORE_SPIRIT_API
 
 private fun getSubMenu(subMenu: SubMenu?, articleTree: Array<ArticleTree.Data.CategoryTree>) {
     for (obj in articleTree) {
-        if (obj.categories?.isNotEmpty()!!) {
+        if (obj.categories?.isNotEmpty()!! && obj.hasArticles) {
             val subMenInu: SubMenu? = subMenu?.addSubMenu(obj.name)
             getSubMenu(subMenInu, obj.categories)
         } else {
-            subMenu?.add(0, obj.id.toInt(), 0, obj.name)
+            if (obj.hasArticles) {
+                subMenu?.add(0, obj.id.toInt(), 0, obj.name)
+            }
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.binarysages.mobile.app.corespirit.activity.mainActivity
 
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,8 +20,6 @@ class MainActivityArticleListAdapter(
 
     fun setArticles(articles: Array<ArticleModel>) {
         articlesListArray = articles
-        Log.d(">>> NOTIFY", "NOTIFY")
-        Log.d(">>> SIZE", articles.size.toString())
         notifyDataSetChanged()
         return
     }

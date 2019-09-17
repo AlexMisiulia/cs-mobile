@@ -33,6 +33,7 @@ class MainActivity : BaseActivity() {
         intent.getBundleExtra("BUNDLE")?.let {
             articles = it.getSerializable("articles") as Array<ArticleModel>
         }
+
         val articlesRecyclerView: RecyclerView = findViewById(R.id.articlesRecycleViewList)
         val manager = LinearLayoutManager(this)
         articlesRecyclerView.layoutManager = manager

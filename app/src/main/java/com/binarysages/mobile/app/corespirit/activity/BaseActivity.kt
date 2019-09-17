@@ -2,7 +2,6 @@ package com.binarysages.mobile.app.corespirit.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.appcompat.widget.Toolbar
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.activity.mainActivity.MainActivity
 import com.binarysages.mobile.app.corespirit.activity.mainActivity.MainActivityArticleListAdapter
-import com.binarysages.mobile.app.corespirit.activity.notFoundActivity.NotFoundActivity
 import com.binarysages.mobile.app.corespirit.menus.generateMenuFromTree
 import com.binarysages.mobile.app.corespirit.menus.generateUserMenu
 import com.binarysages.mobile.app.corespirit.network.CORE_SPIRIT_API

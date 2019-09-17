@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import android.text.method.LinkMovementMethod
+import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
@@ -25,7 +26,6 @@ class ArticleItemActivity : BaseActivity() {
                 item.itemId,
                 findViewById(R.id.loadArticlesLayout)
             )
-            articleAdapter.notifyDataSetChanged()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -43,12 +43,17 @@ class ArticleItemActivity : BaseActivity() {
         val title: TextView = findViewById(R.id.articleTitleItem)
         val content: TextView = findViewById(R.id.articleContentItem)
         val image: ImageView = findViewById(R.id.articleImg)
-        Glide.with(content)
-            .load(getURL(articleModel))
-            .thumbnail(Glide.with(content).load(R.drawable.tenor))
-            .centerCrop()
-            .fitCenter()
-            .into(image)
+        getURL(articleModel)?.let {
+            Log.d(">>>>", it.toString())
+            Glide.with(content)
+                .load(it)
+                .thumbnail(Glide.with(content).load(R.drawable.tenor))
+                .centerCrop()
+                .fitCenter()
+                .into(image)
+        } ?: run {
+            image.visibility = ImageView.GONE
+        }
 
         author.text = articleModel?.articleAuthor
         title.text = articleModel?.articleTitle
