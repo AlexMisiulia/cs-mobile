@@ -60,6 +60,7 @@ class MainActivityArticleListAdapter(
         private val author: TextView = itemView.findViewById(R.id.articleAuthor)
 
         fun bind(articleModel: ArticleModel?) {
+            articleModel
             getURL(articleModel, "600")?.let {
                 Glide.with(content)
                     .load(it)
@@ -67,6 +68,8 @@ class MainActivityArticleListAdapter(
                     .centerCrop()
                     .fitCenter()
                     .into(image)
+            } ?: run {
+                image.visibility = ImageView.GONE
             }
 
             title.text = articleModel?.articleTitle

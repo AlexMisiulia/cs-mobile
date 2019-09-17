@@ -44,7 +44,6 @@ class ArticleItemActivity : BaseActivity() {
         val content: TextView = findViewById(R.id.articleContentItem)
         val image: ImageView = findViewById(R.id.articleImg)
         getURL(articleModel)?.let {
-            Log.d(">>>>", it.toString())
             Glide.with(content)
                 .load(it)
                 .thumbnail(Glide.with(content).load(R.drawable.tenor))
