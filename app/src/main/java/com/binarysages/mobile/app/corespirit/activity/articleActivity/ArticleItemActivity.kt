@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import android.text.method.LinkMovementMethod
-import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
@@ -24,7 +23,7 @@ class ArticleItemActivity : BaseActivity() {
             CORE_SPIRIT_API.setArticles(
                 articleAdapter,
                 item.itemId,
-                findViewById(R.id.loadArticlesLayout)
+                findViewById(R.id.load_Layout)
             )
         }
         return super.onOptionsItemSelected(item)
@@ -43,13 +42,15 @@ class ArticleItemActivity : BaseActivity() {
         val title: TextView = findViewById(R.id.articleTitleItem)
         val content: TextView = findViewById(R.id.articleContentItem)
         val image: ImageView = findViewById(R.id.articleImg)
-        getURL(articleModel)?.let {
-            Glide.with(content)
-                .load(it)
-                .thumbnail(Glide.with(content).load(R.drawable.tenor))
-                .centerCrop()
-                .fitCenter()
-                .into(image)
+        articleModel?.image?.let {
+            getURL(it)?.let { imageURL ->
+                Glide.with(content)
+                    .load(imageURL)
+                    .thumbnail(Glide.with(content).load(R.drawable.tenor))
+                    .centerCrop()
+                    .fitCenter()
+                    .into(image)
+            }
         } ?: run {
             image.visibility = ImageView.GONE
         }

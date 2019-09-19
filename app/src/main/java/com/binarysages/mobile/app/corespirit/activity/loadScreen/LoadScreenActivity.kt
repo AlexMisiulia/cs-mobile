@@ -27,6 +27,7 @@ class LoadScreenActivity : AppCompatActivity() {
             progressBar.visibility = ProgressBar.INVISIBLE
             if (result != null) {
                 this@LoadScreenActivity.articles = result
+
                 loadComplete()
             } else {
                 reloadButton.visibility = Button.VISIBLE

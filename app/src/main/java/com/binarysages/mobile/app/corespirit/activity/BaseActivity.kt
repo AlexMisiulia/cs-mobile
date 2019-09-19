@@ -31,7 +31,7 @@ abstract class BaseActivity : AppCompatActivity() {
             CORE_SPIRIT_API.setArticles(
                 articleAdapter,
                 item.itemId,
-                findViewById(R.id.loadArticlesLayout)
+                findViewById(R.id.load_Layout)
             )
         }
         return super.onOptionsItemSelected(item)
@@ -40,6 +40,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_activity_menu, menu)
         generateMenuFromTree(menu)
+
         generateUserMenu(menu, null, this)
         return super.onCreateOptionsMenu(menu)
     }

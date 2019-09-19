@@ -9,7 +9,7 @@
     </item>
     <item
         android:id="@+id/userMenu"
-        android:title="User Menu"
+        android:title="Menu"
         app:showAsAction="withText|always">
         <menu>
             <item

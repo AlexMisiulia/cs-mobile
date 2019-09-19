@@ -4,6 +4,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('/home/miroshinsv/app')
+            storePassword 'Ever2know$'
+            keyPassword 'p@$$woRD'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
@@ -23,6 +30,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.lucasurbas:guidelinescompattoolbar:1.0.2'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'com.natpryce:konfig:1.6.10.0'

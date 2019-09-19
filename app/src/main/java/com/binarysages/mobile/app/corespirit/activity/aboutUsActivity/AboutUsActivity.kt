@@ -1,27 +1,12 @@
 package com.binarysages.mobile.app.corespirit.activity.aboutUsActivity
 
-import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Html
-import android.util.Log
 import android.widget.TextView
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.activity.BaseActivity
-import java.net.URL
 
 class AboutUsActivity : BaseActivity() {
-    private inner class getPage(val doAfer: (String?) -> Unit) : AsyncTask<Void, Void, String>() {
-        override fun onPostExecute(result: String?) {
-            doAfer(result)
-            super.onPostExecute(result)
-        }
-
-        override fun doInBackground(vararg params: Void?): String {
-            Log.d(">>>>", URL("https://master.stage.binarysages.com/about-us").readText())
-            return URL("https://master.stage.binarysages.com/about-us").readText()
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_about_us)
         findViewById<TextView>(R.id.aboutUs).text = Html.fromHtml(
