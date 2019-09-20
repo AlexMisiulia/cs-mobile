@@ -8,8 +8,6 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="4dp">
 
-    <include layout="@layout/load_layout" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

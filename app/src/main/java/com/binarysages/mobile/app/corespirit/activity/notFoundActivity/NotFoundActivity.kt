@@ -9,7 +9,7 @@ class NotFoundActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(
             savedInstanceState,
-            R.layout.not_foun_layout
+            R.layout.not_found_layout
         )
     }
 }

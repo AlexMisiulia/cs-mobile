@@ -13,27 +13,38 @@ import com.google.gson.JsonObject
 import java.net.URL
 
 
-class ListPractitionerAdapter(val layout: ConstraintLayout) :
+class ListPractitionerAdapter(var itemVIew: ConstraintLayout) :
     RecyclerView.Adapter<ListPractitionerMapHolder>() {
-
     private var practitionerList: Array<PractitionerModel> =
-        getRelatedPractitioners().execute(0).get()
+        getRelatedPractitioners {
+        }.execute(0).get()
 
-    fun addPractitioner(count: Int = 0) {
-        practitionerList += getRelatedPractitioners().execute(count).get()
+    fun addPractitioner(count: Int = 0, itemVIew: ConstraintLayout? = null) {
+        itemVIew?.let {
+            this.itemVIew = it
+        }
+        getRelatedPractitioners { result ->
+            practitionerList += result
+            this.notifyDataSetChanged()
+        }.execute(count)
     }
 
-    private inner class getRelatedPractitioners :
+    private inner class getRelatedPractitioners(val callback: (Array<PractitionerModel>) -> Unit) :
         AsyncTask<Int, Void, Array<PractitionerModel>>() {
+        private val baseURL: String = "https://corespirit.com/"
+
         override fun onPostExecute(result: Array<PractitionerModel>?) {
+            result?.let {
+                callback(it)
+            }
+            itemVIew.visibility = ConstraintLayout.GONE
             super.onPostExecute(result)
         }
 
         override fun onPreExecute() {
+            itemVIew.visibility = ConstraintLayout.VISIBLE
             super.onPreExecute()
         }
-
-        private val baseURL: String = "https://corespirit.com/"
 
         override fun doInBackground(vararg params: Int?): Array<PractitionerModel> {
             return Gson().fromJson(
@@ -60,4 +71,6 @@ class ListPractitionerAdapter(val layout: ConstraintLayout) :
     override fun onBindViewHolder(holder: ListPractitionerMapHolder, position: Int) {
         holder.bind(practitionerList[position])
     }
+
+
 }

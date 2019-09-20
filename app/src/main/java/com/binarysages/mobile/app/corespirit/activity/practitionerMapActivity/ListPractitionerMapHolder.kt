@@ -13,30 +13,19 @@ import com.bumptech.glide.request.RequestOptions
 class ListPractitionerMapHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val avatar: ImageView = itemView.findViewById(R.id.practitionerAvatar)
     private val name: TextView = itemView.findViewById(R.id.practitionerName)
-    private val catogory: TextView = itemView.findViewById(R.id.practitionerCategory)
+    private val category: TextView = itemView.findViewById(R.id.practitionerCategory)
 
     fun bind(practitioner: PractitionerModel) {
-        practitioner.image?.let {
-            getURL(it)?.let { imgURL ->
-                Glide
-                    .with(itemView)
-                    .load(imgURL)
-                    .thumbnail(
-                        Glide.with(itemView).load(R.drawable.tenor).apply(
-                            RequestOptions.overrideOf(
-                                400,
-                                400
-                            )
-                        )
-                    )
-                    .apply(RequestOptions.overrideOf(400, 400))
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(avatar)
-            }
-        }
+        Glide.with(itemView)
+            .load(practitioner.image?.let { getURL(it) })
+            .placeholder(R.drawable.avatar_holder)
+            .apply(RequestOptions.overrideOf(400, 400))
+            .apply(RequestOptions.circleCropTransform())
+            .into(avatar)
+
         name.text = practitioner.title
         val categoryBuilder = StringBuilder()
-        practitioner.category?.forEach { categoryBuilder.append(it.name).append(" ") }
-        catogory.text = categoryBuilder.toString()
+        practitioner.category?.forEach { StringBuilder().append(it.name).append(" ") }
+        category.text = categoryBuilder.toString()
     }
 }

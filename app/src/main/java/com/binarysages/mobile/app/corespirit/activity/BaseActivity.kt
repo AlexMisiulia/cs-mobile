@@ -31,7 +31,7 @@ abstract class BaseActivity : AppCompatActivity() {
             CORE_SPIRIT_API.setArticles(
                 articleAdapter,
                 item.itemId,
-                findViewById(R.id.load_Layout)
+                findViewById(R.id.LOAD_LAYOUT)
             )
         }
         return super.onOptionsItemSelected(item)
