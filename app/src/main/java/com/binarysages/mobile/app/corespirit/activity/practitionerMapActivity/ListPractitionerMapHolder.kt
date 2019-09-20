@@ -19,7 +19,7 @@ class ListPractitionerMapHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
         Glide.with(itemView)
             .load(practitioner.image?.let { getURL(it) })
             .placeholder(R.drawable.avatar_holder)
-            .apply(RequestOptions.overrideOf(400, 400))
+            .apply(RequestOptions.overrideOf(340, 340))
             .apply(RequestOptions.circleCropTransform())
             .into(avatar)
 

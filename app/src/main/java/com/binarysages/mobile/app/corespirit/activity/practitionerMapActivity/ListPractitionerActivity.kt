@@ -38,7 +38,6 @@ class ListPractitionerActivity : BaseActivity() {
 
         practitionerListRecycleView.setOnClickListener {
             val intent = Intent()
-
         }
     }
 }
