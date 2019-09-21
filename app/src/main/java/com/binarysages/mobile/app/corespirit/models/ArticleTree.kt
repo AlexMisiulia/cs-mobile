@@ -9,6 +9,7 @@ data class ArticleTree(
         @SerializedName("categoryTree") val categoryTree: Array<CategoryTree>
     ) {
         data class CategoryTree(
+            @SerializedName("hasArticles") val hasArticles: Boolean,
             @SerializedName("id") val id: String,
             @SerializedName("name") val name: String,
             @SerializedName("categories") val categories: Array<CategoryTree>?

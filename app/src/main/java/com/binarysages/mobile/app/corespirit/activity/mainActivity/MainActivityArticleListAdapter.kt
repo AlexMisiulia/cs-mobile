@@ -1,7 +1,6 @@
-package com.binarysages.mobile.app.corespirit.adapters
+package com.binarysages.mobile.app.corespirit.activity.mainActivity
 
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,25 +10,27 @@ import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.network.getURL
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 
 
-class ArticleListAdapter(
-    private var articlesListArray: Array<ArticleModel>,
+class MainActivityArticleListAdapter(
+    private var articlesListArray: Array<ArticleModel>?,
     private val articleClickListener: OnArticleClickListener
-) : RecyclerView.Adapter<ArticleListAdapter.ArticleViewHolder>() {
+) : RecyclerView.Adapter<MainActivityArticleListAdapter.ArticleViewHolder>() {
 
     fun setArticles(articles: Array<ArticleModel>) {
         articlesListArray = articles
+        notifyDataSetChanged()
+        return
     }
 
     fun addArticles(articles: Array<ArticleModel>) {
-        articlesListArray += articles
+        articlesListArray = articlesListArray?.plus(articles)
     }
 
     //    Interface listener
     interface OnArticleClickListener {
-        fun onArticleClick(articleModel: ArticleModel)
+        fun onArticleClick(articleModel: ArticleModel?)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
@@ -39,17 +40,17 @@ class ArticleListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return articlesListArray.size
+        return articlesListArray!!.size
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        holder.bind(articlesListArray[position])
+        holder.bind(articlesListArray?.get(position))
     }
 
     inner class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
             itemView.setOnClickListener {
-                articleClickListener.onArticleClick(articlesListArray[layoutPosition])
+                articleClickListener.onArticleClick(articlesListArray?.get(layoutPosition))
             }
         }
 
@@ -58,18 +59,19 @@ class ArticleListAdapter(
         private val content: TextView = itemView.findViewById(R.id.articleContent)
         private val author: TextView = itemView.findViewById(R.id.articleAuthor)
 
-
-        fun bind(articleModel: ArticleModel) {
-            if (getURL(articleModel) != "") {
-                Log.d("IMAGE", getURL(articleModel))
-                Picasso.get()
-                    .load(getURL(articleModel))
-                    .placeholder(R.drawable.img_148071)
+        fun bind(articleModel: ArticleModel?) {
+            getURL(articleModel, "600")?.let {
+                Glide.with(content)
+                    .load(it)
+                    .thumbnail(Glide.with(content).load(R.drawable.tenor))
+                    .centerCrop()
+                    .fitCenter()
                     .into(image)
             }
-            title.text = articleModel.articleTitle
-            content.text = Html.fromHtml(articleModel.articleContent)
-            author.text = articleModel.articleAuthor
+
+            title.text = articleModel?.articleTitle
+            content.text = Html.fromHtml(articleModel?.preview)
+            author.text = articleModel?.articleAuthor
         }
     }
 }
