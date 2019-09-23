@@ -2,42 +2,47 @@ package com.binarysages.mobile.app.corespirit.activity.practitionerProfileActivi
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
+import android.widget.ImageView
 import android.widget.TextView
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.activity.BaseActivity
+import com.binarysages.mobile.app.corespirit.models.ImageModel
+import com.binarysages.mobile.app.corespirit.network.getURL
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
-class PractitionerInfoActivity(
-    private var userName: String? = "Name hidden",
-    private var bio: String? = null,
-    private var category: String? = null,
-    private var imgURL: String? = null
-) : BaseActivity() {
-
+class PractitionerInfoActivity : BaseActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState, R.layout.practitioner_profile_activity)
-        savedInstanceState?.let {
-            Log.d(">>>>> D", it.get("userName").toString())
-            it.get("userName")?.let { name -> userName = name.toString() }
-            it.get("bio")?.let { sBio -> bio = sBio.toString() }
-            it.getString("category")?.let { sCategory -> category = sCategory }
-            it.getString("imgURL")?.let { sImgURL -> imgURL = sImgURL }
-        }
 
-        val mUserName: TextView = findViewById(R.id.userNamePractitionerProfile)
-        bio?.let {
-            findViewById<TextView>(R.id.bioPractitionerProfile).text = bio
-        }
-        category?.let {
-            findViewById<TextView>(R.id.categoryPractitionerProfile).text = category
-        }
-        imgURL?.let {
-            Glide.with(this)
-                .load(imgURL)
-                .placeholder(R.mipmap.avatar_holder)
-                .into(findViewById(R.id.avatarPractitionerProfile))
+        super.onCreate(savedInstanceState, R.layout.practitioner_profile_activity)
+        val userName = findViewById<TextView>(R.id.userNamePractitionerProfile)
+        val bio = findViewById<TextView>(R.id.userBioPractitionerProfile)
+        val avatar = findViewById<ImageView>(R.id.userAvatarPractitionerProfile)
+        intent.let {
+            it.getStringExtra("userName")?.let { str ->
+                userName.text = str
+            }
+
+            it.getBundleExtra("imgURL")?.let { bundle ->
+                bundle.getSerializable("image")?.let { img ->
+                    Glide
+                        .with(this)
+                        .load(getURL(img as ImageModel))
+                        .circleCrop()
+                        .apply(RequestOptions.overrideOf(400, 400))
+                        .into(avatar)
+                }
+            }
+            Log.d(">>> BIO", it.getStringExtra("bio").toString())
+            it.getStringExtra("bio")?.let { str ->
+                bio.text = Html.fromHtml(str)
+                bio.visibility = TextView.VISIBLE
+            }?: run {
+                bio.visibility = TextView.GONE
+            }
         }
     }
 }

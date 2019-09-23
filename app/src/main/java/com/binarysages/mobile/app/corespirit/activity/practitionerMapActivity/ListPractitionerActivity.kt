@@ -25,9 +25,13 @@ class ListPractitionerActivity : BaseActivity() {
             override fun practitionerCLick(practitioner: PractitionerModel) {
                 val intent =
                     Intent(this@ListPractitionerActivity, PractitionerInfoActivity::class.java)
+                val bundle = Bundle()
+                Log.d(">>>> IMG", practitioner.image.toString())
+                bundle.putSerializable("image", practitioner.image)
+                Log.d(">>>>", bundle.getSerializable("image").toString())
                 intent.putExtra("userName", practitioner.title)
-                intent.putExtra("imgURL", practitioner.image?.name1200)
-                Log.d(">>>>>>>>", practitioner.title)
+                intent.putExtra("bio", practitioner.bio)
+                intent.putExtra("imgURL", bundle)
                 startActivity(intent)
             }
         }
