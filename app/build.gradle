@@ -4,13 +4,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    signingConfigs {
-        debug {
-            storeFile file('/home/miroshinsv/app')
-            storePassword 'Ever2know$'
-            keyPassword 'p@$$woRD'
-        }
-    }
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
