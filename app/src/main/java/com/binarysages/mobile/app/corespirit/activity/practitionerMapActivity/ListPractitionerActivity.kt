@@ -3,13 +3,15 @@ package com.binarysages.mobile.app.corespirit.activity.practitionerMapActivity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.activity.BaseActivity
+import com.binarysages.mobile.app.corespirit.activity.practitionerProfileActivity.PractitionerInfoActivity
+import com.binarysages.mobile.app.corespirit.models.PractitionerModel
 
 class ListPractitionerActivity : BaseActivity() {
-
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.list_practitioner_map_layout)
@@ -18,7 +20,19 @@ class ListPractitionerActivity : BaseActivity() {
         val manager = LinearLayoutManager(this)
 
         practitionerListRecycleView.layoutManager = manager
-        val practitionerAdapter = ListPractitionerAdapter(findViewById(R.id.LOAD_LAYOUT))
+
+        val listener = object : ListPractitionerAdapter.onPractitionerClickListener {
+            override fun practitionerCLick(practitioner: PractitionerModel) {
+                val intent =
+                    Intent(this@ListPractitionerActivity, PractitionerInfoActivity::class.java)
+                intent.putExtra("userName", practitioner.title)
+                intent.putExtra("imgURL", practitioner.image?.name1200)
+                Log.d(">>>>>>>>", practitioner.title)
+                startActivity(intent)
+            }
+        }
+
+        val practitionerAdapter = ListPractitionerAdapter(findViewById(R.id.LOAD_LAYOUT), listener)
         practitionerListRecycleView.adapter = practitionerAdapter
 
         practitionerListRecycleView.addOnScrollListener(
@@ -35,9 +49,5 @@ class ListPractitionerActivity : BaseActivity() {
                     count += 20
                 }
             })
-
-        practitionerListRecycleView.setOnClickListener {
-            val intent = Intent()
-        }
     }
 }

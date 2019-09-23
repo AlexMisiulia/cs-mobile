@@ -13,8 +13,16 @@ import com.google.gson.JsonObject
 import java.net.URL
 
 
-class ListPractitionerAdapter(var itemVIew: ConstraintLayout) :
+class ListPractitionerAdapter(
+    var itemVIew: ConstraintLayout,
+    private val practitionerClickListener: onPractitionerClickListener
+) :
     RecyclerView.Adapter<ListPractitionerMapHolder>() {
+
+    interface onPractitionerClickListener {
+        fun practitionerCLick(practitioner: PractitionerModel): Unit
+    }
+
     private var practitionerList: Array<PractitionerModel> =
         getRelatedPractitioners {
         }.execute(0).get()
@@ -61,7 +69,7 @@ class ListPractitionerAdapter(var itemVIew: ConstraintLayout) :
             LayoutInflater
                 .from(parent.context)
                 .inflate(R.layout.practitioner_map_item, parent, false)
-        return ListPractitionerMapHolder(articleItemVIew)
+        return ListPractitionerMapHolder(articleItemVIew, practitionerClickListener)
     }
 
     override fun getItemCount(): Int {

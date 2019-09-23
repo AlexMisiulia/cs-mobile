@@ -83,7 +83,7 @@ class LoadScreenActivity : AppCompatActivity() {
 //        add visibility on button
         reloadButton.visibility = Button.INVISIBLE
 //        set Logo
-        Picasso.get().load(R.drawable.logo).into(logo)
+        Picasso.get().load(R.mipmap.logo).into(logo)
         reloadButton.setOnClickListener {
             reloadActivity()
         }

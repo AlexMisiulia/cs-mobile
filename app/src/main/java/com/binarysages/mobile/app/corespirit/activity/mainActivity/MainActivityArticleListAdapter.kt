@@ -64,7 +64,7 @@ class MainActivityArticleListAdapter(
                 getURL(it, "600")?.let { imageURL ->
                     Glide.with(content)
                         .load(imageURL)
-                        .thumbnail(Glide.with(content).load(R.drawable.tenor))
+                        .thumbnail(Glide.with(content).load(R.mipmap.tenor))
                         .centerCrop()
                         .fitCenter()
                         .into(image)
