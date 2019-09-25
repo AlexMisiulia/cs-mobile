@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
+import com.binarysages.mobile.app.corespirit.activity.categoryId
 import com.binarysages.mobile.app.corespirit.models.PractitionerModel
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -57,7 +58,7 @@ class ListPractitionerAdapter(
         override fun doInBackground(vararg params: Int?): Array<PractitionerModel> {
             return Gson().fromJson(
                 Gson().fromJson(
-                    URL(baseURL + "api/v1/practitioners/loadPractitioners?offset=${params[0]}").readText(),
+                    URL(baseURL + "api/v1/practitioners/loadPractitioners?offset=${params[0]}&categoryIds=$categoryId").readText(),
                     JsonObject::class.java
                 ).getAsJsonArray("data"), Array<PractitionerModel>::class.java
             )

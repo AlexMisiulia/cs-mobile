@@ -18,16 +18,20 @@ var itemID: Int? = null
 var isMainScreen: Boolean = true
 
 lateinit var articleAdapter: MainActivityArticleListAdapter
+var categoryId = ArrayList<Int>()
 
 abstract class BaseActivity : AppCompatActivity() {
     open fun onLogoClick(view: View) {
-        isMainScreen = true
-        startActivity(Intent(this, MainActivity::class.java))
+        if (!isMainScreen) {
+            isMainScreen = true
+            startActivity(Intent(this, MainActivity::class.java))
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId in 1..2131165251) {
             isMainScreen = false
+            categoryId.add(0, item.itemId)
             CORE_SPIRIT_API.setArticles(
                 articleAdapter,
                 item.itemId,

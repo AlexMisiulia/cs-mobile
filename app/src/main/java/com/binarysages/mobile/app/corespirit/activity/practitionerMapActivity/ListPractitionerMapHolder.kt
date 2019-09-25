@@ -1,6 +1,5 @@
 package com.binarysages.mobile.app.corespirit.activity.practitionerMapActivity
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -22,7 +21,6 @@ class ListPractitionerMapHolder(
 
     fun bind(practitioner: PractitionerModel) {
         itemView.setOnClickListener {
-            Log.d(">>>><<<", practitioner.toString())
             clickListener.practitionerCLick(practitioner)
         }
 

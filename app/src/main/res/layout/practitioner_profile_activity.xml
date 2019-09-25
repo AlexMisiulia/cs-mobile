@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <include layout="@layout/toolbar" />
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -15,43 +17,56 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/userCategoryPractitionerProfile"
-                    android:layout_width="wrap_content"
+                    style="@style/Practitioner.Category"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/userAvatarPractitionerProfile"
+                    style="@style/Practitioner.Avatar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:src="@mipmap/avatar_holder" />
 
                 <TextView
                     android:id="@+id/userNamePractitionerProfile"
-                    android:layout_width="wrap_content"
+                    style="@style/Practitioner.UserName"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Name hidden" />
+                    android:text="@string/default_practitioner_name" />
+
+                <TextView
+                    android:id="@+id/userNamePractitionerAddress"
+                    style="@style/Practitioner.Content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/userNamePractitionerPhone"
+                    style="@style/Practitioner.Content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/userNamePractitionerWedSite"
+                    style="@style/Practitioner.Content.URL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/userBioPractitionerProfile"
-                    android:layout_width="wrap_content"
+                    style="@style/Practitioner.BIO"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/border"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/userWebSitePractitionerInfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:visibility="gone" />
+                    android:background="@drawable/border" />
 
             </LinearLayout>
         </ScrollView>

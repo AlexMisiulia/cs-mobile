@@ -3,7 +3,6 @@ package com.binarysages.mobile.app.corespirit.activity.practitionerMapActivity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
@@ -26,12 +25,13 @@ class ListPractitionerActivity : BaseActivity() {
                 val intent =
                     Intent(this@ListPractitionerActivity, PractitionerInfoActivity::class.java)
                 val bundle = Bundle()
-                Log.d(">>>> IMG", practitioner.image.toString())
                 bundle.putSerializable("image", practitioner.image)
-                Log.d(">>>>", bundle.getSerializable("image").toString())
+                intent.putExtra("imgURL", bundle)
                 intent.putExtra("userName", practitioner.title)
                 intent.putExtra("bio", practitioner.bio)
-                intent.putExtra("imgURL", bundle)
+                intent.putExtra("address", practitioner.address)
+                intent.putExtra("webSite", practitioner.webSite)
+                intent.putExtra("phone", practitioner.phone)
                 startActivity(intent)
             }
         }

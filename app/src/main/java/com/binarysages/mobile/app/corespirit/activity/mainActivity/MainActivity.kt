@@ -1,8 +1,8 @@
 package com.binarysages.mobile.app.corespirit.activity.mainActivity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
@@ -17,12 +17,7 @@ import com.binarysages.mobile.app.corespirit.network.CORE_SPIRIT_API
 var articles: Array<ArticleModel>? = null
 
 class MainActivity : BaseActivity() {
-    override fun onLogoClick(view: View) {
-        if (!isMainScreen) {
-            super.onLogoClick(view)
-        }
-    }
-
+    @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(
             savedInstanceState,

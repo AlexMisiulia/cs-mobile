@@ -3,6 +3,7 @@ package com.binarysages.mobile.app.corespirit.activity.loadScreen
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Handler
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -21,13 +22,14 @@ class LoadScreenActivity : AppCompatActivity() {
     private lateinit var reloadButton: Button
 
     inner class LoadArticle : AsyncTask<Void, Void, Array<ArticleModel>>() {
+
         private val progressBar: ProgressBar = findViewById(R.id.loadScreenProgressBar)
+
         override fun onPostExecute(result: Array<ArticleModel>?) {
             super.onPostExecute(result)
             progressBar.visibility = ProgressBar.INVISIBLE
             if (result != null) {
                 this@LoadScreenActivity.articles = result
-
                 loadComplete()
             } else {
                 reloadButton.visibility = Button.VISIBLE
@@ -36,6 +38,10 @@ class LoadScreenActivity : AppCompatActivity() {
         }
 
         override fun onPreExecute() {
+            val asyncObj = this
+            Handler().postDelayed({
+                if (asyncObj.status != Status.FINISHED) asyncObj.cancel(true)
+            }, 10000)
             progressBar.visibility = ProgressBar.VISIBLE
             super.onPreExecute()
         }

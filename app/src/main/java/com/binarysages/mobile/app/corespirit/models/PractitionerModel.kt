@@ -8,6 +8,9 @@ data class PractitionerModel(
     @SerializedName("title") val title: String?,
     @SerializedName("image") val image: ImageModel?,
     @SerializedName("content") val bio: String?,
+    @SerializedName("site") val webSite: String?,
+    @SerializedName("phone") val phone: String?,
+    @SerializedName("location") val address: String?,
     @SerializedName("categories") val category: Array<Categories>?
 ) {
     inner class Categories(
