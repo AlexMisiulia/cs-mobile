@@ -1,28 +1,45 @@
 package com.binarysages.mobile.app.corespirit.activity.mainActivity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.activity.BaseActivity
 import com.binarysages.mobile.app.corespirit.activity.articleActivity.ArticleItemActivity
-import com.binarysages.mobile.app.corespirit.activity.articleAdapter
 import com.binarysages.mobile.app.corespirit.activity.isMainScreen
 import com.binarysages.mobile.app.corespirit.activity.itemID
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.network.CORE_SPIRIT_API
 
-var articles: Array<ArticleModel>? = null
-
 class MainActivity : BaseActivity() {
-    override fun onLogoClick(view: View) {
-        if (!isMainScreen) {
-            super.onLogoClick(view)
+    private var articles: Array<ArticleModel>
+    private var articleAdapter: MainActivityArticleListAdapter
+
+    init {
+        //        set what listener must do
+        val listener = object : MainActivityArticleListAdapter.OnArticleClickListener {
+            override fun onArticleClick(articleModel: ArticleModel?) {
+                val intent = Intent(this@MainActivity, ArticleItemActivity::class.java)
+                val bundle = Bundle()
+                bundle.putSerializable("articles", articleModel)
+                intent.putExtra("BUNDLE", bundle)
+                isMainScreen = false
+                startActivity(intent)
+            }
         }
+
+        articles = CORE_SPIRIT_API.getArticles(itemID)
+
+        articleAdapter =
+            MainActivityArticleListAdapter(
+                articles,
+                listener
+            )
     }
 
+    @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(
             savedInstanceState,
@@ -38,24 +55,7 @@ class MainActivity : BaseActivity() {
         val manager = LinearLayoutManager(this)
         articlesRecyclerView.layoutManager = manager
 
-        //        set what listener must do
-        val listener = object : MainActivityArticleListAdapter.OnArticleClickListener {
-            override fun onArticleClick(articleModel: ArticleModel?) {
-                val intent = Intent(this@MainActivity, ArticleItemActivity::class.java)
-                val bundle = Bundle()
-                bundle.putSerializable("articles", articleModel)
-                intent.putExtra("BUNDLE", bundle)
-                isMainScreen = false
-                startActivity(intent)
-            }
-        }
-
         //        add listener to adapter
-        articleAdapter =
-            MainActivityArticleListAdapter(
-                articles,
-                listener
-            )
         articlesRecyclerView.adapter = articleAdapter
 
 //        add on scroll listener for infinity scroll

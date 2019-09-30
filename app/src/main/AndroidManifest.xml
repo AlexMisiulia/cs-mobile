@@ -7,12 +7,15 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@mipmap/icon"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_launcher"
+        android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".activity.practitionerMapActivity.ListPractitionerActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.privacyActivity.PrivacyActivity"
             android:screenOrientation="portrait" />
@@ -42,6 +45,8 @@
         <activity
             android:name=".activity.mainActivity.MainActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.practitionerProfileActivity.PractitionerInfoActivity"
+            android:screenOrientation="portrait" />
     </application>
-
 </manifest>

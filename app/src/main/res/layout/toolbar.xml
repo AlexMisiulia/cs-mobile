@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="top"
+    android:layout_gravity="center"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarTop"
-        style="@style/AppTheme"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:theme="@style/Toolbar"
         android:layout_height="wrap_content"
         android:layout_gravity="end">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="65dp"
                 android:onClick="onLogoClick"
-                android:src="@drawable/logo" />
+                android:src="@mipmap/logo" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 

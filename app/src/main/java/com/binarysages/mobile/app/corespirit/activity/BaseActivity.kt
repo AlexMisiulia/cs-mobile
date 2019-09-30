@@ -9,30 +9,27 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.activity.mainActivity.MainActivity
-import com.binarysages.mobile.app.corespirit.activity.mainActivity.MainActivityArticleListAdapter
 import com.binarysages.mobile.app.corespirit.menus.generateMenuFromTree
 import com.binarysages.mobile.app.corespirit.menus.generateUserMenu
-import com.binarysages.mobile.app.corespirit.network.CORE_SPIRIT_API
 
 var itemID: Int? = null
 var isMainScreen: Boolean = true
 
-lateinit var articleAdapter: MainActivityArticleListAdapter
+var categoryId = ArrayList<Int>()
 
 abstract class BaseActivity : AppCompatActivity() {
     open fun onLogoClick(view: View) {
-        isMainScreen = true
-        startActivity(Intent(this, MainActivity::class.java))
+        if (!isMainScreen) {
+            isMainScreen = true
+            startActivity(Intent(this, MainActivity::class.java))
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId in 1..2131165251) {
             isMainScreen = false
-            CORE_SPIRIT_API.setArticles(
-                articleAdapter,
-                item.itemId,
-                findViewById(R.id.loadArticlesLayout)
-            )
+            categoryId.add(0, item.itemId)
+            startActivity(Intent(this, MainActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }
@@ -40,6 +37,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_activity_menu, menu)
         generateMenuFromTree(menu)
+
         generateUserMenu(menu, null, this)
         return super.onCreateOptionsMenu(menu)
     }

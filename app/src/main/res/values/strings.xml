@@ -9,4 +9,5 @@
     <string name="enter_password">Enter password</string>
     <string name="enter_login">Enter login</string>
     <string name="notFound">woops! Nothing found :(</string>
+    <string name="default_practitioner_name">Name hidden</string>
 </resources>

@@ -6,6 +6,7 @@ import android.view.Menu
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.activity.aboutUsActivity.AboutUsActivity
 import com.binarysages.mobile.app.corespirit.activity.loginActivity.LoginActivity
+import com.binarysages.mobile.app.corespirit.activity.practitionerMapActivity.ListPractitionerActivity
 import com.binarysages.mobile.app.corespirit.activity.privacyActivity.PrivacyActivity
 import com.binarysages.mobile.app.corespirit.activity.termsActivity.TermsActivity
 
@@ -33,7 +34,13 @@ fun generateUserMenu(menu: Menu?, newRole: String?, activity: Activity) {
     }
 
     val userMenuBecomePr = userMenu?.subMenu?.findItem(R.id.userMenuBecomePr)
+
     val userMenuPractitioners = userMenu?.subMenu?.findItem(R.id.userMenuPractitioners)
+    userMenuPractitioners?.setOnMenuItemClickListener {
+        activity.startActivity(Intent(activity, ListPractitionerActivity::class.java))
+        return@setOnMenuItemClickListener true
+    }
+
     val userMenuAccount = userMenu?.subMenu?.findItem(R.id.userMenuAccount)
     val userMenuMyServices = userMenu?.subMenu?.findItem(R.id.userMenuMyServices)
     val userMenuNewArticle = userMenu?.subMenu?.findItem(R.id.userMenuNewArticle)
@@ -78,7 +85,7 @@ fun generateUserMenu(menu: Menu?, newRole: String?, activity: Activity) {
         else -> {
             userMenuLogIn?.isVisible = false
             userMenuBecomePr?.isVisible = false
-            userMenuPractitioners?.isVisible = false
+            userMenuPractitioners?.isVisible = true
             userMenuAccount?.isVisible = false
             userMenuMyServices?.isVisible = false
             userMenuNewArticle?.isVisible = false

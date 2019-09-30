@@ -7,7 +7,6 @@ import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.activity.BaseActivity
 
 class PrivacyActivity : BaseActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_privacy)
         findViewById<TextView>(R.id.privacy).text = Html.fromHtml(

@@ -1,7 +1,7 @@
 package com.binarysages.mobile.app.corespirit.network
 
 import android.os.AsyncTask
-import android.os.Bundle
+import android.util.Log
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.binarysages.mobile.app.corespirit.activity.mainActivity.MainActivityArticleListAdapter
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
@@ -76,6 +76,16 @@ class CoreSpiritAPI {
         return GetArticleTree().execute().get()
     }
 
+    fun getArticles(categoryId: Int? = null): Array<ArticleModel> {
+        Log.d(">>>>>", categoryId.toString())
+        categoryId?.let {
+            return GetArticleByID { it }.execute().get()
+        } ?: run {
+            return GetArticles {
+            }.execute().get()
+        }
+    }
+
     //    add articles to exist list
     fun addArticles(adapter: MainActivityArticleListAdapter, categoryId: Int? = null) {
         categoryId?.let {
@@ -106,24 +116,6 @@ class CoreSpiritAPI {
                 adapter.setArticles(result)
                 adapter.notifyDataSetChanged()
             }.execute()
-        }
-    }
-
-    fun saveArticlesToBundle(
-        adapter: MainActivityArticleListAdapter,
-        categoryId: Int? = null,
-        linearLayout: ConstraintLayout,
-        bundle: Bundle
-    ) {
-        this.layoutProgressBar = linearLayout
-        categoryId?.let {
-            GetArticleByID { result ->
-                adapter.setArticles(result)
-            }.execute(it).get()
-        } ?: run {
-            GetArticles { result ->
-                adapter.setArticles(result)
-            }.execute().get()
         }
     }
 }
