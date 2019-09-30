@@ -21,6 +21,7 @@ abstract class BaseActivity : AppCompatActivity() {
     open fun onLogoClick(view: View) {
         if (!isMainScreen) {
             isMainScreen = true
+            itemID = null
             startActivity(Intent(this, MainActivity::class.java))
         }
     }
