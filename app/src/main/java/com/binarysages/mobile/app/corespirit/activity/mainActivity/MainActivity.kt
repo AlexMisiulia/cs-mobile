@@ -9,7 +9,7 @@ import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.activity.BaseActivity
 import com.binarysages.mobile.app.corespirit.activity.articleActivity.ArticleItemActivity
 import com.binarysages.mobile.app.corespirit.activity.isMainScreen
-import com.binarysages.mobile.app.corespirit.activity.itemID
+import com.binarysages.mobile.app.corespirit.activity.itemId
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.network.CORE_SPIRIT_API
 
@@ -30,7 +30,7 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        articles = CORE_SPIRIT_API.getArticles(itemID)
+        articles = CORE_SPIRIT_API.getArticles(itemId)
 
         articleAdapter =
             MainActivityArticleListAdapter(
@@ -64,10 +64,10 @@ class MainActivity : BaseActivity() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     if (manager.itemCount - 3 == manager.findLastVisibleItemPosition()) {
-                        if (itemID != null) {
+                        if (itemId != null) {
                             CORE_SPIRIT_API.addArticles(
                                 articleAdapter,
-                                itemID
+                                itemId
                             )
                         } else {
                             CORE_SPIRIT_API.addArticles(articleAdapter)

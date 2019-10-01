@@ -12,16 +12,15 @@ import com.binarysages.mobile.app.corespirit.activity.mainActivity.MainActivity
 import com.binarysages.mobile.app.corespirit.menus.generateMenuFromTree
 import com.binarysages.mobile.app.corespirit.menus.generateUserMenu
 
-var itemID: Int? = null
 var isMainScreen: Boolean = true
-
 var categoryId = ArrayList<Int>()
+var itemId: Int? = null
 
 abstract class BaseActivity : AppCompatActivity() {
     open fun onLogoClick(view: View) {
         if (!isMainScreen) {
             isMainScreen = true
-            itemID = null
+            itemId = null
             startActivity(Intent(this, MainActivity::class.java))
         }
     }
@@ -38,7 +37,6 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_activity_menu, menu)
         generateMenuFromTree(menu)
-
         generateUserMenu(menu, null, this)
         return super.onCreateOptionsMenu(menu)
     }

@@ -5,35 +5,30 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.activity.mainActivity.MainActivity
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
+import com.bumptech.glide.Glide
 import com.google.gson.GsonBuilder
-import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_load_screen_activty.*
 import java.net.URL
 
 class LoadScreenActivity : AppCompatActivity() {
     private lateinit var articles: Array<ArticleModel>
-    private lateinit var logo: ImageView
-    private lateinit var reloadButton: Button
 
     inner class LoadArticle : AsyncTask<Void, Void, Array<ArticleModel>>() {
-
-        private val progressBar: ProgressBar = findViewById(R.id.loadScreenProgressBar)
-
         override fun onPostExecute(result: Array<ArticleModel>?) {
             super.onPostExecute(result)
-            progressBar.visibility = ProgressBar.INVISIBLE
+            loadScreenProgressBar.visibility = ProgressBar.GONE
             if (result != null) {
                 this@LoadScreenActivity.articles = result
                 loadComplete()
             } else {
-                reloadButton.visibility = Button.VISIBLE
-                findViewById<TextView>(R.id.loadScreenErrorMsg).visibility = TextView.VISIBLE
+                reloadLoadScreenButton.visibility = Button.VISIBLE
+                loadScreenErrorMsg.visibility = TextView.VISIBLE
             }
         }
 
@@ -42,7 +37,7 @@ class LoadScreenActivity : AppCompatActivity() {
             Handler().postDelayed({
                 if (asyncObj.status != Status.FINISHED) asyncObj.cancel(true)
             }, 10000)
-            progressBar.visibility = ProgressBar.VISIBLE
+            loadScreenProgressBar.visibility = ProgressBar.VISIBLE
             super.onPreExecute()
         }
 
@@ -81,19 +76,15 @@ class LoadScreenActivity : AppCompatActivity() {
             R.anim.fadein,
             R.anim.fadeout
         )
-
-//        find elements in this activity
-        reloadButton = findViewById(R.id.reloadLoadScreenButton)
-        logo = findViewById(R.id.loadScreenImage)
-
-//        add visibility on button
-        reloadButton.visibility = Button.INVISIBLE
 //        set Logo
-        Picasso.get().load(R.mipmap.logo).into(logo)
-        reloadButton.setOnClickListener {
+        Glide
+            .with(this)
+            .load(R.mipmap.logo)
+            .into(loadScreenImage)
+
+        reloadLoadScreenButton.setOnClickListener {
             reloadActivity()
         }
-        reloadButton.visibility = Button.INVISIBLE
     }
 
 }
