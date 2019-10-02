@@ -8,7 +8,9 @@ import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.models.ArticleTree
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.google.gson.JsonObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.net.URL
 
 val CORE_SPIRIT_API: CoreSpiritAPI = CoreSpiritAPI()
@@ -31,16 +33,25 @@ class CoreSpiritAPI {
             super.onPreExecute()
         }
 
-        override fun doInBackground(vararg p0: Int?): Array<ArticleModel> {
-            val s = p0[0].toString()
-            val res =
-                URL("$baseURL/Categories/$s/articles").readText()
-            return Gson().fromJson(
-                Gson().fromJson(
-                    res,
-                    JsonObject::class.java
-                ).getAsJsonArray("articles"), Array<ArticleModel>::class.java
-            )
+        override fun doInBackground(vararg p0: Int?): Array<ArticleModel>? {
+            var articles: Array<ArticleModel>? = null
+            NetworkService
+                .getInstance()
+                .getJsonApi()
+                .getArticlesWithID(p0[0]!!.toInt())
+                .enqueue(object : Callback<Array<ArticleModel>> {
+                    override fun onFailure(call: Call<Array<ArticleModel>>, t: Throwable) {
+                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onResponse(
+                        call: Call<Array<ArticleModel>>,
+                        response: Response<Array<ArticleModel>>
+                    ) {
+                        articles = response.body()!!
+                    }
+                })
+            return articles
         }
     }
 
