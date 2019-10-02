@@ -12,6 +12,10 @@ import com.binarysages.mobile.app.corespirit.activity.isMainScreen
 import com.binarysages.mobile.app.corespirit.activity.itemId
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.network.CORE_SPIRIT_API
+import com.binarysages.mobile.app.corespirit.network.NetworkService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : BaseActivity() {
     private var articles: Array<ArticleModel>
@@ -64,12 +68,28 @@ class MainActivity : BaseActivity() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     if (manager.itemCount - 3 == manager.findLastVisibleItemPosition()) {
-                        if (itemId != null) {
-                            CORE_SPIRIT_API.addArticles(
-                                articleAdapter,
-                                itemId
-                            )
-                        } else {
+                        itemId?.let {
+                            NetworkService
+                                .getInstance()
+                                .getJsonApi()
+                                .getArticlesWithID(it)
+                                .enqueue(object : Callback<Array<ArticleModel>> {
+                                    override fun onFailure(
+                                        call: Call<Array<ArticleModel>>,
+                                        t: Throwable
+                                    ) {
+
+                                    }
+
+                                    override fun onResponse(
+                                        call: Call<Array<ArticleModel>>,
+                                        response: Response<Array<ArticleModel>>
+                                    ) {
+                                        articleAdapter.addArticles(response.body()!!)
+                                        articleAdapter.notifyDataSetChanged()
+                                    }
+                                })
+                        } ?: run {
                             CORE_SPIRIT_API.addArticles(articleAdapter)
                         }
                     }
