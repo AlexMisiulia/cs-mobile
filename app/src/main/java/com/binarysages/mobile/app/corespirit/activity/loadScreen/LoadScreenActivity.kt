@@ -1,72 +1,31 @@
 package com.binarysages.mobile.app.corespirit.activity.loadScreen
 
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Bundle
-import android.os.Handler
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.activity.mainActivity.MainActivity
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
+import com.binarysages.mobile.app.corespirit.network.NetworkService
 import com.bumptech.glide.Glide
-import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_load_screen_activty.*
-import java.net.URL
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoadScreenActivity : AppCompatActivity() {
-    private lateinit var articles: Array<ArticleModel>
-
-    inner class LoadArticle : AsyncTask<Void, Void, Array<ArticleModel>>() {
-        override fun onPostExecute(result: Array<ArticleModel>?) {
-            super.onPostExecute(result)
-            loadScreenProgressBar.visibility = ProgressBar.GONE
-            if (result != null) {
-                this@LoadScreenActivity.articles = result
-                loadComplete()
-            } else {
-                reloadLoadScreenButton.visibility = Button.VISIBLE
-                loadScreenErrorMsg.visibility = TextView.VISIBLE
-            }
-        }
-
-        override fun onPreExecute() {
-            val asyncObj = this
-            Handler().postDelayed({
-                if (asyncObj.status != Status.FINISHED) asyncObj.cancel(true)
-            }, 10000)
-            loadScreenProgressBar.visibility = ProgressBar.VISIBLE
-            super.onPreExecute()
-        }
-
-        override fun doInBackground(vararg p0: Void?): Array<ArticleModel> {
-            val res =
-                URL("https://corespirit.com/api/Articles/loadArticles?&skip=0").readText()
-            return GsonBuilder()
-                .serializeNulls()
-                .create()
-                .fromJson<Array<ArticleModel>>(res, Array<ArticleModel>::class.java)
-        }
-    }
-
     private fun reloadActivity() {
         finish()
         startActivity(intent)
     }
 
-    private fun loadComplete() {
+    private fun loadComplete(articles: Array<ArticleModel>) {
         val intent = Intent(this, MainActivity::class.java)
         val bundle = Bundle()
         bundle.putSerializable("articles", articles)
         intent.putExtra("BUNDLE", bundle)
         startActivity(intent)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        LoadArticle().execute()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,6 +44,25 @@ class LoadScreenActivity : AppCompatActivity() {
         reloadLoadScreenButton.setOnClickListener {
             reloadActivity()
         }
-    }
+        Log.d(">>>", "Strart network")
+        NetworkService
+            .getInstance()
+            .getJsonApi()
+            .getArticlesWithOutID()
+            .enqueue(object : Callback<Array<ArticleModel>> {
+                override fun onFailure(call: Call<Array<ArticleModel>>, t: Throwable) {
+                    Log.d(">>>>", "In Fail")
+                    call.cancel()
+                }
 
+                override fun onResponse(
+                    call: Call<Array<ArticleModel>>,
+                    response: Response<Array<ArticleModel>>
+                ) {
+                    response.body()?.let {
+                        loadComplete(it)
+                    }
+                }
+            })
+    }
 }

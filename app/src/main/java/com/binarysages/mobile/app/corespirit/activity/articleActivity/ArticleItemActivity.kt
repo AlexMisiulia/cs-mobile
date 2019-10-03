@@ -35,6 +35,7 @@ class ArticleItemActivity : BaseActivity() {
                 articleImg.visibility = ImageView.VISIBLE
             }
         }
+
         articleAuthorItem.text = articleModel?.articleAuthor
         articleTitleItem.text = articleModel?.articleTitle
         articleContentItem.text = Html.fromHtml(articleModel?.articleContent)

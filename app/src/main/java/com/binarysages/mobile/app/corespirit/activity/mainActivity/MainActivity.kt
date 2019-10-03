@@ -3,6 +3,7 @@ package com.binarysages.mobile.app.corespirit.activity.mainActivity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
@@ -13,6 +14,7 @@ import com.binarysages.mobile.app.corespirit.activity.itemId
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.network.CORE_SPIRIT_API
 import com.binarysages.mobile.app.corespirit.network.NetworkService
+import kotlinx.android.synthetic.main.load_more_layout.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,6 +45,12 @@ class MainActivity : BaseActivity() {
             )
     }
 
+    private fun addArticles(articles: Array<ArticleModel>) {
+        articleAdapter.addArticles(articles)
+        articleAdapter.notifyDataSetChanged()
+        LOAD_MORE_LAYOUT.visibility = ConstraintLayout.GONE
+    }
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(
@@ -68,32 +76,31 @@ class MainActivity : BaseActivity() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     if (manager.itemCount - 3 == manager.findLastVisibleItemPosition()) {
-                        itemId?.let {
-                            NetworkService
-                                .getInstance()
-                                .getJsonApi()
-                                .getArticlesWithID(it)
-                                .enqueue(object : Callback<Array<ArticleModel>> {
-                                    override fun onFailure(
-                                        call: Call<Array<ArticleModel>>,
-                                        t: Throwable
-                                    ) {
+                        NetworkService
+                            .getInstance()
+                            .getJsonApi()
+                            .getArticle(itemId)
+                            .enqueue(object : Callback<Array<ArticleModel>> {
+                                override fun onFailure(
+                                    call: Call<Array<ArticleModel>>,
+                                    t: Throwable
+                                ) {
+                                    call.cancel()
+                                }
 
+                                override fun onResponse(
+                                    call: Call<Array<ArticleModel>>,
+                                    response: Response<Array<ArticleModel>>
+                                ) {
+                                    response.body()?.let {
+                                        addArticles(it)
                                     }
-
-                                    override fun onResponse(
-                                        call: Call<Array<ArticleModel>>,
-                                        response: Response<Array<ArticleModel>>
-                                    ) {
-                                        articleAdapter.addArticles(response.body()!!)
-                                        articleAdapter.notifyDataSetChanged()
-                                    }
-                                })
-                        } ?: run {
-                            CORE_SPIRIT_API.addArticles(articleAdapter)
-                        }
+                                }
+                            }
+                            )
                     }
                 }
-            })
+            }
+        )
     }
 }
