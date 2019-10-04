@@ -7,10 +7,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.activity.BaseActivity
+import com.binarysages.mobile.app.corespirit.activity.isMainScreen
 import com.binarysages.mobile.app.corespirit.activity.practitionerProfileActivity.PractitionerInfoActivity
 import com.binarysages.mobile.app.corespirit.models.PractitionerModel
 
 class ListPractitionerActivity : BaseActivity() {
+    init {
+        isMainScreen = false
+    }
+    
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.list_practitioner_map_layout)

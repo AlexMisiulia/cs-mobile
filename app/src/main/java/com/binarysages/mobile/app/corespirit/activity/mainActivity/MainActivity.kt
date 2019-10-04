@@ -12,6 +12,7 @@ import com.binarysages.mobile.app.corespirit.activity.articleActivity.ArticleIte
 import com.binarysages.mobile.app.corespirit.activity.isMainScreen
 import com.binarysages.mobile.app.corespirit.activity.itemId
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
+import com.binarysages.mobile.app.corespirit.models.ArticlesModel
 import com.binarysages.mobile.app.corespirit.network.CORE_SPIRIT_API
 import com.binarysages.mobile.app.corespirit.network.NetworkService
 import kotlinx.android.synthetic.main.load_more_layout.*
@@ -20,12 +21,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : BaseActivity() {
-    private var articles: Array<ArticleModel>
-    private var articleAdapter: MainActivityArticleListAdapter
+    private lateinit var articles: Array<ArticleModel>
+    private lateinit var articleAdapter: MainActivityArticleListAdapter
+    private var listener: MainActivityArticleListAdapter.OnArticleClickListener
 
     init {
         //        set what listener must do
-        val listener = object : MainActivityArticleListAdapter.OnArticleClickListener {
+        listener = object : MainActivityArticleListAdapter.OnArticleClickListener {
             override fun onArticleClick(articleModel: ArticleModel?) {
                 val intent = Intent(this@MainActivity, ArticleItemActivity::class.java)
                 val bundle = Bundle()
@@ -35,14 +37,6 @@ class MainActivity : BaseActivity() {
                 startActivity(intent)
             }
         }
-
-        articles = CORE_SPIRIT_API.getArticles(itemId)
-
-        articleAdapter =
-            MainActivityArticleListAdapter(
-                articles,
-                listener
-            )
     }
 
     private fun addArticles(articles: Array<ArticleModel>) {
@@ -61,7 +55,15 @@ class MainActivity : BaseActivity() {
 //        check articles bundle. In empty - we come not from load screen
         intent.getBundleExtra("BUNDLE")?.let {
             articles = it.getSerializable("articles") as Array<ArticleModel>
+        } ?: run {
+            articles = CORE_SPIRIT_API.getArticles()
         }
+
+        articleAdapter =
+            MainActivityArticleListAdapter(
+                articles,
+                listener
+            )
 
         val articlesRecyclerView: RecyclerView = findViewById(R.id.articlesRecycleViewList)
         val manager = LinearLayoutManager(this)
@@ -80,19 +82,19 @@ class MainActivity : BaseActivity() {
                             .getInstance()
                             .getJsonApi()
                             .getArticle(itemId)
-                            .enqueue(object : Callback<Array<ArticleModel>> {
+                            .enqueue(object : Callback<ArticlesModel> {
                                 override fun onFailure(
-                                    call: Call<Array<ArticleModel>>,
+                                    call: Call<ArticlesModel>,
                                     t: Throwable
                                 ) {
                                     call.cancel()
                                 }
 
                                 override fun onResponse(
-                                    call: Call<Array<ArticleModel>>,
-                                    response: Response<Array<ArticleModel>>
+                                    call: Call<ArticlesModel>,
+                                    response: Response<ArticlesModel>
                                 ) {
-                                    response.body()?.let {
+                                    response.body()?.data?.articles?.let {
                                         addArticles(it)
                                     }
                                 }

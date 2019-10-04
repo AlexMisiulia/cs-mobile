@@ -1,9 +1,7 @@
 package com.binarysages.mobile.app.corespirit.network
 
 import android.os.AsyncTask
-import android.util.Log
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.binarysages.mobile.app.corespirit.activity.mainActivity.MainActivityArticleListAdapter
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.models.ArticleTree
 import com.google.gson.Gson
@@ -88,7 +86,6 @@ class CoreSpiritAPI {
     }
 
     fun getArticles(categoryId: Int? = null): Array<ArticleModel> {
-        Log.d(">>>>>", categoryId.toString())
         categoryId?.let {
             return GetArticleByID { it }.execute().get()
         } ?: run {
@@ -97,36 +94,4 @@ class CoreSpiritAPI {
         }
     }
 
-    //    add articles to exist list
-    fun addArticles(adapter: MainActivityArticleListAdapter, categoryId: Int? = null) {
-        categoryId?.let {
-            GetArticleByID { result ->
-                adapter.addArticles(result)
-            }.execute(it)
-        } ?: kotlin.run {
-            GetArticles { result ->
-                adapter.addArticles(result)
-            }.execute()
-        }
-    }
-
-    //    Reload article adapter with new categories
-    fun setArticles(
-        adapter: MainActivityArticleListAdapter,
-        categoryId: Int? = null,
-        linearLayout: ConstraintLayout
-    ) {
-        this.layoutProgressBar = linearLayout
-        categoryId?.let {
-            GetArticleByID { result ->
-                adapter.setArticles(result)
-                adapter.notifyDataSetChanged()
-            }.execute(it)
-        } ?: run {
-            GetArticles { result ->
-                adapter.setArticles(result)
-                adapter.notifyDataSetChanged()
-            }.execute()
-        }
-    }
 }

@@ -1,17 +1,17 @@
 package com.binarysages.mobile.app.corespirit.activity.practitionerMapActivity
 
-import android.os.AsyncTask
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
-import com.binarysages.mobile.app.corespirit.activity.categoryId
 import com.binarysages.mobile.app.corespirit.models.PractitionerModel
-import com.google.gson.Gson
-import com.google.gson.JsonObject
-import java.net.URL
+import com.binarysages.mobile.app.corespirit.models.PractitionersModel
+import com.binarysages.mobile.app.corespirit.network.NetworkService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class ListPractitionerAdapter(
@@ -24,45 +24,30 @@ class ListPractitionerAdapter(
         fun practitionerCLick(practitioner: PractitionerModel): Unit
     }
 
-    private var practitionerList: Array<PractitionerModel> =
-        getRelatedPractitioners {
-        }.execute(0).get()
+    private var practitionerList: Array<PractitionerModel>? = Array(0, PractitionersModel)
+
 
     fun addPractitioner(count: Int = 0, itemVIew: ConstraintLayout? = null) {
         itemVIew?.let {
             this.itemVIew = it
-        }
-        getRelatedPractitioners { result ->
-            practitionerList += result
             this.notifyDataSetChanged()
-        }.execute(count)
-    }
+        }
 
-    private inner class getRelatedPractitioners(val callback: (Array<PractitionerModel>) -> Unit) :
-        AsyncTask<Int, Void, Array<PractitionerModel>>() {
-        private val baseURL: String = "https://corespirit.com/"
+        NetworkService.getInstance().getJsonApi().getPractitioner(itemCount).enqueue(
+            object : Callback<PractitionersModel> {
+                override fun onFailure(call: Call<PractitionersModel>, t: Throwable) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
 
-        override fun onPostExecute(result: Array<PractitionerModel>?) {
-            result?.let {
-                callback(it)
+                override fun onResponse(
+                    call: Call<PractitionersModel>,
+                    response: Response<PractitionersModel>
+                ) {
+                    practitionerList = practitionerList?.plus(response.body()?.data!!)
+                    notifyDataSetChanged()
+                }
             }
-            itemVIew.visibility = ConstraintLayout.GONE
-            super.onPostExecute(result)
-        }
-
-        override fun onPreExecute() {
-            itemVIew.visibility = ConstraintLayout.VISIBLE
-            super.onPreExecute()
-        }
-
-        override fun doInBackground(vararg params: Int?): Array<PractitionerModel> {
-            return Gson().fromJson(
-                Gson().fromJson(
-                    URL(baseURL + "api/v1/practitioners/loadPractitioners?offset=${params[0]}&categoryIds=$categoryId").readText(),
-                    JsonObject::class.java
-                ).getAsJsonArray("data"), Array<PractitionerModel>::class.java
-            )
-        }
+        )
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListPractitionerMapHolder {
@@ -74,12 +59,10 @@ class ListPractitionerAdapter(
     }
 
     override fun getItemCount(): Int {
-        return practitionerList.size
+        return practitionerList?.size!!
     }
 
     override fun onBindViewHolder(holder: ListPractitionerMapHolder, position: Int) {
-        holder.bind(practitionerList[position])
+        practitionerList?.get(position)?.let { holder.bind(it) }
     }
-
-
 }

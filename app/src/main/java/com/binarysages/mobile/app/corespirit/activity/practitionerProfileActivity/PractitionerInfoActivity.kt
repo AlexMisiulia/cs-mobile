@@ -8,12 +8,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.activity.BaseActivity
+import com.binarysages.mobile.app.corespirit.activity.isMainScreen
 import com.binarysages.mobile.app.corespirit.models.ImageModel
 import com.binarysages.mobile.app.corespirit.network.getURL
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 class PractitionerInfoActivity : BaseActivity() {
+    init {
+        isMainScreen = false
+    }
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.practitioner_profile_activity)

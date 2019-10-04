@@ -3,7 +3,7 @@ package com.binarysages.mobile.app.corespirit.network
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val BASE_URL = "https://corespirit.com/api/"
+private const val BASE_URL = "https://corespirit.com/api/v1/"
 private var mInstance: NetworkService? = null
 
 class NetworkService private constructor(

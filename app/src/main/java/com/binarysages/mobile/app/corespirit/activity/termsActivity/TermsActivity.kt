@@ -5,8 +5,12 @@ import android.text.Html
 import android.widget.TextView
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.activity.BaseActivity
+import com.binarysages.mobile.app.corespirit.activity.isMainScreen
 
 class TermsActivity : BaseActivity() {
+    init {
+        isMainScreen = false
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.activity_terms)
