@@ -73,7 +73,11 @@ class HorizontalCarouselRecyclerView(
                     viewToChangeColor.imageAlpha = (255 * alphaPercent).toInt()
                 }
                 is TextView -> {
-                    val textColor = ArgbEvaluator().evaluate(saturationPercent, inactiveColor, activeColor) as Int
+                    val textColor = ArgbEvaluator().evaluate(
+                        saturationPercent,
+                        inactiveColor,
+                        activeColor
+                    ) as Int
                     viewToChangeColor.setTextColor(textColor)
                 }
             }

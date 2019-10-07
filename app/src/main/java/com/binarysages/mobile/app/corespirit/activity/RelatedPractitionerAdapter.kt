@@ -1,4 +1,5 @@
 package com.binarysages.mobile.app.corespirit.activity
+
 //
 //import android.view.LayoutInflater
 //import android.view.View

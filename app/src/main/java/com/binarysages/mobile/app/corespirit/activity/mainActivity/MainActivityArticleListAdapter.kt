@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide
 
 
 class MainActivityArticleListAdapter(
-    private var articlesListArray: Array<ArticleModel>?,
+    private var articlesListArray: Array<ArticleModel> = arrayOf(),
     private val articleClickListener: OnArticleClickListener
 ) : RecyclerView.Adapter<MainActivityArticleListAdapter.ArticleViewHolder>() {
 
@@ -25,7 +25,7 @@ class MainActivityArticleListAdapter(
     }
 
     fun addArticles(articles: Array<ArticleModel>) {
-        articlesListArray = articlesListArray?.plus(articles)
+        articlesListArray = articlesListArray.plus(articles)
     }
 
     //    Interface listener

@@ -23,7 +23,7 @@
             android:name=".activity.termsActivity.TermsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.aboutUsActivity.AboutUsActivity"
+            android:name=".activity.staticPageActivity.StaticPageActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.loadScreen.LoadScreenActivity"

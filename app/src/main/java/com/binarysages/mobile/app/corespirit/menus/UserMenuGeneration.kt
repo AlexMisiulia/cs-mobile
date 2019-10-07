@@ -4,11 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.view.Menu
 import com.binarysages.mobile.app.corespirit.R
-import com.binarysages.mobile.app.corespirit.activity.aboutUsActivity.AboutUsActivity
 import com.binarysages.mobile.app.corespirit.activity.loginActivity.LoginActivity
 import com.binarysages.mobile.app.corespirit.activity.practitionerMapActivity.ListPractitionerActivity
-import com.binarysages.mobile.app.corespirit.activity.privacyActivity.PrivacyActivity
-import com.binarysages.mobile.app.corespirit.activity.termsActivity.TermsActivity
+import com.binarysages.mobile.app.corespirit.activity.staticPageActivity.StaticPageActivity
 
 private var role: String? = null
 
@@ -47,19 +45,25 @@ fun generateUserMenu(menu: Menu?, newRole: String?, activity: Activity) {
     val userMenuAboutUs = userMenu?.subMenu?.findItem(R.id.userMenuAboutUs)
 
     userMenuAboutUs?.setOnMenuItemClickListener {
-        activity.startActivity(Intent(activity, AboutUsActivity::class.java))
+        val intent = Intent(activity, StaticPageActivity::class.java)
+        intent.putExtra("page", "about")
+        activity.startActivity(intent)
         return@setOnMenuItemClickListener true
     }
 
     val userMenuTerms = userMenu?.subMenu?.findItem(R.id.userMenuTerms)
     userMenuTerms?.setOnMenuItemClickListener {
-        activity.startActivity(Intent(activity, TermsActivity::class.java))
+        val intent = Intent(activity, StaticPageActivity::class.java)
+        intent.putExtra("page", "terms")
+        activity.startActivity(intent)
         return@setOnMenuItemClickListener true
     }
 
     val userPrivacy = userMenu?.subMenu?.findItem(R.id.userMenuPrivacy)
     userPrivacy?.setOnMenuItemClickListener {
-        activity.startActivity(Intent(activity, PrivacyActivity::class.java))
+        val intent = Intent(activity, StaticPageActivity::class.java)
+        intent.putExtra("page", "privacy")
+        activity.startActivity(intent)
         return@setOnMenuItemClickListener true
     }
 

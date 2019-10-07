@@ -7,15 +7,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.activity.BaseActivity
+import com.binarysages.mobile.app.corespirit.activity.categoryId
 import com.binarysages.mobile.app.corespirit.activity.isMainScreen
 import com.binarysages.mobile.app.corespirit.activity.practitionerProfileActivity.PractitionerInfoActivity
 import com.binarysages.mobile.app.corespirit.models.PractitionerModel
+import com.binarysages.mobile.app.corespirit.models.PractitionersModel
+import com.binarysages.mobile.app.corespirit.network.NetworkService
+import kotlinx.android.synthetic.main.load_activity_layout.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ListPractitionerActivity : BaseActivity() {
     init {
         isMainScreen = false
     }
-    
+
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState, R.layout.list_practitioner_map_layout)
@@ -41,7 +48,28 @@ class ListPractitionerActivity : BaseActivity() {
             }
         }
 
-        val practitionerAdapter = ListPractitionerAdapter(findViewById(R.id.LOAD_LAYOUT), listener)
+        val practitionerAdapter = ListPractitionerAdapter(
+            LOAD_LAYOUT,
+            listener
+        )
+
+        NetworkService
+            .getInstance()
+            .getJsonApi()
+            .getPractitioner(categoryId)
+            .enqueue(object : Callback<PractitionersModel> {
+                override fun onFailure(call: Call<PractitionersModel>, t: Throwable) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+
+                override fun onResponse(
+                    call: Call<PractitionersModel>,
+                    response: Response<PractitionersModel>
+                ) {
+                    practitionerAdapter.notifyChange(response.body()?.data!!)
+                }
+            })
+
         practitionerListRecycleView.adapter = practitionerAdapter
 
         practitionerListRecycleView.addOnScrollListener(
@@ -57,6 +85,7 @@ class ListPractitionerActivity : BaseActivity() {
                     }
                     count += 20
                 }
-            })
+            }
+        )
     }
 }

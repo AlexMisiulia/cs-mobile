@@ -2,7 +2,6 @@ package com.binarysages.mobile.app.corespirit.activity.loadScreen
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.activity.itemId
@@ -61,7 +60,6 @@ class LoadScreenActivity : AppCompatActivity() {
                     call: Call<ArticlesModel>,
                     response: Response<ArticlesModel>
                 ) {
-                    Log.d(">>>>>>>>>>", response.toString())
                     response.body()?.data?.articles?.let {
                         loadComplete(it)
                     }

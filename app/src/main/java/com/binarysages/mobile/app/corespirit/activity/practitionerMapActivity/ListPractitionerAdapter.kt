@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
+import com.binarysages.mobile.app.corespirit.activity.categoryId
 import com.binarysages.mobile.app.corespirit.models.PractitionerModel
 import com.binarysages.mobile.app.corespirit.models.PractitionersModel
 import com.binarysages.mobile.app.corespirit.network.NetworkService
@@ -16,7 +17,8 @@ import retrofit2.Response
 
 class ListPractitionerAdapter(
     var itemVIew: ConstraintLayout,
-    private val practitionerClickListener: onPractitionerClickListener
+    private val practitionerClickListener: onPractitionerClickListener,
+    private var practitionerList: Array<PractitionerModel> = arrayOf()
 ) :
     RecyclerView.Adapter<ListPractitionerMapHolder>() {
 
@@ -24,8 +26,10 @@ class ListPractitionerAdapter(
         fun practitionerCLick(practitioner: PractitionerModel): Unit
     }
 
-    private var practitionerList: Array<PractitionerModel>? = Array(0, PractitionersModel)
-
+    fun notifyChange(practitioners: Array<PractitionerModel>) {
+        practitionerList = practitioners
+        notifyDataSetChanged()
+    }
 
     fun addPractitioner(count: Int = 0, itemVIew: ConstraintLayout? = null) {
         itemVIew?.let {
@@ -33,7 +37,7 @@ class ListPractitionerAdapter(
             this.notifyDataSetChanged()
         }
 
-        NetworkService.getInstance().getJsonApi().getPractitioner(itemCount).enqueue(
+        NetworkService.getInstance().getJsonApi().getPractitioner(categoryId).enqueue(
             object : Callback<PractitionersModel> {
                 override fun onFailure(call: Call<PractitionersModel>, t: Throwable) {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -43,7 +47,7 @@ class ListPractitionerAdapter(
                     call: Call<PractitionersModel>,
                     response: Response<PractitionersModel>
                 ) {
-                    practitionerList = practitionerList?.plus(response.body()?.data!!)
+                    practitionerList = practitionerList.plus(response.body()?.data!!)
                     notifyDataSetChanged()
                 }
             }

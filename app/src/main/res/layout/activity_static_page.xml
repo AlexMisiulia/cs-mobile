@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.aboutUsActivity.AboutUsActivity">
+    tools:context=".activity.staticPageActivity.StaticPageActivity">
 
     <include layout="@layout/toolbar" />
 
@@ -23,17 +23,16 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/staticPageTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/playfairbold"
                     android:gravity="center"
-                    android:text="@string/about_us_title"
                     android:textSize="35sp" />
 
                 <TextView
-                    android:id="@+id/aboutUs"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/staticPageContent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10sp"
                     android:layout_marginTop="20sp"

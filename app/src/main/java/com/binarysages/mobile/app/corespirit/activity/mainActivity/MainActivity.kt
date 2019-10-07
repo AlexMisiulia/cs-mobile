@@ -85,11 +85,11 @@ class MainActivity : BaseActivity() {
 
 //        add on scroll listener for infinity scroll
         var offset = 10
+        var canLoad = true
         articlesRecyclerView.addOnScrollListener(
             object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    var canLoad = true
-
+                    super.onScrolled(recyclerView, dx, dy)
                     if ((manager.itemCount - 3 == manager.findLastVisibleItemPosition()) && canLoad) {
                         Log.d(
                             "#####1",
@@ -136,7 +136,6 @@ class MainActivity : BaseActivity() {
                                     ) {
                                         call.cancel()
                                     }
-
                                     override fun onResponse(
                                         call: Call<ArticlesModel>,
                                         response: Response<ArticlesModel>
