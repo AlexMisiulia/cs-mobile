@@ -3,7 +3,7 @@ package com.binarysages.mobile.app.corespirit.activity.mainActivity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
@@ -13,16 +13,15 @@ import com.binarysages.mobile.app.corespirit.activity.isMainScreen
 import com.binarysages.mobile.app.corespirit.activity.itemId
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.models.ArticlesModel
-import com.binarysages.mobile.app.corespirit.network.CORE_SPIRIT_API
+import com.binarysages.mobile.app.corespirit.models.ArticlesModelOld
 import com.binarysages.mobile.app.corespirit.network.NetworkService
-import kotlinx.android.synthetic.main.load_more_layout.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : BaseActivity() {
     private lateinit var articles: Array<ArticleModel>
-    private lateinit var articleAdapter: MainActivityArticleListAdapter
+    private var articleAdapter: MainActivityArticleListAdapter
     private var listener: MainActivityArticleListAdapter.OnArticleClickListener
 
     init {
@@ -37,12 +36,16 @@ class MainActivity : BaseActivity() {
                 startActivity(intent)
             }
         }
+
+        articleAdapter =
+            MainActivityArticleListAdapter(
+                articleClickListener = listener
+            )
     }
 
     private fun addArticles(articles: Array<ArticleModel>) {
         articleAdapter.addArticles(articles)
         articleAdapter.notifyDataSetChanged()
-        LOAD_MORE_LAYOUT.visibility = ConstraintLayout.GONE
     }
 
     @SuppressLint("MissingSuperCall")
@@ -55,15 +58,23 @@ class MainActivity : BaseActivity() {
 //        check articles bundle. In empty - we come not from load screen
         intent.getBundleExtra("BUNDLE")?.let {
             articles = it.getSerializable("articles") as Array<ArticleModel>
+            articleAdapter.setArticles(articles)
         } ?: run {
-            articles = CORE_SPIRIT_API.getArticles()
-        }
+            NetworkService.getInstance(true).getJsonApi()
+                .getArticlesOldApi(itemId)
+                .enqueue(object : Callback<ArticlesModelOld> {
+                    override fun onFailure(call: Call<ArticlesModelOld>, t: Throwable) {
+                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
 
-        articleAdapter =
-            MainActivityArticleListAdapter(
-                articles,
-                listener
-            )
+                    override fun onResponse(
+                        call: Call<ArticlesModelOld>,
+                        response: Response<ArticlesModelOld>
+                    ) {
+                        articleAdapter.setArticles(response.body()?.articles!!)
+                    }
+                })
+        }
 
         val articlesRecyclerView: RecyclerView = findViewById(R.id.articlesRecycleViewList)
         val manager = LinearLayoutManager(this)
@@ -73,33 +84,71 @@ class MainActivity : BaseActivity() {
         articlesRecyclerView.adapter = articleAdapter
 
 //        add on scroll listener for infinity scroll
+        var offset = 10
         articlesRecyclerView.addOnScrollListener(
             object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    if (manager.itemCount - 3 == manager.findLastVisibleItemPosition()) {
-                        NetworkService
-                            .getInstance()
-                            .getJsonApi()
-                            .getArticle(itemId)
-                            .enqueue(object : Callback<ArticlesModel> {
-                                override fun onFailure(
-                                    call: Call<ArticlesModel>,
-                                    t: Throwable
-                                ) {
-                                    call.cancel()
-                                }
+                    var canLoad = true
 
-                                override fun onResponse(
-                                    call: Call<ArticlesModel>,
-                                    response: Response<ArticlesModel>
-                                ) {
-                                    response.body()?.data?.articles?.let {
-                                        addArticles(it)
+                    if ((manager.itemCount - 3 == manager.findLastVisibleItemPosition()) && canLoad) {
+                        Log.d(
+                            "#####1",
+                            (manager.itemCount - 3 == manager.findLastVisibleItemPosition()).toString()
+                        )
+                        Log.d("#####2", canLoad.toString())
+                        Log.d(
+                            "#####3sudo",
+                            ((manager.itemCount - 3 == manager.findLastVisibleItemPosition()) && canLoad).toString()
+                        )
+                        canLoad = false
+                        itemId?.let {
+                            NetworkService
+                                .getInstance(true)
+                                .getJsonApi()
+                                .getArticlesOldApi(it, offset, it)
+                                .enqueue(object : Callback<ArticlesModelOld> {
+                                    override fun onFailure(
+                                        call: Call<ArticlesModelOld>,
+                                        t: Throwable
+                                    ) {
+                                        call.cancel()
                                     }
-                                }
-                            }
-                            )
+
+                                    override fun onResponse(
+                                        call: Call<ArticlesModelOld>,
+                                        response: Response<ArticlesModelOld>
+                                    ) {
+                                        addArticles(response.body()?.articles!!)
+                                        articleAdapter.notifyDataSetChanged()
+                                        offset += 10
+                                        canLoad = true
+                                    }
+                                })
+                        } ?: run {
+                            NetworkService
+                                .getInstance(false)
+                                .getJsonApi()
+                                .getArticle(offset = offset)
+                                .enqueue(object : Callback<ArticlesModel> {
+                                    override fun onFailure(
+                                        call: Call<ArticlesModel>,
+                                        t: Throwable
+                                    ) {
+                                        call.cancel()
+                                    }
+
+                                    override fun onResponse(
+                                        call: Call<ArticlesModel>,
+                                        response: Response<ArticlesModel>
+                                    ) {
+                                        Log.d(">>>>>>", response.raw().toString())
+                                        addArticles(response.body()?.data?.articles!!)
+                                        offset += 10
+                                        canLoad = true
+                                    }
+                                })
+
+                        }
                     }
                 }
             }
