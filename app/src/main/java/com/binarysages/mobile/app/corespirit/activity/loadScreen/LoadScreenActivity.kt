@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.activity.itemId
 import com.binarysages.mobile.app.corespirit.activity.mainActivity.MainActivity
-import com.binarysages.mobile.app.corespirit.models.ArticleModel
+import com.binarysages.mobile.app.corespirit.models.ArticleTree
 import com.binarysages.mobile.app.corespirit.models.ArticlesModel
 import com.binarysages.mobile.app.corespirit.network.NetworkService
 import com.bumptech.glide.Glide
@@ -18,14 +18,6 @@ import retrofit2.Response
 class LoadScreenActivity : AppCompatActivity() {
     private fun reloadActivity() {
         finish()
-        startActivity(intent)
-    }
-
-    private fun loadComplete(articles: Array<ArticleModel>) {
-        val intent = Intent(this, MainActivity::class.java)
-        val bundle = Bundle()
-        bundle.putSerializable("articles", articles)
-        intent.putExtra("BUNDLE", bundle)
         startActivity(intent)
     }
 
@@ -47,6 +39,23 @@ class LoadScreenActivity : AppCompatActivity() {
             reloadActivity()
         }
 
+        val intent = Intent(this, MainActivity::class.java)
+        NetworkService
+            .getInstance(false)
+            .getCategoriesApi()
+            .getCategoriesTree()
+            .enqueue(object : Callback<ArticleTree> {
+                override fun onFailure(call: Call<ArticleTree>, t: Throwable) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+
+                override fun onResponse(call: Call<ArticleTree>, response: Response<ArticleTree>) {
+                    val bundle = Bundle()
+                    bundle.putSerializable("menuTree", response.body())
+                    intent.putExtra("menuTreeBundle", bundle)
+                }
+            })
+
         NetworkService
             .getInstance()
             .getJsonApi()
@@ -61,7 +70,10 @@ class LoadScreenActivity : AppCompatActivity() {
                     response: Response<ArticlesModel>
                 ) {
                     response.body()?.data?.articles?.let {
-                        loadComplete(it)
+                        val bundle = Bundle()
+                        bundle.putSerializable("articles", it)
+                        intent.putExtra("BUNDLE", bundle)
+                        startActivity(intent)
                     }
                 }
             })

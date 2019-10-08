@@ -11,6 +11,11 @@ import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.activity.mainActivity.MainActivity
 import com.binarysages.mobile.app.corespirit.menus.generateMenuFromTree
 import com.binarysages.mobile.app.corespirit.menus.generateUserMenu
+import com.binarysages.mobile.app.corespirit.models.ArticleTree
+import com.binarysages.mobile.app.corespirit.network.NetworkService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 var isMainScreen: Boolean = true
 var categoryId: Int? = null
@@ -36,7 +41,26 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_activity_menu, menu)
-        generateMenuFromTree(menu)
+        intent.getBundleExtra("menuTreeBundle")?.let {
+            generateMenuFromTree(menu, it.getSerializable("menuTree") as ArticleTree)
+        } ?: run {
+            NetworkService
+                .getInstance(false)
+                .getCategoriesApi().getCategoriesTree()
+                .enqueue(object : Callback<ArticleTree> {
+                    override fun onFailure(call: Call<ArticleTree>, t: Throwable) {
+                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onResponse(
+                        call: Call<ArticleTree>,
+                        response: Response<ArticleTree>
+                    ) {
+                        generateMenuFromTree(menu, response.body()!!)
+                    }
+                })
+        }
+
         generateUserMenu(menu, null, this)
         return super.onCreateOptionsMenu(menu)
     }
@@ -47,6 +71,8 @@ abstract class BaseActivity : AppCompatActivity() {
             R.anim.fadein,
             R.anim.fadeout
         )
+
+
         setContentView(layoutId)
 
 //        Add toolbar

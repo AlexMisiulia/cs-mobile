@@ -4,7 +4,6 @@ import android.view.Menu
 import android.view.SubMenu
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.models.ArticleTree
-import com.binarysages.mobile.app.corespirit.network.CORE_SPIRIT_API
 
 private fun getSubMenu(subMenu: SubMenu?, articleTree: Array<ArticleTree.Data.CategoryTree>) {
     for (obj in articleTree) {
@@ -19,9 +18,8 @@ private fun getSubMenu(subMenu: SubMenu?, articleTree: Array<ArticleTree.Data.Ca
     }
 }
 
-fun generateMenuFromTree(menu: Menu?) {
-    val tree = CORE_SPIRIT_API.getArticleTree()
-    for (obj in tree.data.categoryTree) {
+fun generateMenuFromTree(menu: Menu?, menuTree: ArticleTree) {
+    for (obj in menuTree.data.categoryTree) {
         if (obj.categories?.isNotEmpty()!!) {
             val subMenu: SubMenu? =
                 menu?.findItem(R.id.articleListMenu)?.subMenu?.addSubMenu(obj.name)

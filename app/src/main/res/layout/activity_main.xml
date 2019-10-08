@@ -9,6 +9,7 @@
     tools:context=".activity.mainActivity.MainActivity">
 
     <include layout="@layout/toolbar" />
+
     <include layout="@layout/load_activity_layout" />
 
     <androidx.recyclerview.widget.RecyclerView

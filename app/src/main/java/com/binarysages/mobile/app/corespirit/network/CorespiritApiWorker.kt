@@ -16,7 +16,10 @@ interface CorespiritApiWorker {
     ): Call<ArticlesModel>
 
     @GET("practitioners/loadPractitioners")
-    fun getPractitioner(@Query("categoryIds") categoryIds: Int? = null): Call<PractitionersModel>
+    fun getPractitioner(
+        @Query("categoryIds") categoryIds: Int? = null,
+        @Query("offset") offset: Int? = null
+    ): Call<PractitionersModel>
 
     @GET("Categories/{id}/articles")
     fun getArticlesOldApi(

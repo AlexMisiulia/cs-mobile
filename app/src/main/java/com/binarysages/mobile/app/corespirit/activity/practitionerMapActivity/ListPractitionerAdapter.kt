@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
-import com.binarysages.mobile.app.corespirit.activity.categoryId
 import com.binarysages.mobile.app.corespirit.models.PractitionerModel
 import com.binarysages.mobile.app.corespirit.models.PractitionersModel
 import com.binarysages.mobile.app.corespirit.network.NetworkService
@@ -31,27 +30,26 @@ class ListPractitionerAdapter(
         notifyDataSetChanged()
     }
 
-    fun addPractitioner(count: Int = 0, itemVIew: ConstraintLayout? = null) {
-        itemVIew?.let {
-            this.itemVIew = it
-            this.notifyDataSetChanged()
-        }
+    fun addPractitioner(categoryId: Int? = null, offset: Int? = null) {
+        NetworkService
+            .getInstance()
+            .getJsonApi()
+            .getPractitioner(categoryIds = categoryId, offset = offset)
+            .enqueue(
+                object : Callback<PractitionersModel> {
+                    override fun onFailure(call: Call<PractitionersModel>, t: Throwable) {
+                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
 
-        NetworkService.getInstance().getJsonApi().getPractitioner(categoryId).enqueue(
-            object : Callback<PractitionersModel> {
-                override fun onFailure(call: Call<PractitionersModel>, t: Throwable) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    override fun onResponse(
+                        call: Call<PractitionersModel>,
+                        response: Response<PractitionersModel>
+                    ) {
+                        practitionerList = practitionerList.plus(response.body()?.data!!)
+                        notifyDataSetChanged()
+                    }
                 }
-
-                override fun onResponse(
-                    call: Call<PractitionersModel>,
-                    response: Response<PractitionersModel>
-                ) {
-                    practitionerList = practitionerList.plus(response.body()?.data!!)
-                    notifyDataSetChanged()
-                }
-            }
-        )
+            )
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListPractitionerMapHolder {
@@ -63,10 +61,10 @@ class ListPractitionerAdapter(
     }
 
     override fun getItemCount(): Int {
-        return practitionerList?.size!!
+        return practitionerList.size
     }
 
     override fun onBindViewHolder(holder: ListPractitionerMapHolder, position: Int) {
-        practitionerList?.get(position)?.let { holder.bind(it) }
+        practitionerList.get(position).let { holder.bind(it) }
     }
 }

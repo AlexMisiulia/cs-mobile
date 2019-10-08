@@ -19,6 +19,10 @@ class NetworkService private constructor(
         }
     }
 
+    fun getCategoriesApi(): CategoriesApi {
+        return mRetrofit.create<CategoriesApi>(CategoriesApi::class.java)
+    }
+
     fun getJsonApi(): CorespiritApiWorker {
         return mRetrofit.create<CorespiritApiWorker>(CorespiritApiWorker::class.java)
     }

@@ -72,18 +72,18 @@ class ListPractitionerActivity : BaseActivity() {
 
         practitionerListRecycleView.adapter = practitionerAdapter
 
+        var count = 0
         practitionerListRecycleView.addOnScrollListener(
             object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    var count = 0
                     super.onScrolled(recyclerView, dx, dy)
                     if (manager.itemCount - 3 == manager.findLastVisibleItemPosition()) {
                         practitionerAdapter.addPractitioner(
-                            count,
-                            findViewById(R.id.LOAD_MORE_LAYOUT)
+                            categoryId,
+                            count
                         )
+                        count += 20
                     }
-                    count += 20
                 }
             }
         )
