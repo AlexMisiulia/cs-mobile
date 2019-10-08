@@ -3,7 +3,6 @@ package com.binarysages.mobile.app.corespirit.activity.mainActivity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
@@ -60,18 +59,19 @@ class MainActivity : BaseActivity() {
             articles = it.getSerializable("articles") as Array<ArticleModel>
             articleAdapter.setArticles(articles)
         } ?: run {
-            NetworkService.getInstance(true).getJsonApi()
-                .getArticlesOldApi(itemId)
-                .enqueue(object : Callback<ArticlesModelOld> {
-                    override fun onFailure(call: Call<ArticlesModelOld>, t: Throwable) {
+            NetworkService.getInstance(false)
+                .getJsonApi()
+                .getArticle(categoryID = itemId)
+                .enqueue(object : Callback<ArticlesModel> {
+                    override fun onFailure(call: Call<ArticlesModel>, t: Throwable) {
                         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                     }
 
                     override fun onResponse(
-                        call: Call<ArticlesModelOld>,
-                        response: Response<ArticlesModelOld>
+                        call: Call<ArticlesModel>,
+                        response: Response<ArticlesModel>
                     ) {
-                        articleAdapter.setArticles(response.body()?.articles!!)
+                        articleAdapter.setArticles(response.body()?.data?.articles!!)
                     }
                 })
         }
@@ -91,15 +91,6 @@ class MainActivity : BaseActivity() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     if ((manager.itemCount - 3 == manager.findLastVisibleItemPosition()) && canLoad) {
-                        Log.d(
-                            "#####1",
-                            (manager.itemCount - 3 == manager.findLastVisibleItemPosition()).toString()
-                        )
-                        Log.d("#####2", canLoad.toString())
-                        Log.d(
-                            "#####3sudo",
-                            ((manager.itemCount - 3 == manager.findLastVisibleItemPosition()) && canLoad).toString()
-                        )
                         canLoad = false
                         itemId?.let {
                             NetworkService
@@ -136,11 +127,11 @@ class MainActivity : BaseActivity() {
                                     ) {
                                         call.cancel()
                                     }
+
                                     override fun onResponse(
                                         call: Call<ArticlesModel>,
                                         response: Response<ArticlesModel>
                                     ) {
-                                        Log.d(">>>>>>", response.raw().toString())
                                         addArticles(response.body()?.data?.articles!!)
                                         offset += 10
                                         canLoad = true

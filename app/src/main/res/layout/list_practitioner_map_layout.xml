@@ -5,14 +5,10 @@
     android:orientation="vertical">
 
     <include layout="@layout/toolbar" />
-
     <include layout="@layout/load_activity_layout" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/practitionerListMap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
-    <include layout="@layout/load_more_layout" />
-
 </LinearLayout>

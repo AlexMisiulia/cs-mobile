@@ -9,22 +9,12 @@
     tools:context=".activity.mainActivity.MainActivity">
 
     <include layout="@layout/toolbar" />
-
     <include layout="@layout/load_activity_layout" />
-
-    <ProgressBar
-        android:id="@+id/progressBar2"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/articlesRecycleViewList"
         style="@style/RycycleView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="-16dp" />
+        android:layout_height="wrap_content" />
 
-    <include layout="@layout/load_more_layout" />
 </LinearLayout>
