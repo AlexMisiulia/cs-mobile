@@ -3,6 +3,7 @@ package com.binarysages.mobile.app.corespirit.activity.practitionerMapActivity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
@@ -67,6 +68,7 @@ class ListPractitionerActivity : BaseActivity() {
                     response: Response<PractitionersModel>
                 ) {
                     practitionerAdapter.notifyChange(response.body()?.data!!)
+                    LOAD_LAYOUT.visibility = ConstraintLayout.GONE
                 }
             })
 
