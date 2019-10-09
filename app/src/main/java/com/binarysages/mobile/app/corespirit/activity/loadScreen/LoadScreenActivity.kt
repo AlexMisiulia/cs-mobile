@@ -63,7 +63,6 @@ class LoadScreenActivity : AppCompatActivity() {
             .enqueue(object : Callback<ArticlesModel> {
                 override fun onFailure(call: Call<ArticlesModel>, t: Throwable) {
                     TODO("NOT IMPL")
-                    call.cancel()
                 }
 
                 override fun onResponse(

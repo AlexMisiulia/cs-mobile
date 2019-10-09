@@ -3,6 +3,7 @@ package com.binarysages.mobile.app.corespirit.activity.mainActivity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
@@ -14,6 +15,7 @@ import com.binarysages.mobile.app.corespirit.models.ArticleModel
 import com.binarysages.mobile.app.corespirit.models.ArticlesModel
 import com.binarysages.mobile.app.corespirit.models.ArticlesModelOld
 import com.binarysages.mobile.app.corespirit.network.NetworkService
+import kotlinx.android.synthetic.main.load_activity_layout.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -58,6 +60,7 @@ class MainActivity : BaseActivity() {
         intent.getBundleExtra("BUNDLE")?.let {
             articles = it.getSerializable("articles") as Array<ArticleModel>
             articleAdapter.setArticles(articles)
+            LOAD_LAYOUT.visibility = ConstraintLayout.GONE
         } ?: run {
             NetworkService.getInstance(false)
                 .getJsonApi()
@@ -72,6 +75,7 @@ class MainActivity : BaseActivity() {
                         response: Response<ArticlesModel>
                     ) {
                         articleAdapter.setArticles(response.body()?.data?.articles!!)
+                        LOAD_LAYOUT.visibility = ConstraintLayout.GONE
                     }
                 })
         }

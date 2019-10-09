@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Html
 import android.text.method.LinkMovementMethod
-import android.util.Log
 import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.activity.BaseActivity
 import com.binarysages.mobile.app.corespirit.models.ArticleModel
@@ -41,9 +41,6 @@ class ArticleItemActivity : BaseActivity() {
                         response: Response<ArticleSlugModel>
                     ) {
                         val articleModel = response.body()?.data?.articles
-                        Log.d(">>>>#####", response.raw().toString())
-                        Log.d(">>>>>####", response.body()?.data.toString())
-                        Log.d(">>>>>####", response.body()?.data?.articles.toString())
                         articleModel?.image?.let { img ->
                             getURL(img)?.let { imageURL ->
                                 Glide.with(articleContentItem)
@@ -59,6 +56,7 @@ class ArticleItemActivity : BaseActivity() {
                         articleTitleItem.text = articleModel?.articleTitle
                         articleContentItem.text = Html.fromHtml(articleModel?.articleContent)
                         articleContentItem.movementMethod = LinkMovementMethod.getInstance()
+                        loadArticlesLayout.visibility = ConstraintLayout.GONE
                     }
                 })
         }
