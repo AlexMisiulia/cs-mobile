@@ -76,9 +76,6 @@ class MainActivity : BaseActivity() {
                             call: Call<ArticlesModelOld>,
                             response: Response<ArticlesModelOld>
                         ) {
-                            Log.d(">>>>>>#", response.message())
-                            Log.d(">>>>>>#", response.raw().toString())
-                            Log.d(">>>>>>#", response.body().toString())
                             articleAdapter.addArticles(response.body()?.articles!!)
                             LOAD_LAYOUT.visibility = ConstraintLayout.GONE
                         }
