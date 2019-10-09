@@ -61,7 +61,7 @@ class MainActivity : BaseActivity() {
         } ?: run {
             NetworkService.getInstance(false)
                 .getJsonApi()
-                .getArticle(categoryID = itemId)
+                .getArticles(categoryID = itemId)
                 .enqueue(object : Callback<ArticlesModel> {
                     override fun onFailure(call: Call<ArticlesModel>, t: Throwable) {
                         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -119,7 +119,7 @@ class MainActivity : BaseActivity() {
                             NetworkService
                                 .getInstance(false)
                                 .getJsonApi()
-                                .getArticle(offset = offset)
+                                .getArticles(offset = offset)
                                 .enqueue(object : Callback<ArticlesModel> {
                                     override fun onFailure(
                                         call: Call<ArticlesModel>,

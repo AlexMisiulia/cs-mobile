@@ -5,6 +5,7 @@ import java.io.Serializable
 
 
 data class ArticleModel(
+    @SerializedName(value = "slug") val articleSlug: String,
     @SerializedName(value = "title") val articleTitle: String?,
     @SerializedName(value = "content") val articleContent: String?,
     @SerializedName(value = "authorId") val articleAuthor: String?,

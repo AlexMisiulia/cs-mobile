@@ -59,9 +59,10 @@ class LoadScreenActivity : AppCompatActivity() {
         NetworkService
             .getInstance()
             .getJsonApi()
-            .getArticle(itemId)
+            .getArticles(itemId)
             .enqueue(object : Callback<ArticlesModel> {
                 override fun onFailure(call: Call<ArticlesModel>, t: Throwable) {
+                    TODO("NOT IMPL")
                     call.cancel()
                 }
 
@@ -69,7 +70,7 @@ class LoadScreenActivity : AppCompatActivity() {
                     call: Call<ArticlesModel>,
                     response: Response<ArticlesModel>
                 ) {
-                    response.body()?.data?.articles?.let {
+                    response.body()?.data?.articles.let {
                         val bundle = Bundle()
                         bundle.putSerializable("articles", it)
                         intent.putExtra("BUNDLE", bundle)
