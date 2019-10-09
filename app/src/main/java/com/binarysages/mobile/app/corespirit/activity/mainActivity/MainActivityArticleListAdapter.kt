@@ -1,7 +1,6 @@
 package com.binarysages.mobile.app.corespirit.activity.mainActivity
 
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,8 +19,6 @@ class MainActivityArticleListAdapter(
 ) : RecyclerView.Adapter<MainActivityArticleListAdapter.ArticleViewHolder>() {
 
     fun setArticles(articles: Array<ArticleModel>) {
-        Log.d(">>>>> ART", articles.toString())
-        Log.d(">>>>> ART0", articles.get(0).toString())
         articlesListArray = articles
         notifyDataSetChanged()
         return
@@ -29,6 +26,7 @@ class MainActivityArticleListAdapter(
 
     fun addArticles(articles: Array<ArticleModel>) {
         articlesListArray = articlesListArray.plus(articles)
+        notifyDataSetChanged()
     }
 
     //    Interface listener

@@ -1,9 +1,6 @@
 package com.binarysages.mobile.app.corespirit.network
 
-import com.binarysages.mobile.app.corespirit.models.ArticleSlugModel
-import com.binarysages.mobile.app.corespirit.models.ArticlesModel
-import com.binarysages.mobile.app.corespirit.models.ArticlesModelOld
-import com.binarysages.mobile.app.corespirit.models.PractitionersModel
+import com.binarysages.mobile.app.corespirit.models.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -12,7 +9,7 @@ import retrofit2.http.Query
 interface CorespiritApiWorker {
     @GET("articles")
     fun getArticles(
-        @Query("categoryID") categoryID: Int? = null,
+        @Query("categoryId") categoryID: Int? = null,
         @Query("offset") offset: Int? = null
     ): Call<ArticlesModel>
 
@@ -35,5 +32,5 @@ interface CorespiritApiWorker {
     ): Call<ArticlesModelOld>
 
     @GET("Articles/loadArticles")
-    fun getArticlesOldApi(): Call<Array<ArticlesModel>>
+    fun getArticlesOldApi(): Call<Array<ArticleModel>>
 }

@@ -3,6 +3,7 @@ package com.binarysages.mobile.app.corespirit.activity.mainActivity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -55,29 +56,55 @@ class MainActivity : BaseActivity() {
             savedInstanceState,
             R.layout.activity_main
         )
-
 //        check articles bundle. In empty - we come not from load screen
         intent.getBundleExtra("BUNDLE")?.let {
             articles = it.getSerializable("articles") as Array<ArticleModel>
             articleAdapter.setArticles(articles)
             LOAD_LAYOUT.visibility = ConstraintLayout.GONE
         } ?: run {
-            NetworkService.getInstance(false)
-                .getJsonApi()
-                .getArticles(categoryID = itemId)
-                .enqueue(object : Callback<ArticlesModel> {
-                    override fun onFailure(call: Call<ArticlesModel>, t: Throwable) {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                    }
+            itemId?.let {
+                NetworkService
+                    .getInstance(true)
+                    .getJsonApi()
+                    .getArticlesOldApi(itemId)
+                    .enqueue(object : Callback<ArticlesModelOld> {
+                        override fun onFailure(call: Call<ArticlesModelOld>, t: Throwable) {
+                            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        }
 
-                    override fun onResponse(
-                        call: Call<ArticlesModel>,
-                        response: Response<ArticlesModel>
-                    ) {
-                        articleAdapter.setArticles(response.body()?.data?.articles!!)
-                        LOAD_LAYOUT.visibility = ConstraintLayout.GONE
-                    }
-                })
+                        override fun onResponse(
+                            call: Call<ArticlesModelOld>,
+                            response: Response<ArticlesModelOld>
+                        ) {
+                            Log.d(">>>>>>#", response.message())
+                            Log.d(">>>>>>#", response.raw().toString())
+                            Log.d(">>>>>>#", response.body().toString())
+                            articleAdapter.addArticles(response.body()?.articles!!)
+                            LOAD_LAYOUT.visibility = ConstraintLayout.GONE
+                        }
+                    })
+            } ?: run {
+                NetworkService
+                    .getInstance(false)
+                    .getJsonApi()
+                    .getArticles()
+                    .enqueue(object : Callback<ArticlesModel> {
+                        override fun onFailure(call: Call<ArticlesModel>, t: Throwable) {
+                            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        }
+
+                        override fun onResponse(
+                            call: Call<ArticlesModel>,
+                            response: Response<ArticlesModel>
+                        ) {
+                            Log.d(">>>>>>#", response.message())
+                            Log.d(">>>>>>#", response.raw().toString())
+                            Log.d(">>>>>>#", response.body().toString())
+                            articleAdapter.addArticles(response.body()?.data?.articles!!)
+                            LOAD_LAYOUT.visibility = ConstraintLayout.GONE
+                        }
+                    })
+            }
         }
 
         val articlesRecyclerView: RecyclerView = findViewById(R.id.articlesRecycleViewList)
