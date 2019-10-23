@@ -11,9 +11,8 @@ import com.binarysages.mobile.app.corespirit.models.article.Article
 import com.binarysages.mobile.app.corespirit.models.articles.ArticlesModel
 
 class ArticleAdapter(
-    private val articlesList: ArticlesModel
+    private var articlesList: ArticlesModel
 ) : RecyclerView.Adapter<ArticlesViewHolder>() {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticlesViewHolder {
         val articleItemView: View =
             LayoutInflater

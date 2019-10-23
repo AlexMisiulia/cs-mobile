@@ -13,6 +13,7 @@
         <item name="android:textSize">10sp</item>
         <item name="android:lineHeight">12sp</item>
         <item name="android:textColor">#9B9B9B</item>
+        <item name="android:background">#232323</item>
     </style>
 
     <style name="FilterButton">
@@ -33,6 +34,7 @@
         <item name="android:maxLines">3</item>
         <item name="android:layout_marginStart">5dp</item>
         <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
     </style>
 
     <style name="ArticleItem">

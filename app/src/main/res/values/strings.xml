@@ -1,9 +1,10 @@
 <resources>
     <string name="article_author_placeholder">Author name hidden</string>
     <string name="app_name">Corespirit</string>
+    <string name="author_by">By: </string>
     <string name="bottom_menu_home">Home</string>
     <string name="bottom_menu_practitioners">Practitioners</string>
-    <string name="bottom_menu_catalog">Articles</string>
+    <string name="bottom_menu_catalog">Catalog</string>
     <string name="bottom_menu_events">Events</string>
     <string name="bottom_menu_profile">Profile</string>>
 </resources>
