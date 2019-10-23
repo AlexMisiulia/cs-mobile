@@ -1,151 +1,54 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Material">
-        <!-- Customize your theme here. -->
-        <item name="android:windowActivityTransitions">true</item>
-        <item name="android:windowEnterTransition">@transition/explode</item>
-        <item name="android:windowExitTransition">@transition/explode</item>
-        <!-- specify shared element transitions -->
-        <item name="android:windowSharedElementEnterTransition">
-            @transition/change_image_transform
-        </item>
-        <item name="android:fontFamily">@font/lato</item>
-        <item name="android:windowSharedElementExitTransition">
-            @transition/change_image_transform
-        </item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
+    <style name="BottomMenu">
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:fontFamily">@font/latoregular</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:lineHeight">12sp</item>
+        <item name="android:textColor">#9B9B9B</item>
+    </style>
+
+    <style name="FilterButton">
+        <item name="android:layout_marginLeft">10sp</item>
+        <item name="android:layout_marginRight">10sp</item>
+    </style>
+
+    <style name="ArticlesList">
 
     </style>
 
-    <style name="RycycleView">
-
-    </style>
-
-    <style name="ArticleTitle">
-        <item name="android:fontFamily">@font/playfairblack</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:letterSpacing">0.0002</item>
-        <item name="android:textColor">#000000</item>
+    <style name="ArticlesList.Author">
         <item name="android:gravity">center</item>
-        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:text">@string/article_author_placeholder</item>
+    </style>
+
+    <style name="ArticlesList.Content">
+        <item name="android:maxLines">3</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
     </style>
 
     <style name="ArticleItem">
-        <item name="android:layout_marginRight">8dp</item>
-        <item name="android:layout_marginLeft">8dp</item>
-    </style>
-
-    <style name="ArticleItem.ArticleContent">
-        <item name="android:textColor">#000000</item>
-        <item name="android:letterSpacing">0.02</item>
-        <item name="android:fontFamily">medium-content-serif-font, Georgia, Cambria, "Times New
-            Roman", Times, serif
-        </item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:maxLines">5</item>
-        <!--        <item name="android:gravity">center</item>-->
-        <item name="android:layout_marginTop">16dp</item>
-        <item name="android:ellipsize">end</item>
-    </style>
-
-    <style name="ArticleItem.ArticleAuthor">
-        <item name="android:textColor">#bfbfbf</item>
-        <item name="android:textStyle">italic</item>
-        <item name="android:textSize">10sp</item>
-        <item name="android:layout_marginTop">10sp</item>
-        <item name="android:text">@string/articleAuthor</item>
-    </style>
-
-    <style name="ArticleItem.ArticleItemImage">
-        <item name="android:layout_marginTop">8dp</item>
-    </style>
-
-    <style name="CardStyle">
-        <item name="android:layout_marginRight">10sp</item>
-        <item name="android:layout_marginLeft">10sp</item>
-        <item name="android:layout_marginTop">10sp</item>
-        <item name="android:layout_marginBottom">10sp</item>
-    </style>
-    x
-
-    <style name="ArticleItem.ArticleItemTitle">
-        <item name="android:fontFamily">@font/playfairblack</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:letterSpacing">0.0002</item>
-        <item name="android:textColor">#000000</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_marginTop">16dp</item>
-    </style>
-
-    <style name="ArticleItem.ArticleContent.ArticleItemContent">
-        <item name="android:maxLines">99999</item>
-        <item name="android:ellipsize">none</item>
-    </style>
-
-    <style name="CustomMenuItem">
-        <item name="android:textStyle">normal</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColor">#696969</item>
-        <item name="actionMenuTextColor">#696969</item>
-        <item name="android:actionMenuTextColor">#696969</item>
-        <item name="android:fontFamily">@font/lato</item>
-        <item name="android:textAllCaps">false</item>
-    </style>
-
-    <style name="Toolbar">
-        <item name="android:actionBarPopupTheme">@style/CustomMenuItem</item>
-        <item name="android:actionBarStyle">@style/CustomMenuItem</item>
-        <item name="android:actionMenuTextAppearance">@style/CustomMenuItem</item>
-        <item name="android:layout_gravity">top|start</item>
-    </style>
-
-    <style name="Practitioner">
-        <item name="android:layout_marginLeft">10sp</item>
-        <item name="android:layout_marginRight">10sp</item>
-        <item name="android:layout_marginTop">3dp</item>
-        <item name="android:gravity">center</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
         <item name="android:layout_marginBottom">10dp</item>
     </style>
 
-    <style name="Practitioner.Author">
-        <item name="android:textColor">#000000</item>
-        <item name="android:scaleType">fitCenter</item>
-        <item name="android:gravity">center_horizontal</item>
+    <style name="ArticleItem.createdAt"></style>
+
+    <style name="ArticleItem.Title"></style>
+
+    <style name="ArticleItem.Author">
+        <!--        <item name="android:gravity">center</item>-->
     </style>
 
-    <style name="Practitioner.Category">
-        <item name="android:maxLength">10</item>
-    </style>
-
-    <style name="Practitioner.Avatar">
-        <item name="android:layout_marginTop">10sp</item>
-        <item name="android:scaleType">fitStart</item>
-        <item name="android:layout_marginLeft">10dp</item>
-    </style>
-
-    <style name="Practitioner.UserName">
-        <item name="android:fontFamily">@font/lato</item>
-        <item name="android:textSize">20sp</item>
-    </style>
-
-    <style name="Practitioner.Content">
-        <item name="android:fontFamily">@font/latolight</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:visibility">gone</item>
-        <item name="android:textColor">#000000</item>
-    </style>
-
-    <style name="Practitioner.Content.URL">
-        <item name="android:autoLink">web</item>
-    </style>
-
-    <style name="Practitioner.BIO">
-        <item name="android:layout_marginLeft">10sp</item>
-        <item name="android:layout_marginRight">10sp</item>
-        <item name="android:textSize">17sp</item>
-        <item name="android:fontFamily">@font/latolight</item>
-        <item name="android:textColor">#000000</item>
-        <item name="android:visibility">gone</item>
-        <item name="android:lineSpacingMultiplier">0.8</item>
+    <style name="ArticleItem.Content">
     </style>
 </resources>
