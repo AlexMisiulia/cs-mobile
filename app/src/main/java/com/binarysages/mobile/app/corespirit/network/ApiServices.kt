@@ -1,6 +1,7 @@
 package com.binarysages.mobile.app.corespirit.network
 
 import com.binarysages.mobile.app.corespirit.network.api.ArticlesApi
+import com.binarysages.mobile.app.corespirit.network.api.PractitionersApi
 import retrofit2.Retrofit
 
 class ApiServices(
@@ -8,5 +9,9 @@ class ApiServices(
 ) {
     fun getArticleApi(): ArticlesApi {
         return mRetrofit.create(ArticlesApi::class.java)
+    }
+
+    fun getPractitionersApi(): PractitionersApi {
+        return mRetrofit.create(PractitionersApi::class.java)
     }
 }

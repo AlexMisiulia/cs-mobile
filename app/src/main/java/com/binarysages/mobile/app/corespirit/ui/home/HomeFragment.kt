@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        viewModel.getArticles().observe(this, Observer {
+        viewModel.getArticles().observe(viewLifecycleOwner, Observer {
             recycle_view_articles.layoutManager = LinearLayoutManager(context)
             recycle_view_articles.adapter = ArticleAdapter(it)
             spin_kit.visibility = SpinKitView.GONE

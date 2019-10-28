@@ -16,7 +16,8 @@ class HomeViewModel : ViewModel() {
     private fun loadArticles() {
         NetworkServices
             .instance.getApiServices().getArticleApi()
-            .getArticles().enqueue(
+            .getArticles()
+            .enqueue(
                 object : Callback<ArticlesModel> {
                     override fun onFailure(call: Call<ArticlesModel>, t: Throwable) {
                         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

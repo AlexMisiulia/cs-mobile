@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.binarysages.mobile.app.corespirit.R
 
-class CatalogFragment : Fragment() {
+class ArticlesFragment : Fragment() {
 
     companion object {
-        fun newInstance() = CatalogFragment()
+        fun newInstance() = ArticlesFragment()
     }
 
     private lateinit var viewModel: CatalogViewModel

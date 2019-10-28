@@ -16,9 +16,9 @@
         app:cnb_iconColor="@color/bottomMenuSelectedIcon"
         app:cnb_textColor="@color/bottomMenuTextColor" />
     <item
-        android:id="@+id/bottom_menu_catalog"
-        android:icon="@drawable/ic_catalog"
-        android:title="@string/bottom_menu_catalog"
+        android:id="@+id/bottom_menu_articles"
+        android:icon="@drawable/ic_articles"
+        android:title="@string/bottom_menu_articles"
         app:cnb_backgroundColor="@color/bottomMenuSelectedBackGround"
         app:cnb_iconColor="@color/bottomMenuSelectedIcon"
         app:cnb_textColor="@color/bottomMenuTextColor" />
