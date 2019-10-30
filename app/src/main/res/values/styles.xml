@@ -6,6 +6,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.TranslucentStatusBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="BottomMenu">
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
@@ -21,8 +26,11 @@
         <item name="android:layout_marginRight">10sp</item>
     </style>
 
-    <style name="ArticlesList">
+    <style name="ArticlesList" />
 
+    <style name="ArticlesList.Image">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">78dp</item>
     </style>
 
     <style name="ArticlesList.Author">
@@ -43,14 +51,52 @@
         <item name="android:layout_marginBottom">10dp</item>
     </style>
 
-    <style name="ArticleItem.createdAt"></style>
+    <style name="ArticleItem.createdAt" />
 
-    <style name="ArticleItem.Title"></style>
+    <style name="ArticleItem.Title" />
 
     <style name="ArticleItem.Author">
         <!--        <item name="android:gravity">center</item>-->
     </style>
 
-    <style name="ArticleItem.Content">
+    <style name="ArticleItem.Content" />
+
+    <style name="PractitionerList" />
+
+    <style name="PractitionerList.Name" />
+
+    <style name="PractitionerList.Avatar" />
+
+    <style name="PractitionerList.Categories">
+        <item name="android:layout_marginStart">3dp</item>
+    </style>
+
+    <style name="PractitionerCarousel" />
+
+    <style name="PractitionerCarousel.Name" />
+
+    <style name="PractitionerCarousel.Categories" />
+
+    <style name="Promo" />
+
+    <style name="Promo.Articles" />
+
+    <style name="Promo.Articles.Image">
+        <item name="android:scaleType">fitXY</item>
+    </style>
+
+    <style name="Promo.Articles.Title">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="HomeFragmentButtons" />
+
+    <style name="HomeFragmentButtons.LoadMoreArticles">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_margin">12dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_horizontal</item>
     </style>
 </resources>

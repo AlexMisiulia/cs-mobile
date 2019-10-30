@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binarysages.mobile.app.corespirit.R
-import com.binarysages.mobile.app.corespirit.ui.practitionerlist.PractitionersAdapter
+import com.binarysages.mobile.app.corespirit.recycleview.practitionerlist.PractitionersAdapter
 import com.github.ybq.android.spinkit.SpinKitView
 import kotlinx.android.synthetic.main.practitioner_fragment.*
 

@@ -3,11 +3,11 @@ package com.binarysages.mobile.app.corespirit
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
-import com.binarysages.mobile.app.corespirit.ui.catalog.ArticlesFragment
-import com.binarysages.mobile.app.corespirit.ui.events.EventsFragment
-import com.binarysages.mobile.app.corespirit.ui.home.HomeFragment
+import com.binarysages.mobile.app.corespirit.ui.articlesfragment.ArticlesFragment
+import com.binarysages.mobile.app.corespirit.ui.eventsfragment.EventsFragment
+import com.binarysages.mobile.app.corespirit.ui.homefragment.HomeFragment
 import com.binarysages.mobile.app.corespirit.ui.practitionerfragment.PractitionerFragment
-import com.binarysages.mobile.app.corespirit.ui.profile.ProfileFragment
+import com.binarysages.mobile.app.corespirit.ui.profilefragment.ProfileFragment
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 
 

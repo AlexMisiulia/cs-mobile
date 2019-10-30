@@ -10,7 +10,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Data(
     @SerializedName("articles")
-    val articles: List<Article> = listOf(),
+    val articles: MutableList<Article> = mutableListOf(),
 
     @SerializedName("pageInfo")
     val pageInfo: PageInfo = PageInfo()

@@ -15,4 +15,9 @@ interface PractitionersApi {
         @Query("offset") offset: Int? = null,
         @Query("perPage") perPage: Int? = null
     ): Call<PractitionersModel>
+
+    @GET("practitioners/related")
+    fun getRelatedPractitioners(
+        @Query("categoryIds") categoryIds: Int
+    )
 }

@@ -1,4 +1,4 @@
-package com.binarysages.mobile.app.corespirit.ui.events
+package com.binarysages.mobile.app.corespirit.ui.articlesfragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,24 +8,24 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.binarysages.mobile.app.corespirit.R
 
-class EventsFragment : Fragment() {
+class ArticlesFragment : Fragment() {
 
     companion object {
-        fun newInstance() = EventsFragment()
+        fun newInstance() = ArticlesFragment()
     }
 
-    private lateinit var viewModel: EventsViewModel
+    private lateinit var viewModel: ArticlesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.events_fragment, container, false)
+        return inflater.inflate(R.layout.articles_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(EventsViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(ArticlesViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

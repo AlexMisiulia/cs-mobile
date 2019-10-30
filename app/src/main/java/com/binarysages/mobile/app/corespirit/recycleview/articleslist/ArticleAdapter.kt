@@ -1,4 +1,4 @@
-package com.binarysages.mobile.app.corespirit.ui.articleslist
+package com.binarysages.mobile.app.corespirit.recycleview.articleslist
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,11 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.ArticleActivity
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.models.article.Article
-import com.binarysages.mobile.app.corespirit.models.articles.ArticlesModel
 
 class ArticleAdapter(
-    private var articlesList: ArticlesModel
+    private var articlesList: MutableList<Article>
 ) : RecyclerView.Adapter<ArticlesViewHolder>() {
+
+    fun addArticles(articles: MutableList<Article>) {
+        articlesList.addAll(articles)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticlesViewHolder {
         val articleItemView: View =
             LayoutInflater
@@ -27,10 +32,10 @@ class ArticleAdapter(
     }
 
     override fun getItemCount(): Int {
-        return articlesList.data.articles.size
+        return articlesList.size
     }
 
     override fun onBindViewHolder(holder: ArticlesViewHolder, position: Int) {
-        holder.bind(articlesList.data.articles[position])
+        holder.bind(articlesList[position])
     }
 }

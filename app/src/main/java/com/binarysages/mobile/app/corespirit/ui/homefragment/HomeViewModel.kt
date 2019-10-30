@@ -1,6 +1,7 @@
-package com.binarysages.mobile.app.corespirit.ui.home
+package com.binarysages.mobile.app.corespirit.ui.homefragment
 
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,10 +14,10 @@ import retrofit2.Response
 class HomeViewModel : ViewModel() {
     private var articles: MutableLiveData<ArticlesModel>? = null
 
-    private fun loadArticles() {
+    private fun loadArticles(perPage: Int, offset: Int?) {
         NetworkServices
             .instance.getApiServices().getArticleApi()
-            .getArticles()
+            .getArticles(perPage = perPage, offset = offset)
             .enqueue(
                 object : Callback<ArticlesModel> {
                     override fun onFailure(call: Call<ArticlesModel>, t: Throwable) {
@@ -27,16 +28,17 @@ class HomeViewModel : ViewModel() {
                         call: Call<ArticlesModel>,
                         response: Response<ArticlesModel>
                     ) {
+                        Log.d(">####", response.raw().toString())
                         articles?.postValue(response.body())
                     }
                 }
             )
     }
 
-    fun getArticles(): LiveData<ArticlesModel> {
+    fun getArticles(perPage: Int = 3, offset: Int? = null): LiveData<ArticlesModel> {
         if (articles == null) {
             articles = MutableLiveData()
-            loadArticles()
+            loadArticles(perPage = perPage, offset = offset)
         }
         return this.articles!!
     }

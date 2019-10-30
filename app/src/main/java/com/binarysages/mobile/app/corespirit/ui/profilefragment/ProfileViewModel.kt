@@ -1,4 +1,4 @@
-package com.binarysages.mobile.app.corespirit.ui.profile
+package com.binarysages.mobile.app.corespirit.ui.profilefragment
 
 import androidx.lifecycle.ViewModel
 

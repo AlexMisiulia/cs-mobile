@@ -5,17 +5,17 @@
     android:layout_marginStart="10dp"
     android:layout_marginTop="10dp"
     android:layout_marginEnd="10dp">
+
     <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/article_list_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ArticlesList.Image"
             android:layout_gravity="start" />
 
         <LinearLayout
@@ -30,8 +30,8 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                style="@style/ArticlesList.Content"
                 android:id="@+id/article_list_preview"
+                style="@style/ArticlesList.Content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>

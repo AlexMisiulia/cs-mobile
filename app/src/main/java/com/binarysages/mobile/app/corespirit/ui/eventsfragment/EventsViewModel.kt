@@ -1,4 +1,4 @@
-package com.binarysages.mobile.app.corespirit.ui.events
+package com.binarysages.mobile.app.corespirit.ui.eventsfragment
 
 import androidx.lifecycle.ViewModel
 
