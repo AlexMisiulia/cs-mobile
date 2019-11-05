@@ -8,73 +8,96 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
-import com.binarysages.mobile.app.corespirit.models.articles.ArticlesModel
 import com.binarysages.mobile.app.corespirit.models.getURL
-import com.binarysages.mobile.app.corespirit.network.NetworkServices
 import com.binarysages.mobile.app.corespirit.recycleview.articleslist.ArticleAdapter
+import com.binarysages.mobile.app.corespirit.recycleview.eventslist.EventsAdapter
 import com.bumptech.glide.Glide
 import com.github.ybq.android.spinkit.SpinKitView
+import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.home_fragment.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
     private var container: ViewGroup? = null
+    private val articleAdapter = ArticleAdapter()
+    private val eventsAdapter = EventsAdapter()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         this.container = container
-        return inflater.inflate(R.layout.home_fragment, container, false)
+        val view = inflater.inflate(R.layout.home_fragment, container, false)
+        return view
+    }
+
+    private fun initView() {
+        recycle_view_articles.adapter = articleAdapter
+        recycle_view_articles.layoutManager = LinearLayoutManager(context)
+        recycle_view_articles
+            .addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (recyclerView.layoutManager?.itemCount == (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition() + 1) {
+                        loadMoreArticlesHomeBtn.visibility = MaterialButton.VISIBLE
+                    } else {
+                        loadMoreArticlesHomeBtn.visibility = MaterialButton.GONE
+                    }
+                }
+            })
+
+        recycleViewEvents.adapter = eventsAdapter
+        recycleViewEvents.layoutManager = LinearLayoutManager(context)
+
+        loadMoreArticlesHomeBtn.setOnClickListener {
+            viewModel
+                .loadArticles(perPage = 5)
+        }
+
+        loadMoreEventsHomeBtn.setOnClickListener {
+            viewModel
+                .loadEvents(perPage = 5)
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+        initView()
 
-        viewModel.getArticles(perPage = 1)
-            .observe(viewLifecycleOwner, Observer {
-                it.data.articles[0].let { article ->
-                    Glide
-                        .with(context!!)
-                        .load(getURL(article.image!!))
-                        .into(promoImageArticleHome)
-                    promoTitleArticleHome.text = article.title
-                }
-            })
-
+//        spinkit
         viewModel
-            .getArticles(perPage = 3, offset = 1)
-            .observe(viewLifecycleOwner, Observer {
-                recycle_view_articles.layoutManager = LinearLayoutManager(context)
-                val adapter = ArticleAdapter(it.data.articles)
-                recycle_view_articles.adapter = adapter
-
-                loadMoreArticlesHomeBtn.setOnClickListener {
-                    NetworkServices
-                        .instance.getApiServices()
-                        .getArticleApi()
-                        .getArticles(perPage = 5)
-                        .enqueue(object : Callback<ArticlesModel> {
-                            override fun onFailure(call: Call<ArticlesModel>, t: Throwable) {
-                                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                            }
-
-                            override fun onResponse(
-                                call: Call<ArticlesModel>,
-                                response: Response<ArticlesModel>
-                            ) {
-                                adapter.addArticles(response.body()?.data?.articles!!)
-                            }
-
-                        })
+            .isLoadComplete().observe(viewLifecycleOwner, Observer {
+                if (it) spin_kit.visibility = SpinKitView.GONE
+                else {
+                    spin_kit.visibility = SpinKitView.VISIBLE
                 }
-
-                spin_kit.visibility = SpinKitView.GONE
             })
 
+//        promo
+        viewModel.getPromo()
+            .observe(viewLifecycleOwner, Observer {
+                Glide
+                    .with(context!!)
+                    .load(getURL(it.image!!))
+                    .into(promoImageArticleHome)
+                promoTitleArticleHome.text = it.title
+            })
+
+//        events
+        viewModel
+            .getEvents()
+            .observe(viewLifecycleOwner, Observer {
+                eventsAdapter.addEvents(it.data.events)
+            })
+
+//        articles
+        viewModel
+            .getArticles()
+            .observe(viewLifecycleOwner, Observer {
+                articleAdapter.addArticles(it.data.articles)
+            })
     }
 }

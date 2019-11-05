@@ -9,9 +9,8 @@ import com.binarysages.mobile.app.corespirit.ArticleActivity
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.models.article.Article
 
-class ArticleAdapter(
-    private var articlesList: MutableList<Article>
-) : RecyclerView.Adapter<ArticlesViewHolder>() {
+class ArticleAdapter : RecyclerView.Adapter<ArticlesViewHolder>() {
+    private var articlesList: MutableList<Article> = ArrayList()
 
     fun addArticles(articles: MutableList<Article>) {
         articlesList.addAll(articles)

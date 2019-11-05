@@ -12,13 +12,13 @@ data class PageInfo(
     @SerializedName("hasPrev")
     val hasPrev: Boolean = false,
     @SerializedName("nextPage")
-    val nextPage: Int = 0,
+    val nextPage: Double? = 0.0,
     @SerializedName("page")
-    val page: Int = 0,
+    val page: Double? = 0.0,
     @SerializedName("perPage")
-    val perPage: Int = 0,
+    val perPage: Double? = 0.0,
     @SerializedName("prevPage")
-    val prevPage: Int = 0,
+    val prevPage: Double? = 0.0,
     @SerializedName("total")
     val total: Int = 0,
     @SerializedName("totalPages")
