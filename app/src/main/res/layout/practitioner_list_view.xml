@@ -9,14 +9,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/article_list_image"
-            style="@style/ArticlesList.Image"
-            android:layout_gravity="start" />
+            android:id="@+id/practitionerListAvatar"
+            style="@style/PractitionerList.Avatar"
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:src="@drawable/missing_avatar" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -24,14 +24,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/article_list_author"
-                style="@style/ArticlesList.Author"
+                android:id="@+id/practitionerListName"
+                style="@style/PractitionerList.Name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/article_list_preview"
-                style="@style/ArticlesList.Content"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/practitionerListCategories"
+                style="@style/PractitionerList.Categories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>

@@ -1,13 +1,11 @@
 <resources>
+    <string name="article_author_placeholder">Author name hidden</string>
     <string name="app_name">Corespirit</string>
-    <string name="articles">Articles</string>
-    <string name="reloadLoadScreenButton">Reload</string>
-    <string name="on_network_error">Network error! Please, reload app</string>
-    <string name="articleAuthor">By: </string>
-    <string name="forget_password">Forget password?</string>
-    <string name="submitCredentials">Submit</string>
-    <string name="enter_password">Enter password</string>
-    <string name="enter_login">Enter login</string>
-    <string name="notFound">woops! Nothing found :(</string>
-    <string name="default_practitioner_name">Name hidden</string>
+    <string name="author_by">By: </string>
+    <string name="bottom_menu_home">Home</string>
+    <string name="bottom_menu_practitioners">Practitioners</string>
+    <string name="bottom_menu_articles">Articles</string>
+    <string name="bottom_menu_events">Events</string>
+    <string name="bottom_menu_profile">Profile</string>
+    <string name="load_more">Load More</string>>
 </resources>
