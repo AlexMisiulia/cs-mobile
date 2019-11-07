@@ -8,6 +8,8 @@
     tools:context=".ui.homefragment.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="#CCFF0000"
+        android:elevation="2dp"
         android:id="@+id/spin_kit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,7 +37,7 @@
             <RelativeLayout
                 android:id="@+id/promoArticle"
                 android:layout_width="match_parent"
-                android:layout_height="120dp">
+                android:layout_height="180dp">
 
                 <ImageView
                     android:id="@+id/promoImageArticleHome"
@@ -82,6 +84,22 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/loadMoreEventsHomeBtn"
+                style="@style/HomeFragmentButtons.LoadMoreArticles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/load_more"
+                app:cornerRadius="10dp"
+                app:strokeColor="@color/colorPrimaryDark"
+                app:strokeWidth="2dp" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleViewPractitionersHome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/loadMorePractitionersHomeBtn"
                 style="@style/HomeFragmentButtons.LoadMoreArticles"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

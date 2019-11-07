@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigateToFragment(fragment: Fragment) {
         val manager: FragmentTransaction = supportFragmentManager.beginTransaction()
-        manager.add(R.id.main_fragment, fragment)
+        manager.replace(R.id.main_fragment, fragment)
         manager.commit()
     }
 }

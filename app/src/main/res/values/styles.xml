@@ -79,6 +79,7 @@
 
     <style name="Promo" />
 
+
     <style name="Promo.Articles" />
 
     <style name="Promo.Articles.Image">
@@ -96,6 +97,7 @@
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">20sp</item>
         <item name="android:layout_margin">12dp</item>
+        <item name="android:layout_marginTop">12dp</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
@@ -107,4 +109,21 @@
     </style>
 
     <style name="EventsList.Title" />
+
+    <style name="PractitionerItem" />
+
+    <style name="PractitionerItem.Card">
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="PractitionerItem.Name" />
+
+    <style name="PractitionerItem.Image" />
+
+    <style name="PractitionerItem.Description" />
+
+    <style name="PractitionerItem.Categories" />
 </resources>

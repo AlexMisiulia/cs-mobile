@@ -1,6 +1,7 @@
 package com.binarysages.mobile.app.corespirit.models.practitioners
 
 import android.os.Parcelable
+import com.binarysages.mobile.app.corespirit.models.images.ImageModel
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -21,6 +22,6 @@ data class Practitioner(
     @SerializedName("locationpoint") val locationpoint: LocationPoint?,
     @SerializedName("name") val name: String,
     @SerializedName("surname") val surname: String,
-    @SerializedName("image") val image: Image,
+    @SerializedName("image") val image: ImageModel,
     @SerializedName("categories") val categories: List<Categories>
 ) : Parcelable

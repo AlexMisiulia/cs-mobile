@@ -4,7 +4,7 @@ package com.binarysages.mobile.app.corespirit.models.articles
 import android.os.Parcelable
 import com.binarysages.mobile.app.corespirit.models.article.Author
 import com.binarysages.mobile.app.corespirit.models.article.Category
-import com.binarysages.mobile.app.corespirit.models.article.Image
+import com.binarysages.mobile.app.corespirit.models.images.ImageModel
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -23,7 +23,7 @@ data class Article(
     @SerializedName("id")
     val id: Int?,
     @SerializedName("image")
-    val image: Image?,
+    val image: ImageModel?,
     @SerializedName("imageId")
     val imageId: Int?,
     @SerializedName("preview")

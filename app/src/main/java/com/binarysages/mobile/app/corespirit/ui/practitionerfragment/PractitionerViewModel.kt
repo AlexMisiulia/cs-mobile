@@ -11,8 +11,9 @@ import retrofit2.Response
 
 class PractitionerViewModel : ViewModel() {
     private var practitioners: MutableLiveData<PractitionersModel>? = null
+    private var practitionerCount = 0
 
-    private fun loadPractitioner(practitionerCount: Int? = null) {
+    fun loadPractitioner(practitionerCount: Int? = null) {
         NetworkServices
             .instance
             .getApiServices()
