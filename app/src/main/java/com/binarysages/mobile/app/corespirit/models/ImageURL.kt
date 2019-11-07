@@ -1,11 +1,11 @@
 package com.binarysages.mobile.app.corespirit.models
 
-import com.binarysages.mobile.app.corespirit.models.article.Image
+import com.binarysages.mobile.app.corespirit.models.images.ImageModel
 
-fun getURL(imageModel: Image, resolution: String = "1200"): String? {
+fun getURL(imageModel: ImageModel?, resolution: String = "1200"): String? {
     val baseURL = "https://corespirit.com/api/Containers/corespirit-static/download/"
     imageModel.let {
-        imageModel.container?.let {
+        imageModel?.container?.let {
             imageModel.name1200?.let {
                 return when (resolution) {
                     "1200" -> baseURL + imageModel.name1200
@@ -16,6 +16,6 @@ fun getURL(imageModel: Image, resolution: String = "1200"): String? {
             }
             return baseURL + imageModel.name
         }
-        return imageModel.legacyUrl
+        return imageModel?.legacyUrl
     }
 }

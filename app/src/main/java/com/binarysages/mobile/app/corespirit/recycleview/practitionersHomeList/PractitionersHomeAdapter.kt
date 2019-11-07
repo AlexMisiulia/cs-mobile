@@ -1,7 +1,6 @@
-package com.binarysages.mobile.app.corespirit.recycleview.practitionerlist
+package com.binarysages.mobile.app.corespirit.recycleview.practitionersHomeList
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,19 +8,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.PractitionerActivity
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.models.practitioners.Practitioner
-import com.binarysages.mobile.app.corespirit.models.practitioners.PractitionersModel
 
-class PractitionersAdapter(private val practitioner: PractitionersModel) :
-    RecyclerView.Adapter<PractitionersHolder>() {
+class PractitionersHomeAdapter : RecyclerView.Adapter<PractitionersHomeHolder>() {
+    private val practitioner: MutableList<Practitioner> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PractitionersHolder {
+    fun addPractitioners(practitioners: List<Practitioner>) {
+        this.practitioner.addAll(practitioners)
+        notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PractitionersHomeHolder {
         val practitionerItemView: View =
             LayoutInflater
                 .from(parent.context)
                 .inflate(R.layout.practitioner_list_view, parent, false)
 
-        return PractitionersHolder(practitionerItemView, fun(practitioner: Practitioner) {
-            Log.d("####", "init click")
+        return PractitionersHomeHolder(practitionerItemView, fun(practitioner: Practitioner) {
             val intent = Intent(practitionerItemView.context, PractitionerActivity::class.java)
             intent.putExtra("practitioner", practitioner)
             practitionerItemView
@@ -31,10 +33,10 @@ class PractitionersAdapter(private val practitioner: PractitionersModel) :
     }
 
     override fun getItemCount(): Int {
-        return practitioner.data.size
+        return practitioner.size
     }
 
-    override fun onBindViewHolder(holder: PractitionersHolder, position: Int) {
-        holder.bind(practitioner.data[position])
+    override fun onBindViewHolder(holder: PractitionersHomeHolder, position: Int) {
+        holder.bind(practitioner[position])
     }
 }

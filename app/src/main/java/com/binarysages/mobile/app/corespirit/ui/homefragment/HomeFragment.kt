@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.models.getURL
 import com.binarysages.mobile.app.corespirit.recycleview.articleslist.ArticleAdapter
 import com.binarysages.mobile.app.corespirit.recycleview.eventslist.EventsAdapter
+import com.binarysages.mobile.app.corespirit.recycleview.practitionersHomeList.PractitionersHomeAdapter
 import com.bumptech.glide.Glide
 import com.github.ybq.android.spinkit.SpinKitView
-import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.home_fragment.*
 
 class HomeFragment : Fragment() {
@@ -23,6 +23,7 @@ class HomeFragment : Fragment() {
     private var container: ViewGroup? = null
     private val articleAdapter = ArticleAdapter()
     private val eventsAdapter = EventsAdapter()
+    private val practitionerAdapter = PractitionersHomeAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,20 +37,17 @@ class HomeFragment : Fragment() {
     private fun initView() {
         recycle_view_articles.adapter = articleAdapter
         recycle_view_articles.layoutManager = LinearLayoutManager(context)
-        recycle_view_articles
-            .addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                    super.onScrollStateChanged(recyclerView, newState)
-                    if (recyclerView.layoutManager?.itemCount == (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition() + 1) {
-                        loadMoreArticlesHomeBtn.visibility = MaterialButton.VISIBLE
-                    } else {
-                        loadMoreArticlesHomeBtn.visibility = MaterialButton.GONE
-                    }
-                }
-            })
 
         recycleViewEvents.adapter = eventsAdapter
-        recycleViewEvents.layoutManager = LinearLayoutManager(context)
+        recycleViewEvents.layoutManager = GridLayoutManager(context, 2)
+
+        recycleViewPractitionersHome.adapter = practitionerAdapter
+        recycleViewPractitionersHome.layoutManager = LinearLayoutManager(context)
+
+        loadMorePractitionersHomeBtn.setOnClickListener {
+            viewModel
+                .loadPractitioners(perPage = 5)
+        }
 
         loadMoreArticlesHomeBtn.setOnClickListener {
             viewModel
@@ -58,7 +56,7 @@ class HomeFragment : Fragment() {
 
         loadMoreEventsHomeBtn.setOnClickListener {
             viewModel
-                .loadEvents(perPage = 5)
+                .loadEvents(perPage = 6)
         }
     }
 
@@ -88,7 +86,7 @@ class HomeFragment : Fragment() {
 
 //        events
         viewModel
-            .getEvents()
+            .getEvents(perPage = 4)
             .observe(viewLifecycleOwner, Observer {
                 eventsAdapter.addEvents(it.data.events)
             })
@@ -98,6 +96,12 @@ class HomeFragment : Fragment() {
             .getArticles()
             .observe(viewLifecycleOwner, Observer {
                 articleAdapter.addArticles(it.data.articles)
+            })
+
+        viewModel
+            .getPractitioners()
+            .observe(viewLifecycleOwner, Observer {
+                practitionerAdapter.addPractitioners(it.data)
             })
     }
 }
