@@ -3,7 +3,6 @@ package com.binarysages.mobile.app.corespirit.recycleview.practitionersHomeList
 import android.view.View
 import android.widget.TextView
 import androidx.core.view.isEmpty
-import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.models.getURL
