@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -28,17 +29,45 @@ class PractitionerFragment : Fragment() {
     }
 
     private fun initView() {
+//        add adapter
         recycleViewPractitionerList.adapter = practitionerAdapter
+//        add layout manager
         recycleViewPractitionerList.layoutManager = mLayoutManager
-
+//        add scroll listener
         recycleViewPractitionerList
             .addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                var pastVisiblesItems: Int = 0
+                var visibleItemCount: Int = 0
+                var totalItemCount: Int = 0
+
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                    Log.d("># ", mLayoutManager.findFirstVisibleItemPosition().toString())
-//                    Log.d("># ", mLayoutManager.findLastVisibleItemPosition().toString())
-//                    Log.d("># ","###")
-                    super.onScrolled(recyclerView, dx, dy)
+                    if (dy > 0) {
+                        visibleItemCount = mLayoutManager.childCount
+                        totalItemCount = mLayoutManager.itemCount
+                        pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition()
+                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                            viewModel
+                                .loadPractitioner()
+                            viewModel
+                                .isLoadComplete.postValue(false)
+                        }
+                    }
                 }
+            })
+        /*
+        Observer isLoadComplete.
+        After load complete, remove spinner
+         */
+        viewModel
+            .isLoadComplete().observe(viewLifecycleOwner, Observer {
+                if (it) spinKitPractitioner.visibility = ConstraintLayout.GONE
+                else spinKitPractitioner.visibility = ConstraintLayout.VISIBLE
+            })
+
+        viewModel
+            .getPractitioners()
+            .observe(viewLifecycleOwner, Observer {
+                practitionerAdapter.addPractitioners(it.data)
             })
     }
 
@@ -47,11 +76,5 @@ class PractitionerFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(PractitionerViewModel::class.java)
 
         initView()
-
-        viewModel
-            .getPractitioners()
-            .observe(viewLifecycleOwner, Observer {
-                practitionerAdapter.addPractitioners(it.data)
-            })
     }
 }
