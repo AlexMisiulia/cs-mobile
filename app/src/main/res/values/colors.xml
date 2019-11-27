@@ -9,4 +9,5 @@
     <color name="bottomMenuBackground">#232323</color>
     <color name="bottomMenuUnselectedIcon">#bdbdbd</color>
     <color name="bottomMenuSelectedIcon">#f6652e</color>
+    <color name="spinkitbackground">#CCFF0000</color>
 </resources>

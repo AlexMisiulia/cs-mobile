@@ -29,7 +29,7 @@ class HomeViewModel : ViewModel() {
     }
 
     private fun loadCompleteIncrement() {
-        if (counter == 2) isLoadComplete.postValue(true)
+        if (counter == 1) isLoadComplete.postValue(true)
         else {
             counter++
         }
@@ -91,10 +91,13 @@ class HomeViewModel : ViewModel() {
                         call: Call<ArticlesModel>,
                         response: Response<ArticlesModel>
                     ) {
-                        promo?.postValue(response.body()?.data!!.articles[0])
-                        this@HomeViewModel.offsetArticles += 5
-                        articles?.postValue(response.body())
-                        loadCompleteIncrement()
+//                        Log.d(">#########","!!!!!!!!!!!!")
+//                        Log.d(">#########",response.toString())
+//                        Log.d(">#########",response.message())
+//                        promo?.postValue(response.body()?.data?.articles?.get(0))
+//                        this@HomeViewModel.offsetArticles += 5
+//                        articles?.postValue(response.body())
+//                        loadCompleteIncrement()
                     }
                 }
             )

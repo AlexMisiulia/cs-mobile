@@ -9,16 +9,27 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+private const val DEFAULT_PRACTITIONER_OFFSET = 20
+
 class PractitionerViewModel : ViewModel() {
     private var practitioners: MutableLiveData<PractitionersModel>? = null
-    private var practitionerCount = 0
+    private var practitionerOffset = 0
+    /*
+    TODO: Make private
+     */
+    var isLoadComplete: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    fun loadPractitioner(practitionerCount: Int? = null) {
+
+    fun isLoadComplete(): LiveData<Boolean> {
+        return isLoadComplete
+    }
+
+    fun loadPractitioner() {
         NetworkServices
             .instance
             .getApiServices()
             .getPractitionersApi()
-            .getPractitioners(perPage = practitionerCount)
+            .getPractitioners(offset = practitionerOffset)
             .enqueue(object : Callback<PractitionersModel> {
                 override fun onFailure(call: Call<PractitionersModel>, t: Throwable) {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -29,6 +40,8 @@ class PractitionerViewModel : ViewModel() {
                     response: Response<PractitionersModel>
                 ) {
                     practitioners?.postValue(response.body())
+                    isLoadComplete.postValue(true)
+                    practitionerOffset.plus(DEFAULT_PRACTITIONER_OFFSET)
                 }
             })
     }
