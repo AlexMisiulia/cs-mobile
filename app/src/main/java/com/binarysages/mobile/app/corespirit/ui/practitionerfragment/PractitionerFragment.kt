@@ -46,10 +46,8 @@ class PractitionerFragment : Fragment() {
                         totalItemCount = mLayoutManager.itemCount
                         pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition()
                         if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-                            viewModel
-                                .loadPractitioner()
-                            viewModel
-                                .isLoadComplete.postValue(false)
+                            viewModel.loadPractitioner()
+                            viewModel.isLoadComplete.postValue(false)
                         }
                     }
                 }
@@ -60,8 +58,8 @@ class PractitionerFragment : Fragment() {
          */
         viewModel
             .isLoadComplete().observe(viewLifecycleOwner, Observer {
-                if (it) spinKitPractitioner.visibility = ConstraintLayout.GONE
-                else spinKitPractitioner.visibility = ConstraintLayout.VISIBLE
+                spinKitPractitioner.visibility =
+                    if (it) ConstraintLayout.GONE else ConstraintLayout.VISIBLE
             })
 
         viewModel

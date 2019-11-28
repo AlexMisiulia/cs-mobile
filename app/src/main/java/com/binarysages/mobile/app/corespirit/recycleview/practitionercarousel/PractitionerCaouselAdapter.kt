@@ -10,5 +10,6 @@ class PractitionerCaouselAdapter(practitioners: ArrayList<Practitioner>) :
     override fun bindView(position: Int, itemContentView: View, item: Practitioner?) {
 
     }
+
     override fun getItemContentLayout(position: Int) = R.layout.practitioner_carousel_item
 }

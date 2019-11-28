@@ -2,7 +2,7 @@ package com.binarysages.mobile.app.corespirit.recycleview.practitionersHomeList
 
 import android.view.View
 import android.widget.TextView
-import androidx.core.view.size
+import androidx.core.view.isEmpty
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.models.getURL
@@ -23,7 +23,7 @@ class PractitionersHomeHolder(itemView: View, val clickListener: (Practitioner) 
 
         itemView.findViewById<TextView>(R.id.practitionerListName).text = practitioner.title
         val categories = itemView.findViewById<ChipGroup>(R.id.practitionerListCategories)
-        if (categories.size == 0) {
+        if (categories.isEmpty()) {
             var count = 0
             for (i in practitioner.categories) {
                 if (count == 2) break

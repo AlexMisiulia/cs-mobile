@@ -9,6 +9,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+private const val DEFAULT_PRACTITIONER_OFFSET = 20
+
 class PractitionerViewModel : ViewModel() {
     private var practitioners: MutableLiveData<PractitionersModel>? = null
     private var practitionerOffset = 0
@@ -39,7 +41,7 @@ class PractitionerViewModel : ViewModel() {
                 ) {
                     practitioners?.postValue(response.body())
                     isLoadComplete.postValue(true)
-                    practitionerOffset.plus(20)
+                    practitionerOffset.plus(DEFAULT_PRACTITIONER_OFFSET)
                 }
             })
     }
