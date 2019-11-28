@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PractitionerActivity">
+
+    <ImageView
+        android:id="@+id/PractitionerPageAvatar"
+        style="@style/PractitionerPage.Avatar" />
+
+    <TextView
+        android:id="@+id/PractitionerPageName"
+        style="@style/PractitionerPage.Name"
+        android:text="@string/article_author_placeholder" />
+
+    <TextView
+        android:id="@+id/PractitionerPageWebSite"
+        style="@style/PractitionerPage.WebSite"
+        android:visibility="gone" />
+
+    <androidx.cardview.widget.CardView style="@style/PractitionerPage.BIOCard">
+
+        <TextView
+            android:id="@+id/PractitionerPageBIO"
+            style="@style/PractitionerPage.BIO" />
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/PractitionerPageCategories"
+        style="@style/PractitionerPage.CategoryChip" />
+
+</LinearLayout>

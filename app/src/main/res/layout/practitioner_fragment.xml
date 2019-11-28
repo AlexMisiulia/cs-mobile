@@ -8,10 +8,10 @@
     tools:context=".ui.practitionerfragment.PractitionerFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:elevation="2dp"
         android:id="@+id/spinKitPractitioner"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:elevation="2dp">
 
         <com.github.ybq.android.spinkit.SpinKitView
             style="@style/SpinKitView.Large.MultiplePulse"
