@@ -18,7 +18,6 @@ class ArticleActivity : AppCompatActivity() {
         setContentView(R.layout.article_activity)
 
         val article = intent.getParcelableExtra<Article>("article")
-        Log.d(">####", article.slug)
         NetworkServices
             .instance.getApiServices()
             .getArticleApi().getArticleBySlug(article.slug)
@@ -32,7 +31,6 @@ class ArticleActivity : AppCompatActivity() {
                     response: Response<ArticleModel>
                 ) {
                     response.body()?.let {
-                        Log.d(">>>>#### END", it.toString())
                         articleProgressBar.visibility = ProgressBar.GONE
                         article_item_title.text = it.data.articles.title
                         article_item_author.text = "By ".plus(it.data.articles.author?.fullName)

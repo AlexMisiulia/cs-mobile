@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/eventTitle"
+            style="@style/EventPage.EventConditions" />
+
+        <TextView
+            android:id="@+id/eventDescription"
+            style="@style/EventPage.EventDescription" />
+
+        <ImageView
+            android:id="@+id/eventPageImage"
+            style="@style/EventPage.Image" />
+
+        <TextView
+            android:id="@+id/eventType"
+            style="@style/EventPage.Type" />
+
+        <TextView
+            android:id="@+id/eventLocation"
+            style="@style/EventPage.EventLocation" />
+
+        <TextView
+            android:id="@+id/eventPrice"
+            style="@style/EventPage.EventPrice"
+            android:text="@string/LoadingPlaceHolder" />
+
+        <TextView
+            android:id="@+id/eventOrganizationName"
+            style="@style/EventPage.EventOrganizationName" />
+
+    </LinearLayout>
+</ScrollView>

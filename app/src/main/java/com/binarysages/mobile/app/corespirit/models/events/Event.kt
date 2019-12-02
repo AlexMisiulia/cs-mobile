@@ -1,9 +1,11 @@
 package com.binarysages.mobile.app.corespirit.models.events
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
-data class Events(
-
+@Parcelize
+data class Event(
     @SerializedName("id") val id: Int,
     @SerializedName("start_dt") val start_dt: String,
     @SerializedName("end_dt") val end_dt: String,
@@ -16,4 +18,4 @@ data class Events(
     @SerializedName("location") val location: Location? = null,
     @SerializedName("image") val image: String,
     @SerializedName("categories") val categories: List<Categories>
-)
+) : Parcelable
