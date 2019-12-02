@@ -26,7 +26,7 @@ class EventActivity : AppCompatActivity() {
 
         NetworkServices
             .instance.getApiServices().getEventsAPi()
-            .getEventByID(event.id).enqueue(object : Callback<EventModel>{
+            .getEventByID(event.id).enqueue(object : Callback<EventModel> {
                 override fun onFailure(call: Call<EventModel>, t: Throwable) {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
@@ -36,7 +36,6 @@ class EventActivity : AppCompatActivity() {
                 }
             })
 
-        Log.d(">######", event.image)
         Glide.with(eventPageImage.context)
             .load(event.image)
             .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(64)))
