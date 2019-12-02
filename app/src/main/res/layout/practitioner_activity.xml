@@ -7,28 +7,28 @@
     tools:context=".PractitionerActivity">
 
     <ImageView
-        android:id="@+id/PractitionerPageAvatar"
+        android:id="@+id/PractitionerPageAvatarIv"
         style="@style/PractitionerPage.Avatar" />
 
     <TextView
-        android:id="@+id/PractitionerPageName"
+        android:id="@+id/PractitionerPageNameTv"
         style="@style/PractitionerPage.Name"
         android:text="@string/article_author_placeholder" />
 
     <TextView
-        android:id="@+id/PractitionerPageWebSite"
+        android:id="@+id/PractitionerPageWebSiteTv"
         style="@style/PractitionerPage.WebSite"
         android:visibility="gone" />
 
     <androidx.cardview.widget.CardView style="@style/PractitionerPage.BIOCard">
 
         <TextView
-            android:id="@+id/PractitionerPageBIO"
+            android:id="@+id/PractitionerPageBIOTv"
             style="@style/PractitionerPage.BIO" />
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.chip.ChipGroup
-        android:id="@+id/PractitionerPageCategories"
+        android:id="@+id/PractitionerPageCategoriesChipGroup"
         style="@style/PractitionerPage.CategoryChip" />
 
 </LinearLayout>

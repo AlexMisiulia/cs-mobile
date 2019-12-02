@@ -2,8 +2,6 @@ package com.binarysages.mobile.app.corespirit
 
 import android.os.Bundle
 import android.text.Html
-import android.text.method.LinkMovementMethod
-import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.binarysages.mobile.app.corespirit.models.getURL
@@ -20,34 +18,34 @@ class PractitionerActivity : AppCompatActivity() {
         val practitioner: Practitioner = intent.getParcelableExtra("practitioner")
         
         practitioner.title?.let {
-            PractitionerPageName.text = it
+            PractitionerPageNameTv.text = it
         }
 
         practitioner.site?.let {
-            PractitionerPageWebSite.text = it
-            PractitionerPageWebSite.visibility = TextView.VISIBLE
+            PractitionerPageWebSiteTv.text = it
+            PractitionerPageWebSiteTv.visibility = TextView.VISIBLE
         }
 
         practitioner.content?.let {
-            PractitionerPageBIO.text =
+            PractitionerPageBIOTv.text =
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
                     Html.fromHtml(it, Html.FROM_HTML_MODE_LEGACY) else Html.fromHtml(it)
         }
 
         practitioner.image?.let {
             Glide
-                .with(PractitionerPageAvatar.context)
+                .with(PractitionerPageAvatarIv.context)
                 .load(getURL(it))
                 .apply(RequestOptions.circleCropTransform())
-                .into(PractitionerPageAvatar)
+                .into(PractitionerPageAvatarIv)
         }
 
         practitioner.categories.let {
             it.forEach {
-                val cat = Chip(PractitionerPageCategories.context)
+                val cat = Chip(PractitionerPageCategoriesChipGroup.context)
                 cat.text = it.name
                 cat.isClickable = false
-                PractitionerPageCategories.addView(cat)
+                PractitionerPageCategoriesChipGroup.addView(cat)
             }
         }
     }
