@@ -18,34 +18,34 @@ class PractitionerActivity : AppCompatActivity() {
         val practitioner: Practitioner = intent.getParcelableExtra("practitioner")
         
         practitioner.title?.let {
-            PractitionerPageNameTv.text = it
+            practitionerPageNameTv.text = it
         }
 
         practitioner.site?.let {
-            PractitionerPageWebSiteTv.text = it
-            PractitionerPageWebSiteTv.visibility = TextView.VISIBLE
+            practitionerPageWebSiteTv.text = it
+            practitionerPageWebSiteTv.visibility = TextView.VISIBLE
         }
 
         practitioner.content?.let {
-            PractitionerPageBIOTv.text =
+            practitionerPageBIOTv.text =
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
                     Html.fromHtml(it, Html.FROM_HTML_MODE_LEGACY) else Html.fromHtml(it)
         }
 
         practitioner.image?.let {
             Glide
-                .with(PractitionerPageAvatarIv.context)
+                .with(practitionerPageAvatarIv.context)
                 .load(getURL(it))
                 .apply(RequestOptions.circleCropTransform())
-                .into(PractitionerPageAvatarIv)
+                .into(practitionerPageAvatarIv)
         }
 
         practitioner.categories.let {
             it.forEach {
-                val cat = Chip(PractitionerPageCategoriesChipGroup.context)
+                val cat = Chip(practitionerPageCategoriesChipGroup.context)
                 cat.text = it.name
                 cat.isClickable = false
-                PractitionerPageCategoriesChipGroup.addView(cat)
+                practitionerPageCategoriesChipGroup.addView(cat)
             }
         }
     }
