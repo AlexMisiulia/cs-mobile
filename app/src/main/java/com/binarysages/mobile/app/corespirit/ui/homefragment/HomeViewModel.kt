@@ -1,7 +1,6 @@
 package com.binarysages.mobile.app.corespirit.ui.homefragment
 
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
