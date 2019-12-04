@@ -14,7 +14,7 @@ private const val defaultOffset = 20
 class EventsViewModel : ViewModel() {
     private var eventsList: MutableLiveData<EventsModel>? = null
     private var isLoadComplete: MutableLiveData<Boolean> = MutableLiveData(true)
-    private val eventsOffset = 0
+    private var eventsOffset = 0
 
     fun isLoadCompete(): LiveData<Boolean>{
         return isLoadComplete
@@ -37,7 +37,7 @@ class EventsViewModel : ViewModel() {
                     ) {
                         eventsList?.postValue(response.body())
                         isLoadComplete.postValue(true)
-                        eventsOffset.plus(defaultOffset)
+                        eventsOffset += defaultOffset
                     }
                 })
 

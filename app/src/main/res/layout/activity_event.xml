@@ -9,19 +9,19 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/eventTitle"
+            android:id="@+id/eventTitleTv"
             style="@style/EventPage.EventConditions" />
 
         <TextView
-            android:id="@+id/eventDescription"
+            android:id="@+id/eventDescriptionTv"
             style="@style/EventPage.EventDescription" />
 
         <ImageView
-            android:id="@+id/eventPageImage"
+            android:id="@+id/eventPageImageView"
             style="@style/EventPage.Image" />
 
         <TextView
-            android:id="@+id/eventType"
+            android:id="@+id/eventTypeTv"
             style="@style/EventPage.Type" />
 
         <TextView
@@ -29,12 +29,12 @@
             style="@style/EventPage.EventLocation" />
 
         <TextView
-            android:id="@+id/eventPrice"
+            android:id="@+id/eventPriceTv"
             style="@style/EventPage.EventPrice"
             android:text="@string/loading_placeholder" />
 
         <TextView
-            android:id="@+id/eventOrganizationName"
+            android:id="@+id/eventOrganizationNameTv"
             style="@style/EventPage.EventOrganizationName" />
 
     </LinearLayout>

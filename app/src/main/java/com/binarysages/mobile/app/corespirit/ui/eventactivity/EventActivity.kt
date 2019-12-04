@@ -20,24 +20,24 @@ class EventActivity : AppCompatActivity() {
             ViewModelProviders.of(this).get(EventActivityViewModel::class.java)
         val event: Event = intent.getParcelableExtra("event")
 
-        eventType.text = if (event.online) "online" else "offline"
-        eventOrganizationName.text = event.organizer.name
-        eventTitle.text = event.title
+        eventTypeTv.text = if (event.online) "online" else "offline"
+        eventOrganizationNameTv.text = event.organizer.name
+        eventTitleTv.text = event.title
 
         viewModel
             .loadEventById(event.id)
             .observe(this, Observer {
                 it.data.event.tickets[0].cost.let { cost ->
-                    eventPrice.text = R.string.event_cost.toString().plus(cost.value).plus(" ")
+                    eventPriceTv.text = R.string.event_cost.toString().plus(cost.value).plus(" ")
                         .plus(cost.currency)
                 }
             })
 
-        Glide.with(eventPageImage.context)
+        Glide.with(eventPageImageView.context)
             .load(event.image)
             .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(64)))
-            .into(eventPageImage)
+            .into(eventPageImageView)
 
-        eventDescription.text = event.description
+        eventDescriptionTv.text = event.description
     }
 }
