@@ -92,10 +92,10 @@ class HomeViewModel : ViewModel() {
                         call: Call<ArticlesModel>,
                         response: Response<ArticlesModel>
                     ) {
-//                        promo?.postValue(response.body()?.data?.articles?.get(0))
-//                        this@HomeViewModel.offsetArticles += 5
-//                        articles?.postValue(response.body())
-//                        loadCompleteIncrement()
+                        promo?.postValue(response.body()?.data?.articles?.get(0))
+                        this@HomeViewModel.offsetArticles += 5
+                        articles?.postValue(response.body())
+                        loadCompleteIncrement()
                     }
                 }
             )

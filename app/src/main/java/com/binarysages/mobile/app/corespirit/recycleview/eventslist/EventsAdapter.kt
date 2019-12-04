@@ -4,8 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.binarysages.mobile.app.corespirit.EventActivity
-import com.binarysages.mobile.app.corespirit.PractitionerActivity
+import com.binarysages.mobile.app.corespirit.ui.eventactivity.EventActivity
 import com.binarysages.mobile.app.corespirit.R
 import com.binarysages.mobile.app.corespirit.models.events.Event
 
