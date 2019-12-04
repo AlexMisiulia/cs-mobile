@@ -1,6 +1,5 @@
 package com.binarysages.mobile.app.corespirit.ui.eventactivity
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,7 +14,7 @@ class EventActivityViewModel : ViewModel() {
 
     fun loadEventById(eventID: Int): LiveData<EventModel> {
         NetworkServices
-            .instance.getApiServices().getEventsAPi()
+            .instance.getApiServices().getEventsApi()
             .getEventByID(eventID)
             .enqueue(object : Callback<EventModel> {
                 override fun onFailure(call: Call<EventModel>, t: Throwable) {

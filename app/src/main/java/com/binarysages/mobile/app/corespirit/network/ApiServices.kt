@@ -21,7 +21,7 @@ class ApiServices(
         return mRetrofit.create(SearchApi::class.java)
     }
 
-    fun getEventsAPi(): EventsApi {
+    fun getEventsApi(): EventsApi {
         return mRetrofit.create(EventsApi::class.java)
     }
 }
