@@ -32,7 +32,7 @@ class EventsFragment : Fragment() {
             .isLoadCompete()
             .observe(viewLifecycleOwner, Observer {
                 spinKitLayout.visibility =
-                    if (it) ConstraintLayout.GONE else ConstraintLayout.VISIBLE
+                    if (it) View.GONE else View.VISIBLE
             })
 
         recycleViewEventsList
