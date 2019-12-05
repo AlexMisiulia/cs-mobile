@@ -1,8 +1,10 @@
 package com.binarysages.mobile.app.corespirit.models.events
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
-
+@Parcelize
 data class PageInfo(
     @SerializedName("total") val total: Double,
     @SerializedName("totalPages") val totalPages: Double,
@@ -12,4 +14,4 @@ data class PageInfo(
     @SerializedName("prevPage") val prevPage: Double,
     @SerializedName("hasNext") val hasNext: Boolean,
     @SerializedName("hasPrev") val hasPrev: Boolean
-)
+) : Parcelable

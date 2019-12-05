@@ -108,7 +108,11 @@
         <item name="android:layout_marginTop">10dp</item>
     </style>
 
-    <style name="EventsList.Title" />
+    <style name="EventsList.Title">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/alphaWhite</item>
+    </style>
 
     <style name="PractitionerItem" />
 
@@ -128,7 +132,7 @@
     <style name="PractitionerItem.Categories" />
 
     <style name="SpinKitStyle">
-        <item name="android:background">@color/spinkitbackground</item>
+        <item name="android:background">@color/alphaWhite</item>
         <item name="android:elevation">2dp</item>
     </style>
 
@@ -163,7 +167,7 @@
         <item name="android:layout_marginBottom">10dp</item>
     </style>
 
-    <style name="PractitionerPage.CategoryChip"/>
+    <style name="PractitionerPage.CategoryChip" />
 
     <style name="PractitionerPage.BIOCard" parent="CardView">"
         <item name="cardCornerRadius">4dp</item>
@@ -173,5 +177,46 @@
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="EventPage" />
+
+    <style name="EventPage.Image">
+        <item name="android:maxHeight">100dp</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="EventPage.Type">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="EventPage.EventOrganizationName">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="EventPage.EventConditions">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="EventPage.EventPrice">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="EventPage.EventLocation">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="EventPage.EventDescription">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 </resources>

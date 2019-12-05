@@ -4,16 +4,18 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.binarysages.mobile.app.corespirit.R
-import com.binarysages.mobile.app.corespirit.models.events.Events
+import com.binarysages.mobile.app.corespirit.models.events.Event
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 
 
-class EventsHolder(itemView: View, val listener: (Events) -> Unit) :
+class EventsHolder(itemView: View, val listener: (Event) -> Unit) :
     RecyclerView.ViewHolder(itemView) {
-    fun bind(event: Events) {
+
+    fun bind(event: Event) {
+        itemView.setOnClickListener { listener(event) }
         Glide
             .with(itemView.context)
             .load(event.image)

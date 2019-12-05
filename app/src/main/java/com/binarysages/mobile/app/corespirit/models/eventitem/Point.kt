@@ -1,4 +1,4 @@
-package com.binarysages.mobile.app.corespirit.models.events
+package com.binarysages.mobile.app.corespirit.models.eventitem
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

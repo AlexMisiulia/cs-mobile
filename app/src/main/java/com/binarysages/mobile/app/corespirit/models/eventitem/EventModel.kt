@@ -1,11 +1,11 @@
-package com.binarysages.mobile.app.corespirit.models.events
+package com.binarysages.mobile.app.corespirit.models.eventitem
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class EventsModel(
+data class EventModel(
     @SerializedName("error") val error: String,
     @SerializedName("data") val data: Data
 ) : Parcelable
